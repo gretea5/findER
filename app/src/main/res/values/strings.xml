@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">findER</string>
+
+    <!-- activity_login.xml -->
+    <string name="phoneNumber">전화번호</string>
+    <string name="residenceNumber">주민번호</string>
+    <string name="residenceNumberReInput">주민번호(재입력)</string>
+    <string name="login">로그인</string>
+    <string name="signup">회원가입</string>
+
 </resources>

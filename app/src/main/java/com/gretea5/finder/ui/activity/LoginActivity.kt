@@ -1,4 +1,4 @@
-package com.gretea5.finder.ui
+package com.gretea5.finder.ui.activity
 
 import android.content.Intent
 import android.graphics.Paint
@@ -12,10 +12,9 @@ import android.widget.EditText
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import com.gretea5.finder.data.ApiService
-import com.gretea5.finder.MainActivity
 import com.gretea5.finder.R
-import com.gretea5.finder.ui.SignupActivity.Companion.PHONE_NUMBER_SIZE
-import com.gretea5.finder.ui.SignupActivity.Companion.RESIDENCE_NUMBER_SIZE
+import com.gretea5.finder.ui.activity.SignupActivity.Companion.PHONE_NUMBER_SIZE
+import com.gretea5.finder.ui.activity.SignupActivity.Companion.RESIDENCE_NUMBER_SIZE
 import com.gretea5.finder.databinding.ActivityLoginBinding
 
 class LoginActivity : AppCompatActivity() {

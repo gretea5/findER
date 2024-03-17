@@ -1,4 +1,4 @@
-package com.gretea5.finder.ui
+package com.gretea5.finder.ui.activity
 
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable

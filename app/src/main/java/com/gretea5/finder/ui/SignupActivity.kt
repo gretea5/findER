@@ -13,8 +13,7 @@ import android.widget.EditText
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
-import com.gretea5.finder.data.APIS
-import com.gretea5.finder.PostModel
+import com.gretea5.finder.data.ApiService
 import com.gretea5.finder.R
 import com.gretea5.finder.data.model.SignupModel
 import com.gretea5.finder.databinding.ActivitySignupBinding
@@ -41,7 +40,7 @@ class SignupActivity : AppCompatActivity() {
     private val phoneNumberSize = 11
     private val residenceNumberSize = 13
 
-    private val api = APIS.create()
+    private val api = ApiService.create()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -69,8 +68,6 @@ class SignupActivity : AppCompatActivity() {
         residenceNumberEditText.isEnabled = false
         editText.isEnabled = false
         btnSignup.isEnabled = false
-
-
 
         phoneEditText.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, p1: Int, p2: Int, p3: Int) {}

@@ -11,7 +11,7 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import androidx.core.content.ContextCompat
-import com.gretea5.finder.data.APIS
+import com.gretea5.finder.data.ApiService
 import com.gretea5.finder.MainActivity
 import com.gretea5.finder.R
 import com.gretea5.finder.ui.SignupActivity.Companion.PHONE_NUMBER_SIZE
@@ -29,7 +29,7 @@ class LoginActivity : AppCompatActivity() {
 
     private lateinit var btnSignin : Button
 
-    private val api = APIS.create()
+    private val api = ApiService.create()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

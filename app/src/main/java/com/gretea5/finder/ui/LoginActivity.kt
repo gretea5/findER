@@ -1,4 +1,4 @@
-package com.gretea5.finder
+package com.gretea5.finder.ui
 
 import android.content.Intent
 import android.graphics.Paint
@@ -7,18 +7,16 @@ import android.os.Bundle
 import android.telephony.PhoneNumberFormattingTextWatcher
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import androidx.core.content.ContextCompat
-import com.gretea5.finder.SignupActivity.Companion.PHONE_NUMBER_SIZE
-import com.gretea5.finder.SignupActivity.Companion.RESIDENCE_NUMBER_SIZE
+import com.gretea5.finder.data.APIS
+import com.gretea5.finder.MainActivity
+import com.gretea5.finder.R
+import com.gretea5.finder.ui.SignupActivity.Companion.PHONE_NUMBER_SIZE
+import com.gretea5.finder.ui.SignupActivity.Companion.RESIDENCE_NUMBER_SIZE
 import com.gretea5.finder.databinding.ActivityLoginBinding
-import com.gretea5.finder.model.SigninModel
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 
 class LoginActivity : AppCompatActivity() {
     private lateinit var binding : ActivityLoginBinding

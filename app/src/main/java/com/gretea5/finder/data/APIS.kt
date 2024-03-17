@@ -1,9 +1,8 @@
-package com.gretea5.finder
+package com.gretea5.finder.data
 
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
-import com.gretea5.finder.model.SigninModel
-import com.gretea5.finder.model.SignupModel
+import com.gretea5.finder.data.model.SignupModel
 import retrofit2.Call
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -19,16 +18,16 @@ interface APIS {
         "content-type: application/json")
     fun signUp(@Body signupModel: SignupModel) : Call<String>
 
-    @POST("/login")
-    @Headers("accept: application/json",
-        "content-type: application/json")
-    fun signIn(@Body signinModel: SigninModel) : Call<String>
+//    @POST("/login")
+//    @Headers("accept: application/json",
+//        "content-type: application/json")
+//    fun signIn(@Body signinModel: SigninModel) : Call<String>
 
     companion object {
-        private const val BASE_URL = "http://172.30.1.79:8080"
+        private const val BASE_URL = "http://13.125.1.150:8080"
 
         fun create(): APIS {
-            val gson : Gson = GsonBuilder().setLenient().create();
+            val gson : Gson = GsonBuilder().setLenient().create()
 
             return Retrofit.Builder()
                 .baseUrl(BASE_URL)

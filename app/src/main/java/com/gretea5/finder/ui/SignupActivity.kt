@@ -1,4 +1,4 @@
-package com.gretea5.finder
+package com.gretea5.finder.ui
 
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
@@ -13,7 +13,14 @@ import android.widget.EditText
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
+import com.gretea5.finder.data.APIS
+import com.gretea5.finder.PostModel
+import com.gretea5.finder.R
+import com.gretea5.finder.data.model.SignupModel
 import com.gretea5.finder.databinding.ActivitySignupBinding
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class SignupActivity : AppCompatActivity() {
     companion object {
@@ -35,7 +42,6 @@ class SignupActivity : AppCompatActivity() {
     private val residenceNumberSize = 13
 
     private val api = APIS.create()
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -64,9 +70,7 @@ class SignupActivity : AppCompatActivity() {
         editText.isEnabled = false
         btnSignup.isEnabled = false
 
-        btnSignup.setOnClickListener {
-            showSignupDialog()
-        }
+
 
         phoneEditText.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, p1: Int, p2: Int, p3: Int) {}
@@ -108,6 +112,10 @@ class SignupActivity : AppCompatActivity() {
                 }
             }
         })
+
+        btnSignup.setOnClickListener {
+            showSignupDialog()
+        }
     }
 
     private fun setEditTextStatus(
@@ -136,12 +144,13 @@ class SignupActivity : AppCompatActivity() {
 
         dialog.show()
 
+        dialog.findViewById<TextView>(R.id.signUpDialogContent)?.text = "입력하신 주민번호는\n${binding.residenceNumberEditText.text}입니다.\n회원가입 하시겠습니까?"
+
+
         dialog.findViewById<TextView>(R.id.signUpDialogYesBtn)?.setOnClickListener {
             requestSignup()
 
             dialog.dismiss()
-
-            backToLoginActivity()
         }
 
         dialog.findViewById<TextView>(R.id.signUpDialogNoBtn)?.setOnClickListener {
@@ -161,25 +170,25 @@ class SignupActivity : AppCompatActivity() {
         Log.d("SignupActivity", phoneNumber)
         Log.d("SignupActivity", rrn)
 
-        val data = PostModel(phoneNumber, rrn)
+        val signupModel = SignupModel(phoneNumber, rrn)
 
+        api.signUp(signupModel).enqueue(object : Callback<String> {
+            override fun onResponse(call: Call<String>, response: Response<String>) {
+                if(response.isSuccessful) {
+                    backToLoginActivity()
+                }
+                /*로그인 실패시 처리해야할 로직
+                else {
+                    Log.d("requestSignup",  "request fail!")
+                    Log.d("requestSignup",  response.code().toString())
+                    Log.d("requestSignup", response.body().toString())
+                }
+                 */
+            }
 
-//        val data = PostModel(phoneNumber, rrn)
-//
-//        api.signUp(data).enqueue(object : Callback<String> {
-//            override fun onResponse(call: Call<String>, response: Response<String>) {
-//                if(response.isSuccessful) {
-//                    Log.d("ResponseBody", response.code().toString())
-//                    Log.d("ResponseBody", response.body().toString())
-//                }
-//                else {
-//
-//                }
-//            }
-//
-//            override fun onFailure(call: Call<String>, t: Throwable) {
-//                TODO("Not yet implemented")
-//            }
-//        })
+            override fun onFailure(call: Call<String>, t: Throwable) {
+                TODO("Not yet implemented")
+            }
+        })
     }
 }

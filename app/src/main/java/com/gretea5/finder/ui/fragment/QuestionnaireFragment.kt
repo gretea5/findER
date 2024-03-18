@@ -1,13 +1,17 @@
 package com.gretea5.finder.ui.fragment
 
+import android.content.Intent
 import android.os.Bundle
+import android.util.Log
+import android.view.*
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import com.gretea5.finder.R
+import com.gretea5.finder.databinding.FragmentQuestionnaireBinding
+import com.gretea5.finder.ui.activity.QuestionnaireActivity
 
 class QuestionnaireFragment : Fragment() {
+
+    private lateinit var binding : FragmentQuestionnaireBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -17,7 +21,25 @@ class QuestionnaireFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_questionnaire, container, false)
+        binding = FragmentQuestionnaireBinding.inflate(inflater)
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        binding.toolbar.setOnMenuItemClickListener {
+            when(it.itemId) {
+                R.id.questionnaireMenuMove -> {
+                    Log.d("QuestionnaireFragment", "plus clicked!")
+
+                    startActivity(Intent(requireContext(), QuestionnaireActivity::class.java))
+                    requireActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
+
+                    true
+                }
+                else -> false
+            }
+        }
     }
 }

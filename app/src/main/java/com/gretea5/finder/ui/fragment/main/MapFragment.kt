@@ -1,4 +1,4 @@
-package com.gretea5.finder.ui.fragment
+package com.gretea5.finder.ui.fragment.main
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment

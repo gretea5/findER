@@ -7,24 +7,32 @@
 
     <fragment
         android:id="@+id/questionnaireLinkFragment"
-        android:name="com.gretea5.finder.ui.fragment.QuestionnaireLinkFragment"
+        android:name="com.gretea5.finder.ui.fragment.questionnaire.QuestionnaireLinkFragment"
         android:label="fragment_questionnaire_link"
         tools:layout="@layout/fragment_questionnaire_link" />
     <fragment
         android:id="@+id/questionnaireModeFragment"
-        android:name="com.gretea5.finder.ui.fragment.QuestionnaireModeFragment"
+        android:name="com.gretea5.finder.ui.fragment.questionnaire.QuestionnaireModeFragment"
         android:label="fragment_questionnaire_mode"
         tools:layout="@layout/fragment_questionnaire_mode" >
         <action
             android:id="@+id/action_questionnaireModeFragment_to_questionnaireLinkFragment"
-            app:destination="@id/questionnaireLinkFragment" />
+            app:destination="@id/questionnaireLinkFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_right"
+            app:popExitAnim="@anim/slide_out_left" />
         <action
             android:id="@+id/action_questionnaireModeFragment_to_questionnaireFirstFragment"
-            app:destination="@id/questionnaireFirstFragment" />
+            app:destination="@id/questionnaireFirstFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_right"
+            app:popExitAnim="@anim/slide_out_left" />
     </fragment>
     <fragment
         android:id="@+id/questionnaireFirstFragment"
-        android:name="com.gretea5.finder.ui.fragment.QuestionnaireFirstFragment"
+        android:name="com.gretea5.finder.ui.fragment.questionnaire.QuestionnaireFirstFragment"
         android:label="fragment_questionnaire_first"
         tools:layout="@layout/fragment_questionnaire_first" />
 

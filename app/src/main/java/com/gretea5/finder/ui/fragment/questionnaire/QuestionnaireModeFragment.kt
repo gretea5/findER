@@ -21,7 +21,7 @@ class QuestionnaireModeFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentQuestionnaireModeBinding.inflate(inflater)
         return binding.root
     }

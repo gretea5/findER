@@ -108,7 +108,7 @@ class LoginActivity : AppCompatActivity() {
     ) {
         val buttonBorder =
             if (isEnabled) R.drawable.edittext_accessible_border else R.drawable.edittext_unaccessible_border
-        val textColor = if (isEnabled) R.color.blue else R.color.grey
+        val textColor = if (isEnabled) R.color.main_color else R.color.grey
 
         editText.isEnabled = isEnabled
         editText.setBackgroundResource(buttonBorder)

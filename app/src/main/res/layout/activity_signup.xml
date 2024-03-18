@@ -13,7 +13,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/phoneNumber"
-        android:textColor="@color/blue"
+        android:textColor="@color/main_color"
         android:textStyle="bold"
         android:layout_marginBottom="5dp"
         app:layout_constraintBottom_toTopOf="@+id/phoneEditText"

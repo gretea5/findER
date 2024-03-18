@@ -18,6 +18,14 @@
         <action
             android:id="@+id/action_questionnaireModeFragment_to_questionnaireLinkFragment"
             app:destination="@id/questionnaireLinkFragment" />
+        <action
+            android:id="@+id/action_questionnaireModeFragment_to_questionnaireFirstFragment"
+            app:destination="@id/questionnaireFirstFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/questionnaireFirstFragment"
+        android:name="com.gretea5.finder.ui.fragment.QuestionnaireFirstFragment"
+        android:label="fragment_questionnaire_first"
+        tools:layout="@layout/fragment_questionnaire_first" />
 
 </navigation>

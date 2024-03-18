@@ -48,4 +48,44 @@
 
     </androidx.appcompat.widget.Toolbar>
 
+    <RadioGroup
+        android:id="@+id/modeRadioGroup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <RadioButton
+            android:checked="true"
+            android:id="@+id/writeQuestionnaireBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/selector_questionnaire_mode_button"
+            android:textColor="@drawable/selector_questionnaire_mode_text"
+            android:button="@null"
+            android:padding="40dp"
+            android:layout_margin="20dp"
+            android:text="문진표 작성"
+            android:textAlignment="center" />
+
+        <RadioButton
+            android:id="@+id/linkQuestionnaireBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/selector_questionnaire_mode_button"
+            android:textColor="@drawable/selector_questionnaire_mode_text"
+            android:button="@null"
+            android:layout_margin="20dp"
+            android:padding="40dp"
+            android:text="문진표 연동"
+            android:textAlignment="center"/>
+    </RadioGroup>
+
+
+
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>

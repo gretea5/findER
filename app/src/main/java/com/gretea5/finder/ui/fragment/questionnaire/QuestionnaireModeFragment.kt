@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.OnBackPressedCallback
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import com.gretea5.finder.R
@@ -47,6 +48,15 @@ class QuestionnaireModeFragment : Fragment() {
             requireActivity().finish()
             requireActivity().overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right)
         }
+
+        //fragment에서 백버튼 클릭시
+        requireActivity().onBackPressedDispatcher
+            .addCallback(viewLifecycleOwner, object : OnBackPressedCallback(true) {
+                override fun handleOnBackPressed() {
+                    requireActivity().finish()
+                    requireActivity().overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right)
+                }
+            })
 
         binding.nextBtn.setOnClickListener {
             when(binding.modeRadioGroup.checkedRadioButtonId) {

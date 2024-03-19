@@ -26,4 +26,6 @@
     <string name="questionnaireLink">문진표 연동</string>
     <string name="questionnaireWrite">문진표 작성</string>
 
+    <string name="phonenumber_key">phonenumber</string>
+
 </resources>

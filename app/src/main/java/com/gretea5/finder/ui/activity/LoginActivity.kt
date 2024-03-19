@@ -1,5 +1,6 @@
 package com.gretea5.finder.ui.activity
 
+import android.content.Context
 import android.content.Intent
 import android.graphics.Paint
 import androidx.appcompat.app.AppCompatActivity
@@ -125,6 +126,14 @@ class LoginActivity : AppCompatActivity() {
                 if(response.isSuccessful) {
                     Log.d("LoginActivity ResponseBody", response.code().toString())
                     Log.d("LoginActivity ResponseBody", response.body().toString())
+
+                    //전화번호 getPreferences 저장
+                    val sharedPref = getPreferences(Context.MODE_PRIVATE)
+
+                    with(sharedPref.edit()) {
+                        putString(getString(R.string.phonenumber_key), phoneNumber)
+                        apply()
+                    }
 
                     val intent = Intent(applicationContext, MainActivity::class.java)
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK)

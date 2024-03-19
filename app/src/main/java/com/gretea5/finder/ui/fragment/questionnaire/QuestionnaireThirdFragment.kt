@@ -12,7 +12,6 @@ import com.gretea5.finder.R
 import com.gretea5.finder.databinding.FragmentQuestionnaireThirdBinding
 
 class QuestionnaireThirdFragment : Fragment() {
-
     private lateinit var binding : FragmentQuestionnaireThirdBinding
     private lateinit var navController: NavController
 
@@ -48,6 +47,5 @@ class QuestionnaireThirdFragment : Fragment() {
         binding.qnThirdNextBtn.setOnClickListener {
             navController.navigate(R.id.action_questionnaireThirdFragment_to_questionnaireFinalFragment)
         }
-
     }
 }

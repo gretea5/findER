@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.fragment.questionnaire.QuestionnaireLinkFragment">
+    tools:context=".ui.fragment.questionnaire.QuestionnaireSecondFragment">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
@@ -19,22 +19,29 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/questionnaireLink"
+            android:text="@string/questionnaireInput"
             style="@style/ToolbarTitleText" />
 
         <TextView
-            android:id="@+id/qnLinkCancelBtn"
+            android:id="@+id/qnSecondBeforeBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/cancel"
+            android:text="@string/before"
             style="@style/ToolbarLeftTextBtn" />
+
+        <TextView
+            android:id="@+id/qnSecondNextBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/next"
+            style="@style/ToolbarRightTextBtn"/>
 
     </androidx.appcompat.widget.Toolbar>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="QuestionnaireLinkFragment"
+        android:text="QuestionnaireSecondFragment"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

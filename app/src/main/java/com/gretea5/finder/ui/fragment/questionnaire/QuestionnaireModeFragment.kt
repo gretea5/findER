@@ -44,7 +44,7 @@ class QuestionnaireModeFragment : Fragment() {
             }
         }
 
-        binding.beforeBtn.setOnClickListener {
+        binding.qnModeCancelBtn.setOnClickListener {
             requireActivity().finish()
             requireActivity().overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right)
         }
@@ -58,7 +58,7 @@ class QuestionnaireModeFragment : Fragment() {
                 }
             })
 
-        binding.nextBtn.setOnClickListener {
+        binding.qnModeNextBtn.setOnClickListener {
             when(binding.modeRadioGroup.checkedRadioButtonId) {
                 R.id.writeQuestionnaireBtn -> {
                     navController.navigate(R.id.action_questionnaireModeFragment_to_questionnaireFirstFragment)

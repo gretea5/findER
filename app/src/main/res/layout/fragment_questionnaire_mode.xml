@@ -19,32 +19,22 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="문진표 추가"
-            android:textColor="@color/black"
-            android:textSize="20sp"
-            android:textStyle="bold" />
+            android:text="@string/questionnaireAddition"
+            style="@style/ToolbarTitleText" />
 
         <TextView
-            android:id="@+id/beforeBtn"
+            android:id="@+id/qnModeCancelBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="start"
-            android:text="이전"
-            android:textColor="@color/red"
-            android:textSize="15sp"
-            android:textStyle="bold"/>
+            android:text="@string/cancel"
+            style="@style/ToolbarLeftTextBtn" />
 
         <TextView
-            android:id="@+id/nextBtn"
+            android:id="@+id/qnModeNextBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginRight="15dp"
-            android:layout_gravity="end"
-            android:text="다음"
-            android:textColor="@color/blue"
-            android:textSize="15sp"
-            android:textStyle="bold"/>
+            android:text="@string/next"
+            style="@style/ToolbarRightTextBtn"/>
 
     </androidx.appcompat.widget.Toolbar>
 
@@ -68,7 +58,7 @@
             android:button="@null"
             android:padding="40dp"
             android:layout_margin="20dp"
-            android:text="문진표 작성"
+            android:text="@string/questionnaireWrite"
             android:textAlignment="center" />
 
         <RadioButton
@@ -80,7 +70,7 @@
             android:button="@null"
             android:layout_margin="20dp"
             android:padding="40dp"
-            android:text="문진표 연동"
+            android:text="@string/questionnaireLink"
             android:textAlignment="center"/>
     </RadioGroup>
 

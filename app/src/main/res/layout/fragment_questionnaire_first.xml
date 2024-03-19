@@ -7,7 +7,37 @@
     android:layout_height="match_parent"
     tools:context=".ui.fragment.questionnaire.QuestionnaireFirstFragment">
 
-    <!-- TODO: Update blank fragment layout -->
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/toolbar_bottom_line"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/questionnaireInput"
+            style="@style/ToolbarTitleText" />
+
+        <TextView
+            android:id="@+id/qnFirstBeforeBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/cancel"
+            style="@style/ToolbarLeftTextBtn"/>
+
+        <TextView
+            android:id="@+id/qnFirstNextBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/next"
+            style="@style/ToolbarRightTextBtn"/>
+
+    </androidx.appcompat.widget.Toolbar>
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

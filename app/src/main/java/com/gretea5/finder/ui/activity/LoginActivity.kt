@@ -7,15 +7,20 @@ import android.os.Bundle
 import android.telephony.PhoneNumberFormattingTextWatcher
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import com.gretea5.finder.data.ApiService
 import com.gretea5.finder.R
+import com.gretea5.finder.data.model.LoginModel
 import com.gretea5.finder.ui.activity.SignupActivity.Companion.PHONE_NUMBER_SIZE
 import com.gretea5.finder.ui.activity.SignupActivity.Companion.RESIDENCE_NUMBER_SIZE
 import com.gretea5.finder.databinding.ActivityLoginBinding
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class LoginActivity : AppCompatActivity() {
     private lateinit var binding : ActivityLoginBinding
@@ -63,16 +68,10 @@ class LoginActivity : AppCompatActivity() {
         }
 
         //전화번호 형식 - 지정
-        phoneEditText.addTextChangedListener(PhoneNumberFormattingTextWatcher())
+        //phoneEditText.addTextChangedListener(PhoneNumberFormattingTextWatcher())
 
         btnSignin.setOnClickListener {
             requestLogin()
-
-            val intent = Intent(this, MainActivity::class.java)
-            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK)
-
-            startActivity(intent)
-            overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
         }
 
         phoneEditText.addTextChangedListener(object : TextWatcher {
@@ -119,17 +118,19 @@ class LoginActivity : AppCompatActivity() {
         val phoneNumber = binding.phoneEditText.text.toString()
         val rrn = binding.residenceNumberEditText.text.toString()
 
-        /*
-        val data = SigninModel(phoneNumber, rrn)
+        val loginModel = LoginModel(phoneNumber, rrn)
 
-        api.signIn(data).enqueue(object : Callback<String> {
+        api.login(loginModel).enqueue(object : Callback<String> {
             override fun onResponse(call: Call<String>, response: Response<String>) {
                 if(response.isSuccessful) {
-                    Log.d("ResponseBody", response.code().toString())
-                    Log.d("ResponseBody", response.body().toString())
-                }
-                else {
+                    Log.d("LoginActivity ResponseBody", response.code().toString())
+                    Log.d("LoginActivity ResponseBody", response.body().toString())
 
+                    val intent = Intent(applicationContext, MainActivity::class.java)
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK)
+
+                    startActivity(intent)
+                    overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
                 }
             }
 
@@ -137,6 +138,5 @@ class LoginActivity : AppCompatActivity() {
                 TODO("Not yet implemented")
             }
         })
-         */
     }
 }

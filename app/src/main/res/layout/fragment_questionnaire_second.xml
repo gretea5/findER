@@ -38,13 +38,107 @@
 
     </androidx.appcompat.widget.Toolbar>
 
-    <TextView
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="QuestionnaireSecondFragment"
+        android:orientation="vertical"
+        android:padding="15dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/toolbar">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="혈액형"
+            android:textColor="@color/black"
+            android:textSize="20sp" />
+
+        <RadioGroup
+            android:id="@+id/rhRadioGroup"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <RadioButton
+                android:id="@+id/rhPlusBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Rh+"/>
+
+            <RadioButton
+                android:id="@+id/rhMinusBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Rh-"/>
+        </RadioGroup>
+
+        <RadioGroup
+            android:id="@+id/bloodRadioGroup"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/aBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="A"/>
+
+            <RadioButton
+                android:id="@+id/bBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="B"/>
+
+            <RadioButton
+                android:id="@+id/oBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="O"/>
+
+            <RadioButton
+                android:id="@+id/abBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="AB"/>
+
+        </RadioGroup>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="알러지 정보 입력"
+            android:textColor="@color/black"
+            android:textSize="20sp" />
+
+        <RadioGroup
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <RadioButton
+                android:id="@+id/noAllergy"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="해당 없음"/>
+
+            <RadioButton
+                android:id="@+id/yesAllergy"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="해당 있음"/>
+        </RadioGroup>
+
+        <EditText
+            android:id="@+id/EditText02"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:lines="6"
+            android:inputType="textMultiLine"
+            android:scrollHorizontally="false"
+            android:ems="15"
+            android:background="@drawable/edittext_unaccessible_border" />
+
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

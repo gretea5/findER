@@ -1,7 +1,6 @@
 package com.gretea5.finder.ui.fragment.questionnaire
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -9,7 +8,6 @@ import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import com.gretea5.finder.R
@@ -37,12 +35,6 @@ class QuestionnaireThirdFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         navController = findNavController()
-
-        Log.d("QuestionnaireThirdFragment", "============================")
-        Log.d("QuestionnaireThirdFragment1", viewModel.medicine.value.toString())
-        Log.d("QuestionnaireThirdFragment2", viewModel.surgery.value.toString())
-        Log.d("QuestionnaireThirdFragment3", viewModel.disease.value.toString())
-        Log.d("QuestionnaireThirdFragment", "============================")
 
         //viewmodel 약값에 따른 UI 갱신
         when(viewModel.medicine.value) {

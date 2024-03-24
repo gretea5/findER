@@ -1,7 +1,6 @@
 package com.gretea5.finder.ui.fragment.questionnaire
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -9,8 +8,6 @@ import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import com.gretea5.finder.R
@@ -39,7 +36,6 @@ class QuestionnaireSecondFragment : Fragment() {
 
         navController = findNavController()
 
-        //혈액형 ViewModel값에 따른 UI 갱신
         if(viewModel.bloodType.value?.contains ("Rh+") == true) {
             binding.rhRadioGroup.check(R.id.rhPlusBtn)
         }
@@ -64,7 +60,6 @@ class QuestionnaireSecondFragment : Fragment() {
             binding.bloodRadioGroup.check(R.id.abBtn)
         }
 
-        //혈액형 UI의 이벤트에 따른 값 갱신
         binding.rhRadioGroup.setOnCheckedChangeListener { _, checkedId  ->
             val rhType = when (checkedId) {
                 R.id.rhPlusBtn -> "Rh+"
@@ -97,7 +92,6 @@ class QuestionnaireSecondFragment : Fragment() {
             viewModel.onBloodTypeSelected(rhType, bloodType)
         }
 
-        //알러지 ViewModel에 따른 UI 갱신
         when(viewModel.allergy.value) {
             //해당 없음인 값인 경우,
             "X" -> {
@@ -121,7 +115,6 @@ class QuestionnaireSecondFragment : Fragment() {
             }
         }
 
-        //알러지 UI의 이벤트에 따른 값 갱신
         binding.allergyRadioGroup.setOnCheckedChangeListener { _, checkedId ->
             when (checkedId) {
                 R.id.yesAllergy -> { viewModel.setAllergy("O") }

@@ -8,7 +8,6 @@ import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import com.gretea5.finder.R
@@ -37,7 +36,6 @@ class QuestionnaireFinalFragment : Fragment() {
 
         navController = findNavController()
 
-        //viewmodel 흡연여부 값에 따른 UI 갱신
         when(viewModel.smoke.value) {
             //해당 없음인 값인 경우,
             "X" -> {
@@ -77,7 +75,6 @@ class QuestionnaireFinalFragment : Fragment() {
             }
         }
 
-        //viewmodel 수술 이력 값에 따른 UI 갱신
         when(viewModel.drink.value) {
             //해당 없음인 값인 경우,
             "X" -> {
@@ -118,7 +115,6 @@ class QuestionnaireFinalFragment : Fragment() {
 
         }
 
-        //viewModel 수술 이력 값에 따른 UI 갱신
         when(viewModel.etc.value) {
             //해당 없음인 값인 경우,
             "X" -> {
@@ -142,7 +138,6 @@ class QuestionnaireFinalFragment : Fragment() {
             }
         }
 
-        //수술 이력 UI 이벤트에 따른 viewModel 갱신
         binding.etcRadioGroup.setOnCheckedChangeListener { _, checkedId ->
             when (checkedId) {
                 R.id.etcYesBtn -> { viewModel.setEtc("O") }

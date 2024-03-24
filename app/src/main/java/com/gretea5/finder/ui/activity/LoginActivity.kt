@@ -1,11 +1,9 @@
 package com.gretea5.finder.ui.activity
 
-import android.content.Context
 import android.content.Intent
 import android.graphics.Paint
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.telephony.PhoneNumberFormattingTextWatcher
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
@@ -115,6 +113,14 @@ class LoginActivity : AppCompatActivity() {
         textView.setTextColor(ContextCompat.getColor(this, textColor))
     }
 
+    private fun savePhoneNumber(phoneNumber: String) {
+        //전화번호 getPreferences 저장
+        val sharedPref = getSharedPreferences("pref", 0)
+        val sharedEditor = sharedPref.edit()
+        sharedEditor.putString(getString(R.string.phonenumber_key), phoneNumber)
+        sharedEditor.apply()
+    }
+
     private fun requestLogin() {
         val phoneNumber = binding.phoneEditText.text.toString()
         val rrn = binding.residenceNumberEditText.text.toString()
@@ -127,13 +133,7 @@ class LoginActivity : AppCompatActivity() {
                     Log.d("LoginActivity ResponseBody", response.code().toString())
                     Log.d("LoginActivity ResponseBody", response.body().toString())
 
-                    //전화번호 getPreferences 저장
-                    val sharedPref = getPreferences(Context.MODE_PRIVATE)
-
-                    with(sharedPref.edit()) {
-                        putString(getString(R.string.phonenumber_key), phoneNumber)
-                        apply()
-                    }
+                    savePhoneNumber(phoneNumber)
 
                     val intent = Intent(applicationContext, MainActivity::class.java)
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK)

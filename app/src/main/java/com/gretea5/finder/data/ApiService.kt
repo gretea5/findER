@@ -9,8 +9,10 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.converter.scalars.ScalarsConverterFactory
 import retrofit2.http.Body
+import retrofit2.http.GET
 import retrofit2.http.Headers
 import retrofit2.http.POST
+import retrofit2.http.Path
 
 interface ApiService {
 
@@ -23,6 +25,11 @@ interface ApiService {
     @Headers("accept: application/json",
         "content-type: application/json")
     fun login(@Body loginModel: LoginModel) : Call<String>
+
+    @GET("/api/{phoneNumber}")
+    @Headers("accept: application/json",
+        "content-type: application/json")
+    fun getSerialNumber(@Path("phoneNumber") phoneNumber: String) : Call<String>
 
     companion object {
         private const val BASE_URL = "http://13.125.1.150:8080"

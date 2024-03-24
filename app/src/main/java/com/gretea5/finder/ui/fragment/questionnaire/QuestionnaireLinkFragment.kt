@@ -1,6 +1,7 @@
 package com.gretea5.finder.ui.fragment.questionnaire
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -8,11 +9,18 @@ import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
+import com.gretea5.finder.R
+import com.gretea5.finder.data.ApiService
 import com.gretea5.finder.databinding.FragmentQuestionnaireLinkBinding
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class QuestionnaireLinkFragment : Fragment() {
     private lateinit var binding : FragmentQuestionnaireLinkBinding
     private lateinit var navController : NavController
+
+    private val api = ApiService.create()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -23,6 +31,8 @@ class QuestionnaireLinkFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentQuestionnaireLinkBinding.inflate(inflater)
+
+        fetchSerialNumber()
         // Inflate the layout for this fragment
         return binding.root
     }
@@ -44,5 +54,31 @@ class QuestionnaireLinkFragment : Fragment() {
         binding.qnLinkCancelBtn.setOnClickListener {
             navController.navigateUp()
         }
+    }
+
+    private fun getPhoneNumber(): String {
+        val pref = requireActivity().getSharedPreferences("pref", 0)
+
+        return pref.getString(getString(R.string.phonenumber_key), "") ?: ""
+    }
+
+    private fun fetchSerialNumber() {
+        val phoneNumber = getPhoneNumber()
+
+        Log.d("QuestionnaireLinkFragment", phoneNumber)
+
+        api.getSerialNumber(phoneNumber).enqueue(object : Callback<String> {
+            override fun onResponse(call: Call<String>, response: Response<String>) {
+                if(response.isSuccessful) {
+                    binding.mySerialNumber.text = response.body().toString()
+                }
+                Log.d("QuestionnaireLinkFragment", response.code().toString())
+                Log.d("QuestionnaireLinkFragment", response.body().toString())
+            }
+
+            override fun onFailure(call: Call<String>, t: Throwable) {
+                TODO("Not yet implemented")
+            }
+        })
     }
 }

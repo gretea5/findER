@@ -113,6 +113,7 @@
             android:textSize="20sp" />
 
         <RadioGroup
+            android:id="@+id/allergyRadioGroup"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
 
@@ -130,7 +131,7 @@
         </RadioGroup>
 
         <EditText
-            android:id="@+id/EditText02"
+            android:id="@+id/allergyInfo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:lines="6"

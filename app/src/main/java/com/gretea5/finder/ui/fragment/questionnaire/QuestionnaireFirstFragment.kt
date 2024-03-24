@@ -1,12 +1,14 @@
 package com.gretea5.finder.ui.fragment.questionnaire
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
 import androidx.core.widget.addTextChangedListener
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
@@ -17,7 +19,7 @@ import com.gretea5.finder.ui.viewmodel.QuestionnaireViewModel
 class QuestionnaireFirstFragment : Fragment() {
     private lateinit var binding : FragmentQuestionnaireFirstBinding
     private lateinit var navController : NavController
-    private lateinit var viewModel: QuestionnaireViewModel
+    private val viewModel: QuestionnaireViewModel by activityViewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,14 +38,12 @@ class QuestionnaireFirstFragment : Fragment() {
 
         navController = findNavController()
 
-        viewModel = ViewModelProvider(requireActivity()).get(QuestionnaireViewModel::class.java)
-
         //viewModel 값 설정
-        binding.qnName.setText(viewModel.questionnaireInfo.name)
-        binding.qnAge.setText(viewModel.questionnaireInfo.age)
-        binding.qnAddress.setText(viewModel.questionnaireInfo.address)
+        binding.qnName.setText(viewModel.name.value.toString())
+        binding.qnAge.setText(viewModel.age.value.toString())
+        binding.qnAddress.setText(viewModel.address.value.toString())
 
-        when(viewModel.questionnaireInfo.gender) {
+        when(viewModel.gender.value) {
             "남성" -> {
                 binding.qnMale.isChecked = true
                 binding.qnFemale.isChecked = false
@@ -58,21 +58,25 @@ class QuestionnaireFirstFragment : Fragment() {
             }
         }
 
+        //edittext변경시 viewModel에 저장
         binding.qnName.addTextChangedListener {
-            viewModel.questionnaireInfo.name = binding.qnName.toString()
+            viewModel.setName(it.toString())
         }
 
         binding.qnAddress.addTextChangedListener {
-            viewModel.questionnaireInfo.address = binding.qnAddress.toString()
+            viewModel.setAddress(it.toString())
         }
 
         binding.qnAge.addTextChangedListener {
-            viewModel.questionnaireInfo.address = binding.qnAddress.toString()
+            viewModel.setAge(it.toString())
         }
 
-        when(binding.genderRadioGroup.checkedRadioButtonId) {
-            R.id.qnMale -> { viewModel.questionnaireInfo.gender = "남성"}
-            R.id.qnFemale -> { viewModel.questionnaireInfo.gender = "여성"}
+        binding.genderRadioGroup.setOnCheckedChangeListener { _, checkedId ->
+            viewModel.setGender(when (checkedId) {
+                R.id.qnMale -> "남성"
+                R.id.qnFemale -> "여성"
+                else -> ""
+            })
         }
 
         //백 버튼 클릭시 이전 fragment 돌아가기
@@ -94,8 +98,8 @@ class QuestionnaireFirstFragment : Fragment() {
         }
     }
 
-    override fun onPause() {
-        super.onPause()
-        viewModel.resetQuestionnaireInfo()
+    override fun onDestroyView() {
+        super.onDestroyView()
+        viewModel.resetViewModelData()
     }
 }

@@ -38,13 +38,109 @@
 
     </androidx.appcompat.widget.Toolbar>
 
-    <TextView
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="QuestionnaireThirdFragment"
+        android:orientation="vertical"
+        android:padding="15dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/toolbar" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="복용중인 약"
+            android:textColor="@color/black"
+            android:textSize="20sp" />
+
+        <RadioGroup
+            android:id="@+id/medicineRadioGroup"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <RadioButton
+                android:id="@+id/medicineNoBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="해당 없음"/>
+
+            <RadioButton
+                android:id="@+id/medicineYesBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="해당 있음"/>
+        </RadioGroup>
+
+        <EditText
+            android:id="@+id/medicineInfo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="17" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="수술이력"
+            android:textColor="@color/black"
+            android:textSize="20sp" />
+
+        <RadioGroup
+            android:id="@+id/surgeryRadioGroup"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <RadioButton
+                android:id="@+id/surgeryNoBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="해당 없음"/>
+
+            <RadioButton
+                android:id="@+id/surgeryYesBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="해당 있음"/>
+        </RadioGroup>
+
+        <EditText
+            android:id="@+id/surgeryInfo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="17" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="앓고있는 질환"
+            android:textColor="@color/black"
+            android:textSize="20sp" />
+
+        <RadioGroup
+            android:id="@+id/diseaseRadioGroup"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <RadioButton
+                android:id="@+id/diseaseNoBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="해당 없음"/>
+
+            <RadioButton
+                android:id="@+id/diseaseYesBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="해당 있음"/>
+        </RadioGroup>
+
+        <EditText
+            android:id="@+id/diseaseInfo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="17" />
+
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -3,16 +3,16 @@ package com.gretea5.finder.ui.model
 data class QuestionnaireInfo(
     val phoneNumber: String = "",
     var name: String = "",
-    val age: String = "",
+    var age: String = "",
     var gender: String = "",
-    val bloodType: String = "",
+    var bloodType: String = "",
     var address: String = "",
-    val allergy: String = "",
-    val disease: String = "",
-    val medicine: String = "",
-    val surgery: String = "",
-    val drink: String = "",
-    val smoke: String = "",
-    val etc: String = ""
+    var allergy: String = "",
+    var disease: String = "",
+    var medicine: String = "",
+    var surgery: String = "",
+    var drink: String = "",
+    var smoke: String = "",
+    var etc: String = ""
 )
 

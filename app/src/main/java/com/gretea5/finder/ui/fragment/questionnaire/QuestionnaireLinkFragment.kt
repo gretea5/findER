@@ -11,6 +11,7 @@ import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import com.gretea5.finder.R
 import com.gretea5.finder.data.ApiService
+import com.gretea5.finder.data.model.QuestionnaireLinkModel
 import com.gretea5.finder.databinding.FragmentQuestionnaireLinkBinding
 import retrofit2.Call
 import retrofit2.Callback
@@ -41,6 +42,10 @@ class QuestionnaireLinkFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         navController = findNavController()
+
+        binding.requestQnLinkBtn.setOnClickListener {
+            linkQuestionnaire()
+        }
 
         //백 버튼 클릭시 이전 fragment 돌아가기
         requireActivity().onBackPressedDispatcher
@@ -74,6 +79,26 @@ class QuestionnaireLinkFragment : Fragment() {
                 }
                 Log.d("QuestionnaireLinkFragment", response.code().toString())
                 Log.d("QuestionnaireLinkFragment", response.body().toString())
+            }
+
+            override fun onFailure(call: Call<String>, t: Throwable) {
+                TODO("Not yet implemented")
+            }
+        })
+    }
+
+    private fun linkQuestionnaire() {
+        val phoneNumber = getPhoneNumber()
+        val linkedSerialNumber = binding.etOtherPersonSerialNumber.text.toString()
+
+        val questionnaireLinkModel = QuestionnaireLinkModel(phoneNumber, linkedSerialNumber)
+
+        api.linkQuestionnaire(questionnaireLinkModel).enqueue(object: Callback<String> {
+            override fun onResponse(call: Call<String>, response: Response<String>) {
+                if(response.isSuccessful) {
+                    requireActivity().finish()
+                    requireActivity().overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right)
+                }
             }
 
             override fun onFailure(call: Call<String>, t: Throwable) {

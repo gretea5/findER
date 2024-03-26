@@ -3,6 +3,7 @@ package com.gretea5.finder.data
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.gretea5.finder.data.model.LoginModel
+import com.gretea5.finder.data.model.QuestionnaireLinkModel
 import com.gretea5.finder.data.model.QuestionnaireModel
 import com.gretea5.finder.data.model.SignupModel
 import retrofit2.Call
@@ -30,6 +31,9 @@ interface ApiService {
     @POST("/api/questionnaire")
     fun writeQuestionnaire(@Body questionnaireModel: QuestionnaireModel) : Call<String>
 
+    @POST("/api/link")
+    fun linkQuestionnaire(@Body questionnaireLinkModel: QuestionnaireLinkModel) : Call<String>
+
     @GET("/api/{phoneNumber}")
     @Headers("accept: application/json",
         "content-type: application/json")
@@ -54,5 +58,4 @@ interface ApiService {
                 .create(ApiService::class.java)
         }
     }
-
 }

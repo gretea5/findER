@@ -27,13 +27,18 @@ interface ApiService {
         "content-type: application/json")
     fun login(@Body loginModel: LoginModel) : Call<String>
 
+    @POST("/api/questionnaire")
+    fun writeQuestionnaire(@Body questionnaireModel: QuestionnaireModel) : Call<String>
+
     @GET("/api/{phoneNumber}")
     @Headers("accept: application/json",
         "content-type: application/json")
     fun getSerialNumber(@Path("phoneNumber") phoneNumber: String) : Call<String>
 
-    @POST("/api/questionnaire")
-    fun writeQuestionnaire(@Body questionnaireModel: QuestionnaireModel) : Call<String>
+    @GET("/api/questionnaire/{phoneNumber}")
+    @Headers("accept: application/json",
+        "content-type: application/json")
+    fun getQuestionnaires(@Path("phoneNumber") phoneNumber: String) : Call<List<QuestionnaireModel>>
 
     companion object {
         private const val BASE_URL = "http://13.125.1.150:8080"

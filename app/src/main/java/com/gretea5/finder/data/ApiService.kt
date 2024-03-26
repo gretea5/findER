@@ -3,6 +3,7 @@ package com.gretea5.finder.data
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.gretea5.finder.data.model.LoginModel
+import com.gretea5.finder.data.model.QuestionnaireModel
 import com.gretea5.finder.data.model.SignupModel
 import retrofit2.Call
 import retrofit2.Retrofit
@@ -30,6 +31,9 @@ interface ApiService {
     @Headers("accept: application/json",
         "content-type: application/json")
     fun getSerialNumber(@Path("phoneNumber") phoneNumber: String) : Call<String>
+
+    @POST("/api/questionnaire")
+    fun writeQuestionnaire(@Body questionnaireModel: QuestionnaireModel) : Call<String>
 
     companion object {
         private const val BASE_URL = "http://13.125.1.150:8080"

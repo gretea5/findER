@@ -123,8 +123,9 @@ class QuestionnaireSecondFragment : Fragment() {
         }
 
         binding.allergyInfo.addTextChangedListener {
-            if(it.toString().equals("")) viewModel.setAllergy("O")
-            else viewModel.setAllergy(it.toString())
+            if(!it.isNullOrBlank()) {
+                viewModel.setAllergy(it.toString())
+            }
         }
 
 

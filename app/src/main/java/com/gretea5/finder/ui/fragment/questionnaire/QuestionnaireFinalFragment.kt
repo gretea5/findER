@@ -1,6 +1,7 @@
 package com.gretea5.finder.ui.fragment.questionnaire
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -11,13 +12,20 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import com.gretea5.finder.R
+import com.gretea5.finder.data.ApiService
+import com.gretea5.finder.data.model.QuestionnaireModel
 import com.gretea5.finder.databinding.FragmentQuestionnaireFinalBinding
 import com.gretea5.finder.ui.viewmodel.QuestionnaireViewModel
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class QuestionnaireFinalFragment : Fragment() {
     private lateinit var binding : FragmentQuestionnaireFinalBinding
     private lateinit var navController: NavController
+
     private val viewModel: QuestionnaireViewModel by activityViewModels()
+    private val api = ApiService.create()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -112,7 +120,6 @@ class QuestionnaireFinalFragment : Fragment() {
             if(!it.isNullOrBlank()) {
                 viewModel.setDrink(it.toString())
             }
-
         }
 
         when(viewModel.etc.value) {
@@ -170,12 +177,38 @@ class QuestionnaireFinalFragment : Fragment() {
             navController.navigateUp()
         }
 
-        //다음 버튼 클릭시
+        //완료 버튼 클릭시
         binding.qnFinalCompleteBtn.setOnClickListener {
-            requireActivity().finish()
-            requireActivity().overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right)
-
-            viewModel.resetViewModelData()
+            postQuestionnaire()
         }
+    }
+
+    private fun postQuestionnaire() {
+        viewModel.setPhoneNumber(getPhoneNumber())
+
+        val questionnaireModel = viewModel.getQuestionnaireModel()
+
+        api.writeQuestionnaire(questionnaireModel).enqueue(object : Callback<String> {
+            override fun onResponse(call: Call<String>, response: Response<String>) {
+                if(response.isSuccessful) {
+                    val result = response.body()
+
+                    requireActivity().finish()
+                    requireActivity().overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right)
+
+                    viewModel.resetViewModelData()
+                }
+            }
+
+            override fun onFailure(call: Call<String>, t: Throwable) {
+                TODO("Not yet implemented")
+            }
+        })
+    }
+
+    private fun getPhoneNumber(): String {
+        val pref = requireActivity().getSharedPreferences("pref", 0)
+
+        return pref.getString(getString(R.string.phonenumber_key), "") ?: ""
     }
 }

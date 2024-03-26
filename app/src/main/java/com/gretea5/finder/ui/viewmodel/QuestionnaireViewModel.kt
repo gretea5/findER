@@ -1,8 +1,10 @@
 package com.gretea5.finder.ui.viewmodel
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.gretea5.finder.data.model.QuestionnaireModel
 import com.gretea5.finder.ui.model.QuestionnaireInfo
 
 class QuestionnaireViewModel : ViewModel() {
@@ -47,6 +49,10 @@ class QuestionnaireViewModel : ViewModel() {
         get() = _smoke
     val etc: LiveData<String>
         get() = _etc
+
+    fun setPhoneNumber(phoneNumber: String) {
+        _phoneNumber.value = phoneNumber
+    }
 
     fun setName(name: String) {
         _name.value = name
@@ -114,5 +120,38 @@ class QuestionnaireViewModel : ViewModel() {
         _drink.value = ""
         _smoke.value = ""
         _etc.value = ""
+    }
+
+    fun getQuestionnaireModel() : QuestionnaireModel {
+        val questionnaireModel = QuestionnaireModel()
+
+        questionnaireModel.phoneNumber = phoneNumber.value.toString()
+        questionnaireModel.name = name.value.toString()
+        questionnaireModel.age = age.value.toString().toInt()
+        questionnaireModel.gender = gender.value.toString()
+        questionnaireModel.bloodType = bloodType.value.toString()
+        questionnaireModel.address = address.value.toString()
+        questionnaireModel.allergy = allergy.value.toString()
+        questionnaireModel.disease = disease.value.toString()
+        questionnaireModel.medicine = medicine.value.toString()
+        questionnaireModel.surgery = surgery.value.toString()
+        questionnaireModel.drink = drink.value.toString()
+        questionnaireModel.smoke = smoke.value.toString()
+        questionnaireModel.etc = etc.value.toString()
+
+        Log.d("questionnaireModel.name", name.value.toString())
+        Log.d("questionnaireModel.age", age.value.toString())
+        Log.d("questionnaireModel.gender", gender.value.toString())
+        Log.d("questionnaireModel.bloodType", bloodType.value.toString())
+        Log.d("questionnaireModel.address", address.value.toString())
+        Log.d("questionnaireModel.allergy", allergy.value.toString())
+        Log.d("questionnaireModel.disease", disease.value.toString())
+        Log.d("questionnaireModel.medicine", medicine.value.toString())
+        Log.d("questionnaireModel.surgery", surgery.value.toString())
+        Log.d("questionnaireModel.drink", drink.value.toString())
+        Log.d("questionnaireModel.smoke", smoke.value.toString())
+        Log.d("questionnaireModel.etc", etc.value.toString())
+
+        return questionnaireModel
     }
 }

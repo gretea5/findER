@@ -2,15 +2,13 @@ package com.gretea5.finder.data
 
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
-import com.gretea5.finder.data.model.LoginModel
-import com.gretea5.finder.data.model.QuestionnaireLinkModel
-import com.gretea5.finder.data.model.QuestionnaireModel
-import com.gretea5.finder.data.model.SignupModel
+import com.gretea5.finder.data.model.*
 import retrofit2.Call
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.converter.scalars.ScalarsConverterFactory
 import retrofit2.http.Body
+import retrofit2.http.DELETE
 import retrofit2.http.GET
 import retrofit2.http.Headers
 import retrofit2.http.POST
@@ -34,6 +32,9 @@ interface ApiService {
     @POST("/api/link")
     fun linkQuestionnaire(@Body questionnaireLinkModel: QuestionnaireLinkModel) : Call<String>
 
+    @POST("/api/unlink")
+    fun unLinkQuestionnaire(@Body questionnaireUnlinkModel: QuestionnaireUnlinkModel) : Call<String>
+
     @GET("/api/{phoneNumber}")
     @Headers("accept: application/json",
         "content-type: application/json")
@@ -43,6 +44,9 @@ interface ApiService {
     @Headers("accept: application/json",
         "content-type: application/json")
     fun getQuestionnaires(@Path("phoneNumber") phoneNumber: String) : Call<List<QuestionnaireModel>>
+
+    @DELETE("/api/questionnaire/{phoneNumber}")
+    fun deleteQuestionnaire(@Path("phoneNumber") phoneNumber: String) : Call<String>
 
     companion object {
         private const val BASE_URL = "http://13.125.1.150:8080"

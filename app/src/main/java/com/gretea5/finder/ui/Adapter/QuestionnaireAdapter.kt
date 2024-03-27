@@ -1,6 +1,7 @@
 package com.gretea5.finder.ui.Adapter
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.gretea5.finder.data.model.QuestionnaireModel
@@ -8,6 +9,12 @@ import com.gretea5.finder.databinding.ItemQuestionnaireBinding
 
 class QuestionnaireAdapter(private val qnList : List<QuestionnaireModel>)
     : RecyclerView.Adapter<QuestionnaireAdapter.QuestionnaireViewHolder>() {
+
+    interface ItemClick {
+        fun onClick(view: View, position: Int)
+    }
+
+    var itemClick: ItemClick? = null
 
     inner class QuestionnaireViewHolder(private val binding : ItemQuestionnaireBinding)
         : RecyclerView.ViewHolder(binding.root) {
@@ -24,6 +31,9 @@ class QuestionnaireAdapter(private val qnList : List<QuestionnaireModel>)
     }
 
     override fun onBindViewHolder(holder: QuestionnaireViewHolder, position: Int) {
+        holder.itemView.setOnClickListener {
+            itemClick?.onClick(it, position)
+        }
         holder.bind(qnList[position])
     }
 

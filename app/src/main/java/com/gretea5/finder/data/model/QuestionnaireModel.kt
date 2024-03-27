@@ -1,6 +1,7 @@
 package com.gretea5.finder.data.model
 
 import com.google.gson.annotations.SerializedName
+import java.io.Serializable
 
 data class QuestionnaireModel(
     @SerializedName("phoneNumber") var phoneNumber: String = "",
@@ -16,4 +17,4 @@ data class QuestionnaireModel(
     @SerializedName("drink") var drink: String = "",
     @SerializedName("smoke") var smoke: String = "",
     @SerializedName("etc") var etc: String = ""
-)
+) : Serializable

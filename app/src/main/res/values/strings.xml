@@ -16,6 +16,9 @@
     <string name="questionnaireMenuMove">문진표 메뉴 이동</string>
 
     <!-- questionnaire toolbar -->
+    <string name="linkDelete">연동 삭제</string>
+    <string name="delete">삭제</string>
+    <string name="update">수정</string>
     <string name="before">이전</string>
     <string name="next">다음</string>
     <string name="cancel">취소</string>
@@ -27,5 +30,7 @@
     <string name="questionnaireWrite">문진표 작성</string>
 
     <string name="phonenumber_key">phonenumber</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>

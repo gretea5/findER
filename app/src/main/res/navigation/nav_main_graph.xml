@@ -21,6 +21,19 @@
         android:id="@+id/questionnaireFragment"
         android:name="com.gretea5.finder.ui.fragment.main.QuestionnaireFragment"
         android:label="QuestionnaireFragment"
-        tools:layout="@layout/fragment_questionnaire" />
+        tools:layout="@layout/fragment_questionnaire" >
+        <action
+            android:id="@+id/action_questionnaireFragment_to_questionnaireInfoFragment"
+            app:destination="@id/questionnaireInfoFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+    </fragment>
+    <fragment
+        android:id="@+id/questionnaireInfoFragment"
+        android:name="com.gretea5.finder.ui.fragment.questionnaire.QuestionnaireInfoFragment"
+        android:label="fragment_questionnaire_info"
+        tools:layout="@layout/fragment_questionnaire_info" />
 
 </navigation>

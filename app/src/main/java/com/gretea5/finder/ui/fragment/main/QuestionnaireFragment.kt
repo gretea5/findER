@@ -4,7 +4,9 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.*
+import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.gretea5.finder.R
@@ -13,6 +15,7 @@ import com.gretea5.finder.data.model.QuestionnaireModel
 import com.gretea5.finder.databinding.FragmentQuestionnaireBinding
 import com.gretea5.finder.ui.Adapter.QuestionnaireAdapter
 import com.gretea5.finder.ui.activity.QuestionnaireActivity
+import com.gretea5.finder.ui.activity.QuestionnaireInfoActivity
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -86,9 +89,12 @@ class QuestionnaireFragment : Fragment() {
                 Log.d("getQuestionnaireListData", data.toString())
 
                 data?.let {
-                    qnAdapter = QuestionnaireAdapter(it)
+                    qnList = it
+                    qnAdapter = QuestionnaireAdapter(qnList)
                     qnRecyclerView.adapter = qnAdapter
                     qnAdapter.notifyDataSetChanged()
+
+                    qnSetItemClickListener()
                 }
             }
 
@@ -96,5 +102,17 @@ class QuestionnaireFragment : Fragment() {
                 TODO("Not yet implemented")
             }
         })
+    }
+
+    private fun qnSetItemClickListener() {
+        qnAdapter.itemClick = object : QuestionnaireAdapter.ItemClick {
+            override fun onClick(view: View, position: Int) {
+                val intent = Intent(context, QuestionnaireInfoActivity::class.java)
+                intent.putExtra("qnInfo", qnList[position])
+
+                startActivity(intent)
+                requireActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
+            }
+        }
     }
 }

@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.NavController
@@ -36,17 +37,22 @@ class QuestionnaireInfoFragment : Fragment() {
     ): View? {
         binding = FragmentQuestionnaireInfoBinding.inflate(inflater)
 
-        viewModel.name.observe(viewLifecycleOwner, Observer {
-            binding.qnInfoName.text = it
-        })
+        binding.qnInfoName.text = viewModel.name.value
+        binding.qnInfoAge.text = "${viewModel.age.value}세"
+        binding.qnInfoGender.text = "(${viewModel.gender.value})"
 
-        viewModel.age.observe(viewLifecycleOwner, Observer {
-            binding.qnInfoAge.text = "${it}세"
-        })
 
-        viewModel.gender.observe(viewLifecycleOwner, Observer {
-            binding.qnInfoGender.text = "(${it})"
-        })
+//        viewModel.name.observe(viewLifecycleOwner, Observer {
+//            binding.qnInfoName.text = it
+//        })
+//
+//        viewModel.age.observe(viewLifecycleOwner, Observer {
+//            binding.qnInfoAge.text = "${it}세"
+//        })
+//
+//        viewModel.gender.observe(viewLifecycleOwner, Observer {
+//            binding.qnInfoGender.text = "(${it})"
+//        })
 
         val phoneNumber = getPhoneNumber()
 
@@ -74,6 +80,28 @@ class QuestionnaireInfoFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         navController = findNavController()
+
+        binding.qnInfoUpdateBtn.setOnClickListener {
+            setUpdateMode()
+            navController.navigate(R.id.action_questionnaireInfoFragment_to_questionnaireFirstFragment)
+        }
+
+        //백 버튼 클릭시 이전 fragment 돌아가기
+        requireActivity().onBackPressedDispatcher
+            .addCallback(viewLifecycleOwner, object : OnBackPressedCallback(true) {
+                override fun handleOnBackPressed() {
+                    navController.navigateUp()
+                    viewModel.resetViewModelData()
+                }
+            })
+    }
+
+    private fun setUpdateMode() {
+        //전화번호 getPreferences 저장
+        val sharedPref = requireActivity().getSharedPreferences("pref", 0)
+        val sharedEditor = sharedPref.edit()
+        sharedEditor.putBoolean(getString(R.string.edit_mode), true)
+        sharedEditor.apply()
     }
 
     private fun getPhoneNumber(): String {

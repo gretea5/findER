@@ -11,6 +11,7 @@ import retrofit2.http.Body
 import retrofit2.http.DELETE
 import retrofit2.http.GET
 import retrofit2.http.Headers
+import retrofit2.http.PATCH
 import retrofit2.http.POST
 import retrofit2.http.Path
 
@@ -47,6 +48,9 @@ interface ApiService {
 
     @DELETE("/api/questionnaire/{phoneNumber}")
     fun deleteQuestionnaire(@Path("phoneNumber") phoneNumber: String) : Call<String>
+
+    @PATCH("/api/questionnaire")
+    fun updateQuestionnaire(@Body questionnaireModel: QuestionnaireModel) : Call<String>
 
     companion object {
         private const val BASE_URL = "http://13.125.1.150:8080"

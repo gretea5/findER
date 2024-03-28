@@ -177,10 +177,38 @@ class QuestionnaireFinalFragment : Fragment() {
             navController.navigateUp()
         }
 
-        //완료 버튼 클릭시
+        binding.qnFinalCompleteBtn.text = if (getUpdateMode())
+            getString(R.string.update)
+        else
+            getString(R.string.complete)
+
+        //수정/완료 버튼 클릭시
         binding.qnFinalCompleteBtn.setOnClickListener {
-            postQuestionnaire()
+            if(getUpdateMode())  {
+                updateQuestionnaire()
+            }
+            else {
+                postQuestionnaire()
+            }
         }
+    }
+
+    private fun updateQuestionnaire() {
+        val questionnaireModel = viewModel.getQuestionnaireModel()
+
+        api.updateQuestionnaire(questionnaireModel).enqueue(object : Callback<String> {
+            override fun onResponse(call: Call<String>, response: Response<String>) {
+                navController.navigate(R.id.action_questionnaireFinalFragment_to_questionnaireFragment)
+
+                viewModel.resetViewModelData()
+
+                offUpdateMode()
+            }
+
+            override fun onFailure(call: Call<String>, t: Throwable) {
+                TODO("Not yet implemented")
+            }
+        })
     }
 
     private fun postQuestionnaire() {
@@ -207,7 +235,19 @@ class QuestionnaireFinalFragment : Fragment() {
 
     private fun getPhoneNumber(): String {
         val pref = requireActivity().getSharedPreferences("pref", 0)
-
         return pref.getString(getString(R.string.phonenumber_key), "") ?: ""
+    }
+
+    private fun getUpdateMode() : Boolean {
+        val sharedPref = requireActivity().getSharedPreferences("pref", 0)
+        return sharedPref.getBoolean(getString(R.string.edit_mode), false)
+    }
+
+    private fun offUpdateMode() {
+        //전화번호 getPreferences 저장
+        val sharedPref = requireActivity().getSharedPreferences("pref", 0)
+        val sharedEditor = sharedPref.edit()
+        sharedEditor.putBoolean(getString(R.string.edit_mode), false)
+        sharedEditor.apply()
     }
 }

@@ -82,19 +82,28 @@ class QuestionnaireFirstFragment : Fragment() {
             .addCallback(viewLifecycleOwner, object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
                 navController.navigateUp()
-                viewModel.resetViewModelData()
+                if(!getUpdateMode()) {
+                    viewModel.resetViewModelData()
+                }
             }
         })
 
         //이전 버튼 클릭시
         binding.qnFirstBeforeBtn.setOnClickListener {
             navController.navigateUp()
-            viewModel.resetViewModelData()
+            if(!getUpdateMode()) {
+                viewModel.resetViewModelData()
+            }
         }
 
         //다음 버튼 클릭시
         binding.qnFirstNextBtn.setOnClickListener {
             navController.navigate(R.id.action_questionnaireFirstFragment_to_questionnaireSecondFragment)
         }
+    }
+
+    private fun getUpdateMode() : Boolean {
+        val sharedPref = requireActivity().getSharedPreferences("pref", 0)
+        return sharedPref.getBoolean(getString(R.string.edit_mode), false)
     }
 }

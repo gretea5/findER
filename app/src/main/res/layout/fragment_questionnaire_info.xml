@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.activity.QuestionnaireInfoActivity">
+    tools:context=".ui.fragment.questionnaire.QuestionnaireInfoFragment">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
@@ -17,24 +17,24 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
+            style="@style/ToolbarTitleText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/questionnaireToolbarTitle"
-            style="@style/ToolbarTitleText" />
+            android:text="@string/questionnaireToolbarTitle" />
 
         <TextView
             android:id="@+id/qnInfoDeleteBtn"
+            style="@style/ToolbarLeftTextBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/before"
-            style="@style/ToolbarLeftTextBtn" />
+            android:text="@string/before" />
 
         <TextView
             android:id="@+id/qnInfoUpdateBtn"
+            style="@style/ToolbarRightTextBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/update"
-            style="@style/ToolbarRightTextBtn"/>
+            android:text="@string/update" />
 
     </androidx.appcompat.widget.Toolbar>
 

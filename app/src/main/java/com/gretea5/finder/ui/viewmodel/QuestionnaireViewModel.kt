@@ -122,6 +122,22 @@ class QuestionnaireViewModel : ViewModel() {
         _etc.value = ""
     }
 
+    fun setViewModel(questionnaireModel: QuestionnaireModel) {
+        _phoneNumber.value = questionnaireModel.phoneNumber
+        _name.value = questionnaireModel.name
+        _age.value = questionnaireModel.age.toString()
+        _gender.value = questionnaireModel.gender
+        _bloodType.value = questionnaireModel.bloodType
+        _address.value = questionnaireModel.address
+        _allergy.value = questionnaireModel.allergy
+        _disease.value = questionnaireModel.disease
+        _medicine.value = questionnaireModel.medicine
+        _surgery.value = questionnaireModel.surgery
+        _drink.value = questionnaireModel.drink
+        _smoke.value = questionnaireModel.smoke
+        _etc.value = questionnaireModel.etc
+    }
+
     fun getQuestionnaireModel() : QuestionnaireModel {
         val questionnaireModel = QuestionnaireModel()
 

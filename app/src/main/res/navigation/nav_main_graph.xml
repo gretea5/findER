@@ -29,11 +29,104 @@
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right" />
+        <action
+            android:id="@+id/action_questionnaireFragment_to_questionnaireModeFragment"
+            app:destination="@id/questionnaireModeFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
+    </fragment>
+    <fragment
+        android:id="@+id/questionnaireModeFragment"
+        android:name="com.gretea5.finder.ui.fragment.questionnaire.QuestionnaireModeFragment"
+        android:label="fragment_questionnaire_mode"
+        tools:layout="@layout/fragment_questionnaire_mode" >
+        <action
+            android:id="@+id/action_questionnaireModeFragment_to_questionnaireLinkFragment"
+            app:destination="@id/questionnaireLinkFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+        <action
+            android:id="@+id/action_questionnaireModeFragment_to_questionnaireFirstFragment"
+            app:destination="@id/questionnaireFirstFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
     </fragment>
     <fragment
         android:id="@+id/questionnaireInfoFragment"
         android:name="com.gretea5.finder.ui.fragment.questionnaire.QuestionnaireInfoFragment"
         android:label="fragment_questionnaire_info"
         tools:layout="@layout/fragment_questionnaire_info" />
+    <fragment
+        android:id="@+id/questionnaireLinkFragment"
+        android:name="com.gretea5.finder.ui.fragment.questionnaire.QuestionnaireLinkFragment"
+        android:label="fragment_questionnaire_link"
+        tools:layout="@layout/fragment_questionnaire_link" >
+        <action
+            android:id="@+id/action_questionnaireLinkFragment_to_questionnaireFragment"
+            app:destination="@id/questionnaireFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+    </fragment>
+    <fragment
+        android:id="@+id/questionnaireFirstFragment"
+        android:name="com.gretea5.finder.ui.fragment.questionnaire.QuestionnaireFirstFragment"
+        android:label="fragment_questionnaire_first"
+        tools:layout="@layout/fragment_questionnaire_first" >
+        <action
+            android:id="@+id/action_questionnaireFirstFragment_to_questionnaireSecondFragment"
+            app:destination="@id/questionnaireSecondFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
+    </fragment>
+    <fragment
+        android:id="@+id/questionnaireSecondFragment"
+        android:name="com.gretea5.finder.ui.fragment.questionnaire.QuestionnaireSecondFragment"
+        android:label="fragment_questionnaire_second"
+        tools:layout="@layout/fragment_questionnaire_second" >
+        <action
+            android:id="@+id/action_questionnaireSecondFragment_to_questionnaireThirdFragment"
+            app:destination="@id/questionnaireThirdFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
+    </fragment>
+    <fragment
+        android:id="@+id/questionnaireFinalFragment"
+        android:name="com.gretea5.finder.ui.fragment.questionnaire.QuestionnaireFinalFragment"
+        android:label="fragment_questionnaire_final"
+        tools:layout="@layout/fragment_questionnaire_final" >
+        <action
+            android:id="@+id/action_questionnaireFinalFragment_to_questionnaireFragment"
+            app:destination="@id/questionnaireFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
+            />
+    </fragment>
+    <fragment
+        android:id="@+id/questionnaireThirdFragment"
+        android:name="com.gretea5.finder.ui.fragment.questionnaire.QuestionnaireThirdFragment"
+        android:label="fragment_questionnaire_third"
+        tools:layout="@layout/fragment_questionnaire_third" >
+        <action
+            android:id="@+id/action_questionnaireThirdFragment_to_questionnaireFinalFragment"
+            app:destination="@id/questionnaireFinalFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
+    </fragment>
 
 </navigation>

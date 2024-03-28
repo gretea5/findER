@@ -193,8 +193,7 @@ class QuestionnaireFinalFragment : Fragment() {
                 if(response.isSuccessful) {
                     val result = response.body()
 
-                    requireActivity().finish()
-                    requireActivity().overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right)
+                    navController.navigate(R.id.action_questionnaireFinalFragment_to_questionnaireFragment)
 
                     viewModel.resetViewModelData()
                 }

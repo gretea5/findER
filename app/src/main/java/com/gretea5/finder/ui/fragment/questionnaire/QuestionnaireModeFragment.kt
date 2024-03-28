@@ -45,16 +45,14 @@ class QuestionnaireModeFragment : Fragment() {
         }
 
         binding.qnModeCancelBtn.setOnClickListener {
-            requireActivity().finish()
-            requireActivity().overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right)
+            navController.navigateUp()
         }
 
         //fragment에서 백버튼 클릭시
         requireActivity().onBackPressedDispatcher
             .addCallback(viewLifecycleOwner, object : OnBackPressedCallback(true) {
                 override fun handleOnBackPressed() {
-                    requireActivity().finish()
-                    requireActivity().overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right)
+                    navController.navigateUp()
                 }
             })
 

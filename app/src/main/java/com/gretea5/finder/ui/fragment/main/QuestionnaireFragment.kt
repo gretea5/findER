@@ -41,7 +41,7 @@ class QuestionnaireFragment : Fragment() {
 
         qnRecyclerView = binding.qnRecyclerView
         qnRecyclerView.layoutManager = LinearLayoutManager(activity)
-        qnAdapter = QuestionnaireAdapter(qnList)
+        qnAdapter = QuestionnaireAdapter(qnList, requireContext())
         qnRecyclerView.adapter = qnAdapter
 
         getQuestionnaireListData()
@@ -89,7 +89,7 @@ class QuestionnaireFragment : Fragment() {
 
                 data?.let {
                     qnList = it
-                    qnAdapter = QuestionnaireAdapter(qnList)
+                    qnAdapter = QuestionnaireAdapter(qnList, requireContext())
                     qnRecyclerView.adapter = qnAdapter
                     qnAdapter.notifyDataSetChanged()
 

@@ -81,6 +81,7 @@ class QuestionnaireInfoFragment : Fragment() {
 
         navController = findNavController()
 
+
         binding.qnInfoUpdateBtn.setOnClickListener {
             setUpdateMode()
             navController.navigate(R.id.action_questionnaireInfoFragment_to_questionnaireFirstFragment)

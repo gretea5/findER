@@ -1,32 +1,99 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="80dp"
-    android:padding="10dp"
-    android:orientation="horizontal">
+    android:layout_height="100dp"
+    android:padding="10dp">
 
-    <TextView
-        android:id="@+id/qnItemNameTextView"
-        android:text="박장훈"
-        android:textSize="25sp"
-        android:textStyle="bold"
-        android:textColor="@color/black"
+    <LinearLayout
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-    <TextView
-        android:id="@+id/qnItemAgeTextView"
-        android:text="15세"
-        android:textSize="15sp"
-        android:layout_marginLeft="10dp"
+        <TextView
+            android:id="@+id/qnItemNameTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="박장훈"
+            android:textColor="@color/black"
+            android:textSize="30sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/qnItemAgeTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:text="15세"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/qnItemGenderTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="(남)" />
+    </LinearLayout>
+
+    <LinearLayout
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
 
-    <TextView
-        android:id="@+id/qnItemGenderTextView"
-        android:text="(남)"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        <ImageView
+            android:id="@+id/qnItemDrink"
+            android:src="@drawable/icon_drink"
+            android:scaleType="fitXY"
+            android:layout_width="0dp"
+            android:layout_height="25dp"
+            android:layout_weight="1"/>
 
-</LinearLayout>
+        <ImageView
+            android:id="@+id/qnItemSmoke"
+            android:src="@drawable/icon_smoke"
+            android:scaleType="fitXY"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_marginStart="5dp"/>
+
+        <ImageView
+            android:id="@+id/qnItemMedicine"
+            android:src="@drawable/icon_medicine"
+            android:scaleType="fitXY"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_marginStart="5dp"/>
+
+        <ImageView
+            android:id="@+id/qnItemAllergy"
+            android:src="@drawable/icon_allergy"
+            android:scaleType="fitXY"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_marginStart="5dp"/>
+
+        <ImageView
+            android:id="@+id/qnItemSurgery"
+            android:src="@drawable/icon_surgery"
+            android:scaleType="fitXY"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_marginStart="5dp"/>
+
+    </LinearLayout>
+
+    <ImageView
+        android:layout_width="30dp"
+        android:layout_height="35dp"
+        android:src="@drawable/icon_right_arrow"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

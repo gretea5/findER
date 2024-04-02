@@ -1,13 +1,20 @@
 package com.gretea5.finder.ui.Adapter
 
+import android.content.Context
+import android.content.res.Resources
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
+import com.gretea5.finder.R
 import com.gretea5.finder.data.model.QuestionnaireModel
 import com.gretea5.finder.databinding.ItemQuestionnaireBinding
 
-class QuestionnaireAdapter(private val qnList : List<QuestionnaireModel>)
+class QuestionnaireAdapter(
+    private val qnList: List<QuestionnaireModel>,
+    private val context: Context
+    )
     : RecyclerView.Adapter<QuestionnaireAdapter.QuestionnaireViewHolder>() {
 
     interface ItemClick {
@@ -22,6 +29,28 @@ class QuestionnaireAdapter(private val qnList : List<QuestionnaireModel>)
             binding.qnItemNameTextView.text = questionnaireModel.name
             binding.qnItemAgeTextView.text = "${questionnaireModel.age}세"
             binding.qnItemGenderTextView.text = "(${questionnaireModel.gender})"
+
+            val color = ContextCompat.getColor(context, R.color.main_color)
+
+            if (questionnaireModel.drink != "X") {
+                binding.qnItemDrink.setColorFilter(color)
+            }
+
+            if (questionnaireModel.smoke != "X") {
+                binding.qnItemSmoke.setColorFilter(color)
+            }
+
+            if (questionnaireModel.medicine != "X") {
+                binding.qnItemMedicine.setColorFilter(color)
+            }
+
+            if (questionnaireModel.allergy != "X") {
+                binding.qnItemAllergy.setColorFilter(color)
+            }
+
+            if (questionnaireModel.surgery != "X") {
+                binding.qnItemSurgery.setColorFilter(color)
+            }
         }
     }
 

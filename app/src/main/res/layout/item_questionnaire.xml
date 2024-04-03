@@ -49,7 +49,7 @@
             android:id="@+id/qnItemDrink"
             android:src="@drawable/icon_drink"
             android:scaleType="fitXY"
-            android:layout_width="0dp"
+            android:layout_width="25dp"
             android:layout_height="25dp"
             android:layout_weight="1"/>
 

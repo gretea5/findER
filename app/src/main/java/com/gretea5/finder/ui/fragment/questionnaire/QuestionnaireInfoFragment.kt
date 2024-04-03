@@ -40,19 +40,15 @@ class QuestionnaireInfoFragment : Fragment() {
         binding.qnInfoName.text = viewModel.name.value
         binding.qnInfoAge.text = "${viewModel.age.value}세"
         binding.qnInfoGender.text = "(${viewModel.gender.value})"
-
-
-//        viewModel.name.observe(viewLifecycleOwner, Observer {
-//            binding.qnInfoName.text = it
-//        })
-//
-//        viewModel.age.observe(viewLifecycleOwner, Observer {
-//            binding.qnInfoAge.text = "${it}세"
-//        })
-//
-//        viewModel.gender.observe(viewLifecycleOwner, Observer {
-//            binding.qnInfoGender.text = "(${it})"
-//        })
+        binding.qnInfoPhoneNumber.text = viewModel.phoneNumber.value
+        binding.qnInfoAddress.text = viewModel.address.value
+        binding.qnInfoAllergy.text = viewModel.allergy.value
+        binding.qnInfoMedicine.text = viewModel.medicine.value
+        binding.qnInfoSurgery.text = viewModel.surgery.value
+        binding.qnInfoDisease.text = viewModel.disease.value
+        binding.qnInfoDrink.text = viewModel.drink.value
+        binding.qnInfoSmoke.text = viewModel.smoke.value
+        binding.qnInfoEtc.text = viewModel.etc.value
 
         val phoneNumber = getPhoneNumber()
 

@@ -49,17 +49,20 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <RadioButton
-            android:checked="true"
             android:id="@+id/writeQuestionnaireBtn"
+            android:checked="true"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/selector_questionnaire_mode_button"
             android:textColor="@drawable/selector_questionnaire_mode_text"
+            android:textSize="30sp"
             android:button="@null"
-            android:padding="40dp"
+            android:drawableStart="@drawable/selector_questionnaire_mode_write_icon"
+            android:drawablePadding="15dp"
+            android:paddingHorizontal="30dp"
+            android:paddingVertical="50dp"
             android:layout_margin="20dp"
-            android:text="@string/questionnaireWrite"
-            android:textAlignment="center" />
+            android:text="@string/questionnaireWrite" />
 
         <RadioButton
             android:id="@+id/linkQuestionnaireBtn"
@@ -67,15 +70,16 @@
             android:layout_height="wrap_content"
             android:background="@drawable/selector_questionnaire_mode_button"
             android:textColor="@drawable/selector_questionnaire_mode_text"
+            android:textSize="30sp"
             android:button="@null"
+            android:drawableStart="@drawable/selector_questionnaire_mode_link_icon"
+            android:drawablePadding="15dp"
+            android:paddingHorizontal="30dp"
+            android:paddingVertical="50dp"
             android:layout_margin="20dp"
-            android:padding="40dp"
             android:text="@string/questionnaireLink"
             android:textAlignment="center"/>
     </RadioGroup>
-
-
-
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

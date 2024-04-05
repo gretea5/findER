@@ -57,21 +57,58 @@
 
         <RadioGroup
             android:id="@+id/rhRadioGroup"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            app:singleSelection="true"
             android:orientation="horizontal">
+
             <RadioButton
                 android:id="@+id/rhPlusBtn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Rh+"/>
+                android:layout_weight="1"
+                android:button="@null"
+                android:text="Rh +"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:textColor="@color/white"
+                android:textAlignment="center"
+                android:background="@drawable/selector_questionnaire_button_rhplus"
+                />
 
             <RadioButton
                 android:id="@+id/rhMinusBtn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Rh-"/>
+                android:layout_weight="1"
+                android:button="@null"
+                android:text="Rh -"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:textColor="@color/white"
+                android:textAlignment="center"
+                android:background="@drawable/selector_questionnaire_button_rhminus"
+                />
+
         </RadioGroup>
+
+<!--        <RadioGroup-->
+<!--            android:id="@+id/rhRadioGroup"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:orientation="horizontal">-->
+<!--            <RadioButton-->
+<!--                android:id="@+id/rhPlusBtn"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:text="Rh+"/>-->
+
+<!--            <RadioButton-->
+<!--                android:id="@+id/rhMinusBtn"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:text="Rh-"/>-->
+<!--        </RadioGroup>-->
 
         <RadioGroup
             android:id="@+id/bloodRadioGroup"

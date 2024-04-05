@@ -96,22 +96,43 @@
 
         <RadioGroup
             android:id="@+id/genderRadioGroup"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            app:singleSelection="true"
             android:orientation="horizontal">
+
             <RadioButton
                 android:id="@+id/qnMale"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="남성"/>
+                android:paddingVertical="10dp"
+                android:layout_weight="1"
+                android:button="@null"
+                android:text="남성"
+                android:textColor="@color/white"
+                android:textSize="20sp"
+                android:paddingHorizontal="15dp"
+                android:drawableLeft="@drawable/icon_male"
+                android:drawablePadding="30dp"
+                android:background="@drawable/selector_questionnaire_button_male"
+                />
 
             <RadioButton
                 android:id="@+id/qnFemale"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="여성"/>
+                android:layout_weight="1"
+                android:button="@null"
+                android:paddingVertical="10dp"
+                android:textSize="20sp"
+                android:paddingHorizontal="15dp"
+                android:text="여성"
+                android:textColor="@color/white"
+                android:drawableLeft="@drawable/icon_female"
+                android:drawablePadding="30dp"
+                android:background="@drawable/selector_questionnaire_button_female"
+                />
+
         </RadioGroup>
-
     </LinearLayout>
-
 </androidx.constraintlayout.widget.ConstraintLayout>

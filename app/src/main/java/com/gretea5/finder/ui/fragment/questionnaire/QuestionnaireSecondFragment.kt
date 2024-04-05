@@ -45,7 +45,7 @@ class QuestionnaireSecondFragment : Fragment() {
         }
 
         if(viewModel.bloodType.value?.contains("A") == true) {
-            binding.bloodRadioGroup.check(R.id.aBtn )
+            binding.bloodRadioGroup.check(R.id.aBtn)
         }
 
         if(viewModel.bloodType.value?.contains("B") == true) {
@@ -97,28 +97,39 @@ class QuestionnaireSecondFragment : Fragment() {
             "X" -> {
                 binding.noAllergy.isChecked = true
                 binding.yesAllergy.isChecked = false
+                binding.allergyInfo.visibility = View.GONE
             }
             //해당 있음인 값인 경우,
             "O" -> {
                 binding.noAllergy.isChecked = false
                 binding.yesAllergy.isChecked = true
+                binding.allergyInfo.visibility = View.VISIBLE
             }
             //라디오 버튼을 클릭하지 않았을 경우,
             "" -> {
                 binding.noAllergy.isChecked = false
                 binding.yesAllergy.isChecked = false
+                binding.allergyInfo.visibility = View.GONE
             }
             else -> {
                 binding.noAllergy.isChecked = false
                 binding.yesAllergy.isChecked = true
+                binding.allergyInfo.visibility = View.VISIBLE
                 binding.allergyInfo.setText(viewModel.allergy.value)
             }
         }
 
         binding.allergyRadioGroup.setOnCheckedChangeListener { _, checkedId ->
             when (checkedId) {
-                R.id.yesAllergy -> { viewModel.setAllergy("O") }
-                R.id.noAllergy -> { viewModel.setAllergy("X") }
+                R.id.yesAllergy -> {
+                    viewModel.setAllergy("O")
+                    binding.allergyInfo.visibility = View.VISIBLE
+                }
+                R.id.noAllergy -> {
+                    viewModel.setAllergy("X")
+                    binding.allergyInfo.setText("")
+                    binding.allergyInfo.visibility = View.GONE
+                }
             }
         }
 

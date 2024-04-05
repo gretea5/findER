@@ -39,102 +39,151 @@
     </androidx.appcompat.widget.Toolbar>
 
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="15dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginTop="50dp"
+        android:padding="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/toolbar">
 
-        <TextView
-            android:layout_width="wrap_content"
+
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="혈액형"
-            android:textColor="@color/black"
-            android:textSize="20sp" />
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="혈액형"
+                android:textColor="@color/black"
+                android:textStyle="bold"
+                android:textSize="17sp" />
+
+            <ImageView
+                android:layout_width="13dp"
+                android:layout_height="13dp"
+                android:layout_marginLeft="5dp"
+                android:scaleType="fitXY"
+                android:src="@drawable/icon_inputcheck"
+                android:layout_gravity="center" />
+
+        </LinearLayout>
 
         <RadioGroup
             android:id="@+id/rhRadioGroup"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:singleSelection="true"
-            android:orientation="horizontal">
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal"
+            app:singleSelection="true">
 
             <RadioButton
                 android:id="@+id/rhPlusBtn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:paddingVertical="15dp"
-                android:button="@null"
-                android:text="Rh +"
-                android:textSize="20sp"
-                android:textStyle="bold"
-                android:textColor="@color/white"
-                android:textAlignment="center"
                 android:background="@drawable/selector_questionnaire_button_rhplus"
-                />
+                android:button="@null"
+                android:paddingVertical="15dp"
+                android:text="Rh +"
+                android:textAlignment="center"
+                android:textColor="@color/white"
+                android:textSize="20sp"
+                android:textStyle="bold" />
 
             <RadioButton
                 android:id="@+id/rhMinusBtn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:paddingVertical="15dp"
-                android:button="@null"
-                android:text="Rh -"
-                android:textSize="20sp"
-                android:textStyle="bold"
-                android:textColor="@color/white"
-                android:textAlignment="center"
                 android:background="@drawable/selector_questionnaire_button_rhminus"
-                />
+                android:button="@null"
+                android:paddingVertical="15dp"
+                android:text="Rh -"
+                android:textAlignment="center"
+                android:textColor="@color/white"
+                android:textSize="20sp"
+                android:textStyle="bold" />
 
         </RadioGroup>
 
         <RadioGroup
             android:id="@+id/bloodRadioGroup"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:paddingVertical="15dp"
+            android:paddingHorizontal="50dp"
+            android:layout_gravity="center"
             android:orientation="horizontal">
 
             <RadioButton
                 android:id="@+id/aBtn"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="A"/>
+                android:layout_weight="1"
+                android:text="A"
+                android:textColor="@color/black"
+                android:textStyle="bold" />
 
             <RadioButton
                 android:id="@+id/bBtn"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="B"/>
+                android:layout_weight="1"
+                android:text="B"
+                android:textColor="@color/black"
+                android:textStyle="bold" />
 
             <RadioButton
                 android:id="@+id/oBtn"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="O"/>
+                android:layout_weight="1"
+                android:text="O"
+                android:textColor="@color/black"
+                android:textStyle="bold" />
 
             <RadioButton
                 android:id="@+id/abBtn"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="AB"/>
+                android:layout_weight="1"
+                android:text="AB"
+                android:textColor="@color/black"
+                android:textStyle="bold" />
 
         </RadioGroup>
 
-        <TextView
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="알러지 정보 입력"
-            android:textColor="@color/black"
-            android:textSize="20sp" />
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="알러지 정보 입력"
+                android:textColor="@color/black"
+                android:textStyle="bold"
+                android:textSize="17sp" />
+
+            <ImageView
+                android:layout_width="13dp"
+                android:layout_height="13dp"
+                android:layout_marginLeft="5dp"
+                android:scaleType="fitXY"
+                android:src="@drawable/icon_inputcheck"
+                android:layout_gravity="center" />
+
+        </LinearLayout>
 
         <RadioGroup
             android:id="@+id/allergyRadioGroup"
+            android:layout_marginTop="15dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
 
@@ -142,24 +191,33 @@
                 android:id="@+id/noAllergy"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="해당 없음"/>
+                android:text="해당 없음"
+                android:textColor="@color/black"
+                android:textStyle="bold" />
 
             <RadioButton
                 android:id="@+id/yesAllergy"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="해당 있음"/>
+                android:text="해당 있음"
+                android:textColor="@color/black"
+                android:textStyle="bold" />
         </RadioGroup>
 
         <EditText
             android:id="@+id/allergyInfo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:lines="6"
+            android:background="@drawable/edittext_unaccessible_border"
+            android:layout_marginTop="10dp"
+            android:hint="알러지 정보 입력하세요."
+            android:ems="18"
             android:inputType="textMultiLine"
-            android:scrollHorizontally="false"
-            android:ems="15"
-            android:background="@drawable/edittext_unaccessible_border" />
+            android:lines="6"
+            android:scrollHorizontally="true"
+            android:padding="15dp"
+            android:gravity="top"
+            />
 
     </LinearLayout>
 

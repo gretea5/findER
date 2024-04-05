@@ -49,30 +49,39 @@ class QuestionnaireFinalFragment : Fragment() {
             "X" -> {
                 binding.smokeNoBtn.isChecked = true
                 binding.smokeYesBtn.isChecked = false
+                binding.smokeInfo.visibility = View.GONE
             }
             //해당 있음인 값인 경우,
             "O" -> {
                 binding.smokeNoBtn.isChecked = false
                 binding.smokeYesBtn.isChecked = true
+                binding.smokeInfo.visibility = View.VISIBLE
             }
             //라디오 버튼을 클릭하지 않았을 경우,
             "" -> {
                 binding.smokeNoBtn.isChecked = false
                 binding.smokeYesBtn.isChecked = false
+                binding.smokeInfo.visibility = View.GONE
             }
             else -> {
                 binding.smokeNoBtn.isChecked = false
                 binding.smokeYesBtn.isChecked = true
+                binding.smokeInfo.visibility = View.VISIBLE
                 binding.smokeInfo.setText(viewModel.smoke.value)
             }
         }
 
+        //흡연여부
         binding.smokeRadioGroup.setOnCheckedChangeListener { _, checkedId ->
             when (checkedId) {
-                R.id.smokeYesBtn -> { viewModel.setSmoke("O") }
+                R.id.smokeYesBtn -> {
+                    viewModel.setSmoke("O")
+                    binding.smokeInfo.visibility = View.VISIBLE
+                }
                 R.id.smokeNoBtn -> {
-                    binding.smokeInfo.setText("")
                     viewModel.setSmoke("X")
+                    binding.smokeInfo.visibility = View.GONE
+                    binding.smokeInfo.setText("")
                 }
             }
         }

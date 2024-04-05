@@ -41,8 +41,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
         android:layout_marginTop="90dp"
+        android:orientation="vertical"
         android:padding="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -59,16 +59,16 @@
                 android:layout_height="wrap_content"
                 android:text="혈액형"
                 android:textColor="@color/black"
-                android:textStyle="bold"
-                android:textSize="17sp" />
+                android:textSize="17sp"
+                android:textStyle="bold" />
 
             <ImageView
                 android:layout_width="13dp"
                 android:layout_height="13dp"
+                android:layout_gravity="center"
                 android:layout_marginLeft="5dp"
                 android:scaleType="fitXY"
-                android:src="@drawable/icon_inputcheck"
-                android:layout_gravity="center" />
+                android:src="@drawable/icon_inputcheck" />
 
         </LinearLayout>
 
@@ -114,11 +114,11 @@
             android:id="@+id/bloodRadioGroup"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:paddingVertical="15dp"
-            android:paddingHorizontal="50dp"
             android:layout_gravity="center"
-            android:orientation="horizontal">
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal"
+            android:paddingHorizontal="50dp"
+            android:paddingVertical="15dp">
 
             <RadioButton
                 android:id="@+id/aBtn"
@@ -168,24 +168,24 @@
                 android:layout_height="wrap_content"
                 android:text="알러지 정보 입력"
                 android:textColor="@color/black"
-                android:textStyle="bold"
-                android:textSize="17sp" />
+                android:textSize="17sp"
+                android:textStyle="bold" />
 
             <ImageView
                 android:layout_width="13dp"
                 android:layout_height="13dp"
+                android:layout_gravity="center"
                 android:layout_marginLeft="5dp"
                 android:scaleType="fitXY"
-                android:src="@drawable/icon_inputcheck"
-                android:layout_gravity="center" />
+                android:src="@drawable/icon_inputcheck" />
 
         </LinearLayout>
 
         <RadioGroup
             android:id="@+id/allergyRadioGroup"
-            android:layout_marginTop="15dp"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp">
 
             <RadioButton
                 android:id="@+id/noAllergy"
@@ -206,18 +206,16 @@
 
         <EditText
             android:id="@+id/allergyInfo"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/edittext_unaccessible_border"
             android:layout_marginTop="10dp"
+            android:background="@drawable/edittext_unaccessible_border"
+            android:gravity="top"
             android:hint="알러지 정보 입력하세요."
-            android:ems="18"
             android:inputType="textMultiLine"
             android:lines="6"
-            android:scrollHorizontally="true"
             android:padding="15dp"
-            android:gravity="top"
-            />
+            android:scrollHorizontally="true" />
 
     </LinearLayout>
 

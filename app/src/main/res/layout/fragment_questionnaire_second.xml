@@ -67,6 +67,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:paddingVertical="15dp"
                 android:button="@null"
                 android:text="Rh +"
                 android:textSize="20sp"
@@ -81,6 +82,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:paddingVertical="15dp"
                 android:button="@null"
                 android:text="Rh -"
                 android:textSize="20sp"
@@ -91,24 +93,6 @@
                 />
 
         </RadioGroup>
-
-<!--        <RadioGroup-->
-<!--            android:id="@+id/rhRadioGroup"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:orientation="horizontal">-->
-<!--            <RadioButton-->
-<!--                android:id="@+id/rhPlusBtn"-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:text="Rh+"/>-->
-
-<!--            <RadioButton-->
-<!--                android:id="@+id/rhMinusBtn"-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:text="Rh-"/>-->
-<!--        </RadioGroup>-->
 
         <RadioGroup
             android:id="@+id/bloodRadioGroup"

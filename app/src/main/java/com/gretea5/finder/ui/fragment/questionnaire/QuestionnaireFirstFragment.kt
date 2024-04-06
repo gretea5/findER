@@ -1,23 +1,40 @@
 package com.gretea5.finder.ui.fragment.questionnaire
 
+import android.app.Activity
+import android.app.Activity.RESULT_OK
+import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import com.gretea5.finder.R
 import com.gretea5.finder.databinding.FragmentQuestionnaireFirstBinding
+import com.gretea5.finder.ui.activity.SearchAddressActivity
 import com.gretea5.finder.ui.viewmodel.QuestionnaireViewModel
 
 class QuestionnaireFirstFragment : Fragment() {
     private lateinit var binding : FragmentQuestionnaireFirstBinding
     private lateinit var navController : NavController
     private val viewModel: QuestionnaireViewModel by activityViewModels()
+
+    private var resultLauncher =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+            //Search Activity로 부터의 결과값을 전달받으면,
+            if (result.resultCode == RESULT_OK) {
+                if (result.data != null) {
+                    val data = result.data!!.getStringExtra("data")
+                    binding.qnAddress.setText(data)
+                }
+            }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -75,6 +92,12 @@ class QuestionnaireFirstFragment : Fragment() {
                 R.id.qnFemale -> "여성"
                 else -> ""
             })
+        }
+
+        binding.qnAddress.setOnClickListener {
+            val intent = Intent(requireContext(), SearchAddressActivity::class.java)
+
+            resultLauncher.launch(intent)
         }
 
         //백 버튼 클릭시 이전 fragment 돌아가기

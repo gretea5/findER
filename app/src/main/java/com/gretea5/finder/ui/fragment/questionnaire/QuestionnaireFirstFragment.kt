@@ -94,10 +94,12 @@ class QuestionnaireFirstFragment : Fragment() {
             })
         }
 
-        binding.qnAddress.setOnClickListener {
-            val intent = Intent(requireContext(), SearchAddressActivity::class.java)
+        binding.qnAddress.onFocusChangeListener = View.OnFocusChangeListener { _, hasFocus ->
+            if (hasFocus) {
+                val intent = Intent(requireContext(), SearchAddressActivity::class.java)
 
-            resultLauncher.launch(intent)
+                resultLauncher.launch(intent)
+            }
         }
 
         //백 버튼 클릭시 이전 fragment 돌아가기

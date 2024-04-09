@@ -1,6 +1,7 @@
 package com.gretea5.finder.ui.fragment.questionnaire
 
 import android.app.DatePickerDialog
+import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -39,15 +40,27 @@ class QuestionnaireThirdFragment : Fragment() {
         binding = FragmentQuestionnaireThirdBinding.inflate(inflater)
 
         binding.addMedicineInfoBtn.setOnClickListener {
-            addMedicineInputView()
+            addInputView(
+                parent = binding.medicineAddLayout,
+                nameHint = getString(R.string.medicine_edittext_name),
+                dateHint = getString(R.string.medicine_edittext_date)
+            )
         }
 
         binding.addSurgeryInfoBtn.setOnClickListener {
-            addSurgeryInputView()
+            addInputView(
+                parent = binding.surgeryAddLayout,
+                nameHint = getString(R.string.surgery_edittext_name),
+                dateHint = getString(R.string.surgery_edittext_date)
+            )
         }
 
         binding.addDiseaseInfoBtn.setOnClickListener {
-            addDiseaseInputView()
+            addInputView(
+                parent = binding.diseaseAddLayout,
+                nameHint = getString(R.string.disease_edittext_name),
+                dateHint = getString(R.string.disease_edittext_date)
+            )
         }
 
         return binding.root
@@ -234,238 +247,141 @@ class QuestionnaireThirdFragment : Fragment() {
         }
     }
 
-    private fun addMedicineInputView() {
+    private fun addInputView(
+        parent: LinearLayout,
+        nameHint: String,
+        dateHint: String
+    ) {
         val context = requireContext()
 
-        val medicineInfoLayout = LinearLayout(context)
+        val childLinearLayout = LinearLayout(context)
+        customLinearLayout(childLinearLayout)
 
-        val medicineInfoLayoutParams = LinearLayout.LayoutParams(
+        val nameEdittext = EditText(context)
+        customNameEdittext(nameEdittext, context, nameHint)
+
+        val dateEdittext = EditText(context)
+        customDateEdittext(dateEdittext, context, dateHint)
+
+        setDateEdittextFocusListener(dateEdittext)
+
+        addParentLinearLayout(
+            parent = parent,
+            child = childLinearLayout,
+            nameEditText = nameEdittext,
+            dateEdittext = dateEdittext
+        )
+    }
+
+    //edittext를 감싸고 있는 linearLayout custom
+    private fun customLinearLayout(linearLayout: LinearLayout) {
+        val linearLayoutParams = LinearLayout.LayoutParams(
             LinearLayout.LayoutParams.MATCH_PARENT,
             LinearLayout.LayoutParams.WRAP_CONTENT
         )
 
-        medicineInfoLayoutParams.topMargin = resources.getDimensionPixelSize(R.dimen.write_qn_linearlayout_margin)
-        medicineInfoLayoutParams.bottomMargin = resources.getDimensionPixelSize(R.dimen.write_qn_linearlayout_margin)
+        linearLayoutParams.topMargin = resources.getDimensionPixelSize(R.dimen.write_qn_linearlayout_margin)
+        linearLayoutParams.bottomMargin = resources.getDimensionPixelSize(R.dimen.write_qn_linearlayout_margin)
 
-        medicineInfoLayout.layoutParams = medicineInfoLayoutParams
-        medicineInfoLayout.orientation = LinearLayout.HORIZONTAL
+        linearLayout.layoutParams = linearLayoutParams
+        linearLayout.orientation = LinearLayout.HORIZONTAL
+    }
 
-        val medicineNameEditText = EditText(context)
-
-        val medicineNameParams = LinearLayout.LayoutParams(
+    //이름을 입력받는 edittext custom
+    private fun customNameEdittext(
+        editText: EditText,
+        context: Context,
+        hint: String
+    ) {
+        val nameEdittextParams = LinearLayout.LayoutParams(
             0,
             LinearLayout.LayoutParams.WRAP_CONTENT,
             1f
         )
 
-        medicineNameParams.marginEnd = resources.getDimensionPixelSize(R.dimen.write_qn_name_margin)
-        medicineNameEditText.layoutParams = medicineNameParams
+        nameEdittextParams.marginEnd = resources.getDimensionPixelSize(R.dimen.write_qn_name_margin)
+        editText.layoutParams = nameEdittextParams
 
-        medicineNameEditText.background = ContextCompat.getDrawable(context, R.drawable.edittext_unaccessible_border)
-        medicineNameEditText.hint = "약이름"
+        editText.background = ContextCompat.getDrawable(context, R.drawable.edittext_unaccessible_border)
+        editText.hint = hint
 
-        medicineNameEditText.setPadding(
+        editText.setPadding(
             resources.getDimensionPixelSize(R.dimen.write_qn_name_padding),
             resources.getDimensionPixelSize(R.dimen.write_qn_name_padding),
             resources.getDimensionPixelSize(R.dimen.write_qn_name_padding),
             resources.getDimensionPixelSize(R.dimen.write_qn_name_padding)
         )
+    }
 
-        val medicineDateEdittext = EditText(context)
+    private fun customDateEdittext(
+        editText: EditText,
+        context: Context,
+        hint: String
+    ) {
+        setDateEdittextStyle(editText, context, hint)
+        setDateEdittextCalendarIcon(editText, context)
+    }
 
-        val medicineDateParams = LinearLayout.LayoutParams(
+    private fun setDateEdittextStyle(
+        editText: EditText,
+        context: Context,
+        hint: String
+    ) {
+        val dateEdittextParams = LinearLayout.LayoutParams(
             0,
             LinearLayout.LayoutParams.WRAP_CONTENT,
             1f
         )
-        medicineDateParams.marginEnd = resources.getDimensionPixelSize(R.dimen.write_qn_name_margin) // 간격을 위한 마진 추가
-        medicineDateEdittext.layoutParams = medicineDateParams
+        dateEdittextParams.marginEnd = resources.getDimensionPixelSize(R.dimen.write_qn_name_margin) // 간격을 위한 마진 추가
+        editText.layoutParams = dateEdittextParams
 
-        medicineDateEdittext.background = ContextCompat.getDrawable(context, R.drawable.edittext_unaccessible_border)
-        medicineDateEdittext.hint = "복용시작일"
-        medicineDateEdittext.setPadding( // padding 값을 지정
+        editText.background = ContextCompat.getDrawable(context, R.drawable.edittext_unaccessible_border)
+        editText.hint = hint
+        editText.setPadding( // padding 값을 지정
             resources.getDimensionPixelSize(R.dimen.write_qn_name_padding),
             resources.getDimensionPixelSize(R.dimen.write_qn_name_padding),
             resources.getDimensionPixelSize(R.dimen.write_qn_name_padding),
             resources.getDimensionPixelSize(R.dimen.write_qn_name_padding)
         )
+    }
 
-        medicineDateEdittext.onFocusChangeListener = View.OnFocusChangeListener { _, hasFocus ->
+    private fun setDateEdittextCalendarIcon(editText: EditText, context: Context) {
+        val calendarIcon = ContextCompat.getDrawable(context, R.drawable.icon_calendar)
+
+        calendarIcon?.setBounds(0, 0, 70, 70)
+
+        editText.setCompoundDrawables(
+            null,
+            null,
+            calendarIcon,
+            null
+        )
+    }
+
+    private fun setDateEdittextFocusListener(editText: EditText) {
+        editText.onFocusChangeListener = View.OnFocusChangeListener { _, hasFocus ->
             if (hasFocus) {
                 val pickerDialog = YearMonthPickerDialog()
 
                 pickerDialog.setListener { _, year, month, _ ->
                     val selectedDate = "$year-$month"
-                    Toast.makeText(getContext(), selectedDate, Toast.LENGTH_LONG).show()
-                    medicineDateEdittext.setText(selectedDate)
+                    editText.setText(selectedDate)
                 }
 
                 pickerDialog.show(childFragmentManager, "YearMonthPickerDialog")
             }
         }
-
-        val calendarIcon = ContextCompat.getDrawable(context, R.drawable.icon_calendar)
-
-        calendarIcon?.setBounds(0, 0, 70, 70)
-
-        medicineDateEdittext.setCompoundDrawables(
-            null,
-            null,
-            calendarIcon,
-            null
-        )
-
-        medicineInfoLayout.addView(medicineNameEditText)
-        medicineInfoLayout.addView(medicineDateEdittext)
-
-
-        binding.medicineAddLayout.addView(medicineInfoLayout)
     }
 
-    private fun addSurgeryInputView() {
-        val context = requireContext()
+    private fun addParentLinearLayout(
+        parent: LinearLayout,
+        child: LinearLayout,
+        nameEditText: EditText,
+        dateEdittext: EditText
+    ) {
+        child.addView(nameEditText)
+        child.addView(dateEdittext)
 
-        val surgeryInfoLayout = LinearLayout(context)
-
-        val surgeryInfoLayoutParams = LinearLayout.LayoutParams(
-            LinearLayout.LayoutParams.MATCH_PARENT,
-            LinearLayout.LayoutParams.WRAP_CONTENT
-        )
-
-        surgeryInfoLayoutParams.topMargin = resources.getDimensionPixelSize(R.dimen.write_qn_linearlayout_margin)
-        surgeryInfoLayoutParams.bottomMargin = resources.getDimensionPixelSize(R.dimen.write_qn_linearlayout_margin)
-
-        surgeryInfoLayout.layoutParams = surgeryInfoLayoutParams
-        surgeryInfoLayout.orientation = LinearLayout.HORIZONTAL
-
-        val surgeryNameEditText = EditText(context)
-
-        val surgeryNameParams = LinearLayout.LayoutParams(
-            0,
-            LinearLayout.LayoutParams.WRAP_CONTENT,
-            1f
-        )
-
-        surgeryNameParams.marginEnd = resources.getDimensionPixelSize(R.dimen.write_qn_name_margin)
-        surgeryNameEditText.layoutParams = surgeryNameParams
-
-        surgeryNameEditText.background = ContextCompat.getDrawable(context, R.drawable.edittext_unaccessible_border)
-        surgeryNameEditText.hint = "수술명"
-
-        surgeryNameEditText.setPadding(
-            resources.getDimensionPixelSize(R.dimen.write_qn_name_padding),
-            resources.getDimensionPixelSize(R.dimen.write_qn_name_padding),
-            resources.getDimensionPixelSize(R.dimen.write_qn_name_padding),
-            resources.getDimensionPixelSize(R.dimen.write_qn_name_padding)
-        )
-
-        val surgeryDateEdittext = EditText(context)
-
-        val surgeryDateParams = LinearLayout.LayoutParams(
-            0,
-            LinearLayout.LayoutParams.WRAP_CONTENT,
-            1f
-        )
-        surgeryDateParams.marginEnd = resources.getDimensionPixelSize(R.dimen.write_qn_name_margin) // 간격을 위한 마진 추가
-        surgeryDateEdittext.layoutParams = surgeryDateParams
-
-        surgeryDateEdittext.background = ContextCompat.getDrawable(context, R.drawable.edittext_unaccessible_border)
-        surgeryDateEdittext.hint = "수술일"
-        surgeryDateEdittext.setPadding( // padding 값을 지정
-            resources.getDimensionPixelSize(R.dimen.write_qn_name_padding),
-            resources.getDimensionPixelSize(R.dimen.write_qn_name_padding),
-            resources.getDimensionPixelSize(R.dimen.write_qn_name_padding),
-            resources.getDimensionPixelSize(R.dimen.write_qn_name_padding)
-        )
-
-        val calendarIcon = ContextCompat.getDrawable(context, R.drawable.icon_calendar)
-
-        calendarIcon?.setBounds(0, 0, 70, 70)
-
-        surgeryDateEdittext.setCompoundDrawables(
-            null,
-            null,
-            calendarIcon,
-            null
-        )
-
-        surgeryInfoLayout.addView(surgeryNameEditText)
-        surgeryInfoLayout.addView(surgeryDateEdittext)
-
-        binding.surgeryAddLayout.addView(surgeryInfoLayout)
-    }
-    
-    private fun addDiseaseInputView() {
-        val context = requireContext()
-
-        val diseaseInfoLayout = LinearLayout(context)
-
-        val diseaseInfoLayoutParams = LinearLayout.LayoutParams(
-            LinearLayout.LayoutParams.MATCH_PARENT,
-            LinearLayout.LayoutParams.WRAP_CONTENT
-        )
-
-        diseaseInfoLayoutParams.topMargin = resources.getDimensionPixelSize(R.dimen.write_qn_linearlayout_margin)
-        diseaseInfoLayoutParams.bottomMargin = resources.getDimensionPixelSize(R.dimen.write_qn_linearlayout_margin)
-
-        diseaseInfoLayout.layoutParams = diseaseInfoLayoutParams
-        diseaseInfoLayout.orientation = LinearLayout.HORIZONTAL
-
-        val diseaseNameEditText = EditText(context)
-
-        val diseaseNameParams = LinearLayout.LayoutParams(
-            0,
-            LinearLayout.LayoutParams.WRAP_CONTENT,
-            1f
-        )
-
-        diseaseNameParams.marginEnd = resources.getDimensionPixelSize(R.dimen.write_qn_name_margin)
-        diseaseNameEditText.layoutParams = diseaseNameParams
-
-        diseaseNameEditText.background = ContextCompat.getDrawable(context, R.drawable.edittext_unaccessible_border)
-        diseaseNameEditText.hint = "질환 이름"
-
-        diseaseNameEditText.setPadding(
-            resources.getDimensionPixelSize(R.dimen.write_qn_name_padding),
-            resources.getDimensionPixelSize(R.dimen.write_qn_name_padding),
-            resources.getDimensionPixelSize(R.dimen.write_qn_name_padding),
-            resources.getDimensionPixelSize(R.dimen.write_qn_name_padding)
-        )
-
-        val diseaseDateEdittext = EditText(context)
-
-        val diseaseDateParams = LinearLayout.LayoutParams(
-            0,
-            LinearLayout.LayoutParams.WRAP_CONTENT,
-            1f
-        )
-        diseaseDateParams.marginEnd = resources.getDimensionPixelSize(R.dimen.write_qn_name_margin) // 간격을 위한 마진 추가
-        diseaseDateEdittext.layoutParams = diseaseDateParams
-
-        diseaseDateEdittext.background = ContextCompat.getDrawable(context, R.drawable.edittext_unaccessible_border)
-        diseaseDateEdittext.hint = "질환 진단 시기"
-        diseaseDateEdittext.setPadding( // padding 값을 지정
-            resources.getDimensionPixelSize(R.dimen.write_qn_name_padding),
-            resources.getDimensionPixelSize(R.dimen.write_qn_name_padding),
-            resources.getDimensionPixelSize(R.dimen.write_qn_name_padding),
-            resources.getDimensionPixelSize(R.dimen.write_qn_name_padding)
-        )
-
-        val calendarIcon = ContextCompat.getDrawable(context, R.drawable.icon_calendar)
-
-        calendarIcon?.setBounds(0, 0, 70, 70)
-
-        diseaseDateEdittext.setCompoundDrawables(
-            null,
-            null,
-            calendarIcon,
-            null
-        )
-
-        diseaseInfoLayout.addView(diseaseNameEditText)
-        diseaseInfoLayout.addView(diseaseDateEdittext)
-
-
-        binding.diseaseAddLayout.addView(diseaseInfoLayout)
+        parent.addView(child)
     }
 }

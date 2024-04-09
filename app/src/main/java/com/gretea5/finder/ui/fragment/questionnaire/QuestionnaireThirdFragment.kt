@@ -1,13 +1,16 @@
 package com.gretea5.finder.ui.fragment.questionnaire
 
+import android.app.DatePickerDialog
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.DatePicker
 import android.widget.EditText
 import android.widget.LinearLayout
+import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.core.content.ContextCompat
 import androidx.core.view.marginEnd
@@ -17,6 +20,7 @@ import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import com.gretea5.finder.R
 import com.gretea5.finder.databinding.FragmentQuestionnaireThirdBinding
+import com.gretea5.finder.ui.dialog.YearMonthPickerDialog
 import com.gretea5.finder.ui.viewmodel.QuestionnaireViewModel
 
 class QuestionnaireThirdFragment : Fragment() {
@@ -249,7 +253,7 @@ class QuestionnaireThirdFragment : Fragment() {
         val medicineNameEditText = EditText(context)
 
         val medicineNameParams = LinearLayout.LayoutParams(
-            LinearLayout.LayoutParams.WRAP_CONTENT,
+            0,
             LinearLayout.LayoutParams.WRAP_CONTENT,
             1f
         )
@@ -270,7 +274,7 @@ class QuestionnaireThirdFragment : Fragment() {
         val medicineDateEdittext = EditText(context)
 
         val medicineDateParams = LinearLayout.LayoutParams(
-            LinearLayout.LayoutParams.WRAP_CONTENT,
+            0,
             LinearLayout.LayoutParams.WRAP_CONTENT,
             1f
         )
@@ -285,6 +289,20 @@ class QuestionnaireThirdFragment : Fragment() {
             resources.getDimensionPixelSize(R.dimen.write_qn_name_padding),
             resources.getDimensionPixelSize(R.dimen.write_qn_name_padding)
         )
+
+        medicineDateEdittext.onFocusChangeListener = View.OnFocusChangeListener { _, hasFocus ->
+            if (hasFocus) {
+                val pickerDialog = YearMonthPickerDialog()
+
+                pickerDialog.setListener { _, year, month, _ ->
+                    val selectedDate = "$year-$month"
+                    Toast.makeText(getContext(), selectedDate, Toast.LENGTH_LONG).show()
+                    medicineDateEdittext.setText(selectedDate)
+                }
+
+                pickerDialog.show(childFragmentManager, "YearMonthPickerDialog")
+            }
+        }
 
         val calendarIcon = ContextCompat.getDrawable(context, R.drawable.icon_calendar)
 
@@ -323,7 +341,7 @@ class QuestionnaireThirdFragment : Fragment() {
         val surgeryNameEditText = EditText(context)
 
         val surgeryNameParams = LinearLayout.LayoutParams(
-            LinearLayout.LayoutParams.WRAP_CONTENT,
+            0,
             LinearLayout.LayoutParams.WRAP_CONTENT,
             1f
         )
@@ -344,7 +362,7 @@ class QuestionnaireThirdFragment : Fragment() {
         val surgeryDateEdittext = EditText(context)
 
         val surgeryDateParams = LinearLayout.LayoutParams(
-            LinearLayout.LayoutParams.WRAP_CONTENT,
+            0,
             LinearLayout.LayoutParams.WRAP_CONTENT,
             1f
         )
@@ -376,7 +394,7 @@ class QuestionnaireThirdFragment : Fragment() {
 
         binding.surgeryAddLayout.addView(surgeryInfoLayout)
     }
-
+    
     private fun addDiseaseInputView() {
         val context = requireContext()
 
@@ -396,7 +414,7 @@ class QuestionnaireThirdFragment : Fragment() {
         val diseaseNameEditText = EditText(context)
 
         val diseaseNameParams = LinearLayout.LayoutParams(
-            LinearLayout.LayoutParams.WRAP_CONTENT,
+            0,
             LinearLayout.LayoutParams.WRAP_CONTENT,
             1f
         )
@@ -417,7 +435,7 @@ class QuestionnaireThirdFragment : Fragment() {
         val diseaseDateEdittext = EditText(context)
 
         val diseaseDateParams = LinearLayout.LayoutParams(
-            LinearLayout.LayoutParams.WRAP_CONTENT,
+            0,
             LinearLayout.LayoutParams.WRAP_CONTENT,
             1f
         )

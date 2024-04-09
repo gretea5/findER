@@ -97,30 +97,38 @@ class QuestionnaireFinalFragment : Fragment() {
             "X" -> {
                 binding.drinkNoBtn.isChecked = true
                 binding.drinkYesBtn.isChecked = false
+                binding.drinkInfo.visibility = View.GONE
             }
             //해당 있음인 값인 경우,
             "O" -> {
                 binding.drinkNoBtn.isChecked = false
                 binding.drinkYesBtn.isChecked = true
+                binding.drinkInfo.visibility = View.VISIBLE
             }
             //라디오 버튼을 클릭하지 않았을 경우,
             "" -> {
                 binding.drinkNoBtn.isChecked = false
                 binding.drinkYesBtn.isChecked = false
+                binding.drinkInfo.visibility = View.GONE
             }
             else -> {
                 binding.drinkNoBtn.isChecked = false
                 binding.drinkYesBtn.isChecked = true
                 binding.drinkInfo.setText(viewModel.drink.value)
+                binding.drinkInfo.visibility = View.VISIBLE
             }
         }
 
         binding.drinkRadioGroup.setOnCheckedChangeListener { _, checkedId ->
             when (checkedId) {
-                R.id.drinkYesBtn -> { viewModel.setDrink("O") }
+                R.id.drinkYesBtn -> {
+                    viewModel.setDrink("O")
+                    binding.drinkInfo.visibility = View.VISIBLE
+                }
                 R.id.drinkNoBtn -> {
                     binding.drinkInfo.setText("")
                     viewModel.setDrink("X")
+                    binding.drinkInfo.visibility = View.GONE
                 }
             }
         }
@@ -136,33 +144,42 @@ class QuestionnaireFinalFragment : Fragment() {
             "X" -> {
                 binding.etcNoBtn.isChecked = true
                 binding.etcYesBtn.isChecked = false
+                binding.etcInfo.visibility = View.GONE
             }
             //해당 있음인 값인 경우,
             "O" -> {
                 binding.etcNoBtn.isChecked = false
                 binding.etcYesBtn.isChecked = true
+                binding.etcInfo.visibility = View.VISIBLE
             }
             //라디오 버튼을 클릭하지 않았을 경우,
             "" -> {
                 binding.etcNoBtn.isChecked = false
                 binding.etcYesBtn.isChecked = false
+                binding.etcInfo.visibility = View.GONE
             }
             else -> {
                 binding.etcNoBtn.isChecked = false
                 binding.etcYesBtn.isChecked = true
                 binding.etcInfo.setText(viewModel.etc.value)
+                binding.etcInfo.visibility = View.VISIBLE
             }
         }
 
         binding.etcRadioGroup.setOnCheckedChangeListener { _, checkedId ->
             when (checkedId) {
-                R.id.etcYesBtn -> { viewModel.setEtc("O") }
+                R.id.etcYesBtn -> {
+                    viewModel.setEtc("O")
+                    binding.etcInfo.visibility = View.VISIBLE
+                }
                 R.id.etcNoBtn -> {
                     //해당 없음을 체크 했을 경우 내용 삭제
                     binding.etcInfo.setText("")
 
                     //"X"값으로 갱신
                     viewModel.setEtc("X")
+
+                    binding.etcInfo.visibility = View.GONE
                 }
             }
         }

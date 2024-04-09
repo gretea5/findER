@@ -87,6 +87,7 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <ImageView
+                    android:id="@+id/addMedicineInfoBtn"
                     android:layout_width="30dp"
                     android:layout_height="30dp"
                     android:scaleType="fitXY"
@@ -120,6 +121,13 @@
                     android:textColor="@color/black"
                     android:textStyle="bold" />
             </RadioGroup>
+
+            <LinearLayout
+                android:id="@+id/medicineAddLayout"
+                android:layout_marginTop="15dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical" />
 
             <EditText
                 android:id="@+id/medicineInfo"
@@ -173,6 +181,7 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <ImageView
+                    android:id="@+id/addSurgeryInfoBtn"
                     android:layout_width="30dp"
                     android:layout_height="30dp"
                     android:scaleType="fitXY"
@@ -206,6 +215,13 @@
                     android:textColor="@color/black"
                     android:textStyle="bold" />
             </RadioGroup>
+
+            <LinearLayout
+                android:id="@+id/surgeryAddLayout"
+                android:layout_marginTop="15dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical" />
 
             <EditText
                 android:id="@+id/surgeryInfo"
@@ -245,6 +261,7 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <ImageView
+                    android:id="@+id/addDiseaseInfoBtn"
                     android:layout_width="30dp"
                     android:layout_height="30dp"
                     android:scaleType="fitXY"
@@ -278,6 +295,13 @@
                     android:textColor="@color/black"
                     android:textStyle="bold" />
             </RadioGroup>
+
+            <LinearLayout
+                android:id="@+id/diseaseAddLayout"
+                android:layout_marginTop="15dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical" />
 
             <EditText
                 android:id="@+id/diseaseInfo"

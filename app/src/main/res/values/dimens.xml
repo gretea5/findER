@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="write_qn_name_margin">16dp</dimen>
+    <dimen name="write_qn_name_padding">5dp</dimen>
+    <dimen name="write_qn_linearlayout_margin">8dp</dimen>
+</resources>

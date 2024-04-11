@@ -13,6 +13,8 @@ import com.gretea5.finder.R
 import com.gretea5.finder.data.ApiService
 import com.gretea5.finder.data.model.QuestionnaireLinkModel
 import com.gretea5.finder.databinding.FragmentQuestionnaireLinkBinding
+import com.gretea5.finder.ui.util.SharedPreferenceUtil
+import com.gretea5.finder.ui.util.SharedPreferenceUtil.getPhoneNumber
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -61,14 +63,8 @@ class QuestionnaireLinkFragment : Fragment() {
         }
     }
 
-    private fun getPhoneNumber(): String {
-        val pref = requireActivity().getSharedPreferences("pref", 0)
-
-        return pref.getString(getString(R.string.phonenumber_key), "") ?: ""
-    }
-
     private fun fetchSerialNumber() {
-        val phoneNumber = getPhoneNumber()
+        val phoneNumber = getPhoneNumber(requireActivity())
 
         Log.d("QuestionnaireLinkFragment", phoneNumber)
 
@@ -88,7 +84,7 @@ class QuestionnaireLinkFragment : Fragment() {
     }
 
     private fun linkQuestionnaire() {
-        val phoneNumber = getPhoneNumber()
+        val phoneNumber = getPhoneNumber(requireActivity())
         val linkedSerialNumber = binding.etOtherPersonSerialNumber.text.toString()
 
         val questionnaireLinkModel = QuestionnaireLinkModel(phoneNumber, linkedSerialNumber)

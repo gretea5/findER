@@ -43,4 +43,8 @@
     <string name="disease_edittext_name">질환명</string>
     <string name="disease_edittext_date">질환 진단 시기</string>
 
+    <string name="pref_name">pref</string>
+    <string name="empty_string"/>
+
+
 </resources>

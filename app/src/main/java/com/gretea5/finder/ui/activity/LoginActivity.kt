@@ -17,6 +17,7 @@ import com.gretea5.finder.data.model.LoginModel
 import com.gretea5.finder.ui.activity.SignupActivity.Companion.PHONE_NUMBER_SIZE
 import com.gretea5.finder.ui.activity.SignupActivity.Companion.RESIDENCE_NUMBER_SIZE
 import com.gretea5.finder.databinding.ActivityLoginBinding
+import com.gretea5.finder.ui.util.SharedPreferenceUtil.savePhoneNumber
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -113,14 +114,6 @@ class LoginActivity : AppCompatActivity() {
         textView.setTextColor(ContextCompat.getColor(this, textColor))
     }
 
-    private fun savePhoneNumber(phoneNumber: String) {
-        //전화번호 getPreferences 저장
-        val sharedPref = getSharedPreferences("pref", 0)
-        val sharedEditor = sharedPref.edit()
-        sharedEditor.putString(getString(R.string.phonenumber_key), phoneNumber)
-        sharedEditor.apply()
-    }
-
     private fun requestLogin() {
         val phoneNumber = binding.phoneEditText.text.toString()
         val rrn = binding.residenceNumberEditText.text.toString()
@@ -133,7 +126,7 @@ class LoginActivity : AppCompatActivity() {
                     Log.d("LoginActivity ResponseBody", response.code().toString())
                     Log.d("LoginActivity ResponseBody", response.body().toString())
 
-                    savePhoneNumber(phoneNumber)
+                    savePhoneNumber(baseContext, phoneNumber)
 
                     val intent = Intent(applicationContext, MainActivity::class.java)
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK)

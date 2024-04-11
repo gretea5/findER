@@ -18,6 +18,7 @@ import androidx.navigation.fragment.findNavController
 import com.gretea5.finder.R
 import com.gretea5.finder.databinding.FragmentQuestionnaireFirstBinding
 import com.gretea5.finder.ui.activity.SearchAddressActivity
+import com.gretea5.finder.ui.util.SharedPreferenceUtil.getUpdateMode
 import com.gretea5.finder.ui.viewmodel.QuestionnaireViewModel
 
 class QuestionnaireFirstFragment : Fragment() {
@@ -107,7 +108,7 @@ class QuestionnaireFirstFragment : Fragment() {
             .addCallback(viewLifecycleOwner, object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
                 navController.navigateUp()
-                if(!getUpdateMode()) {
+                if(!getUpdateMode(requireActivity())) {
                     viewModel.resetViewModelData()
                 }
             }
@@ -116,7 +117,7 @@ class QuestionnaireFirstFragment : Fragment() {
         //이전 버튼 클릭시
         binding.qnFirstBeforeBtn.setOnClickListener {
             navController.navigateUp()
-            if(!getUpdateMode()) {
+            if(!getUpdateMode(requireActivity())) {
                 viewModel.resetViewModelData()
             }
         }
@@ -125,10 +126,5 @@ class QuestionnaireFirstFragment : Fragment() {
         binding.qnFirstNextBtn.setOnClickListener {
             navController.navigate(R.id.action_questionnaireFirstFragment_to_questionnaireSecondFragment)
         }
-    }
-
-    private fun getUpdateMode() : Boolean {
-        val sharedPref = requireActivity().getSharedPreferences("pref", 0)
-        return sharedPref.getBoolean(getString(R.string.edit_mode), false)
     }
 }

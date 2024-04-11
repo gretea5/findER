@@ -8,13 +8,14 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.Observer
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import com.gretea5.finder.R
 import com.gretea5.finder.data.ApiService
 import com.gretea5.finder.data.model.QuestionnaireUnlinkModel
 import com.gretea5.finder.databinding.FragmentQuestionnaireInfoBinding
+import com.gretea5.finder.ui.util.SharedPreferenceUtil.getPhoneNumber
+import com.gretea5.finder.ui.util.SharedPreferenceUtil.setUpdateMode
 import com.gretea5.finder.ui.viewmodel.QuestionnaireViewModel
 import retrofit2.Call
 import retrofit2.Callback
@@ -50,7 +51,7 @@ class QuestionnaireInfoFragment : Fragment() {
         binding.qnInfoSmoke.text = viewModel.smoke.value
         binding.qnInfoEtc.text = viewModel.etc.value
 
-        val phoneNumber = getPhoneNumber()
+        val phoneNumber = getPhoneNumber(requireActivity())
 
         if(viewModel.phoneNumber.value.equals(phoneNumber)) {
             binding.qnInfoDeleteBtn.text = getString(R.string.delete)
@@ -79,7 +80,7 @@ class QuestionnaireInfoFragment : Fragment() {
 
 
         binding.qnInfoUpdateBtn.setOnClickListener {
-            setUpdateMode()
+            setUpdateMode(requireActivity())
             navController.navigate(R.id.action_questionnaireInfoFragment_to_questionnaireFirstFragment)
         }
 
@@ -93,19 +94,7 @@ class QuestionnaireInfoFragment : Fragment() {
             })
     }
 
-    private fun setUpdateMode() {
-        //전화번호 getPreferences 저장
-        val sharedPref = requireActivity().getSharedPreferences("pref", 0)
-        val sharedEditor = sharedPref.edit()
-        sharedEditor.putBoolean(getString(R.string.edit_mode), true)
-        sharedEditor.apply()
-    }
 
-    private fun getPhoneNumber(): String {
-        val pref = requireActivity().getSharedPreferences("pref", 0)
-
-        return pref.getString(getString(R.string.phonenumber_key), "") ?: ""
-    }
 
     private fun deleteQuestionnaire(phoneNumber: String) {
         api.deleteQuestionnaire(phoneNumber).enqueue(object : Callback<String> {

@@ -15,6 +15,9 @@ import com.gretea5.finder.R
 import com.gretea5.finder.data.ApiService
 import com.gretea5.finder.data.model.QuestionnaireModel
 import com.gretea5.finder.databinding.FragmentQuestionnaireFinalBinding
+import com.gretea5.finder.ui.util.SharedPreferenceUtil.getPhoneNumber
+import com.gretea5.finder.ui.util.SharedPreferenceUtil.getUpdateMode
+import com.gretea5.finder.ui.util.SharedPreferenceUtil.offUpdateMode
 import com.gretea5.finder.ui.viewmodel.QuestionnaireViewModel
 import retrofit2.Call
 import retrofit2.Callback
@@ -203,14 +206,14 @@ class QuestionnaireFinalFragment : Fragment() {
             navController.navigateUp()
         }
 
-        binding.qnFinalCompleteBtn.text = if (getUpdateMode())
+        binding.qnFinalCompleteBtn.text = if (getUpdateMode(requireActivity()))
             getString(R.string.update)
         else
             getString(R.string.complete)
 
         //수정/완료 버튼 클릭시
         binding.qnFinalCompleteBtn.setOnClickListener {
-            if(getUpdateMode())  {
+            if(getUpdateMode(requireActivity()))  {
                 updateQuestionnaire()
             }
             else {
@@ -228,7 +231,7 @@ class QuestionnaireFinalFragment : Fragment() {
 
                 viewModel.resetViewModelData()
 
-                offUpdateMode()
+                offUpdateMode(requireActivity())
             }
 
             override fun onFailure(call: Call<String>, t: Throwable) {
@@ -238,7 +241,7 @@ class QuestionnaireFinalFragment : Fragment() {
     }
 
     private fun postQuestionnaire() {
-        viewModel.setPhoneNumber(getPhoneNumber())
+        viewModel.setPhoneNumber(getPhoneNumber(requireActivity()))
 
         val questionnaireModel = viewModel.getQuestionnaireModel()
 
@@ -257,23 +260,5 @@ class QuestionnaireFinalFragment : Fragment() {
                 TODO("Not yet implemented")
             }
         })
-    }
-
-    private fun getPhoneNumber(): String {
-        val pref = requireActivity().getSharedPreferences("pref", 0)
-        return pref.getString(getString(R.string.phonenumber_key), "") ?: ""
-    }
-
-    private fun getUpdateMode() : Boolean {
-        val sharedPref = requireActivity().getSharedPreferences("pref", 0)
-        return sharedPref.getBoolean(getString(R.string.edit_mode), false)
-    }
-
-    private fun offUpdateMode() {
-        //전화번호 getPreferences 저장
-        val sharedPref = requireActivity().getSharedPreferences("pref", 0)
-        val sharedEditor = sharedPref.edit()
-        sharedEditor.putBoolean(getString(R.string.edit_mode), false)
-        sharedEditor.apply()
     }
 }

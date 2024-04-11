@@ -14,6 +14,7 @@ import com.gretea5.finder.data.ApiService
 import com.gretea5.finder.data.model.QuestionnaireModel
 import com.gretea5.finder.databinding.FragmentQuestionnaireBinding
 import com.gretea5.finder.ui.Adapter.QuestionnaireAdapter
+import com.gretea5.finder.ui.util.SharedPreferenceUtil.getPhoneNumber
 import com.gretea5.finder.ui.viewmodel.QuestionnaireViewModel
 import retrofit2.Call
 import retrofit2.Callback
@@ -71,14 +72,9 @@ class QuestionnaireFragment : Fragment() {
         }
     }
 
-    private fun getPhoneNumber(): String {
-        val pref = requireActivity().getSharedPreferences("pref", 0)
-
-        return pref.getString(getString(R.string.phonenumber_key), "") ?: ""
-    }
-
     private fun getQuestionnaireListData() {
-        api.getQuestionnaires(getPhoneNumber()).enqueue(object: Callback<List<QuestionnaireModel>> {
+        val phoneNumber = getPhoneNumber(requireActivity())
+        api.getQuestionnaires(phoneNumber).enqueue(object: Callback<List<QuestionnaireModel>> {
             override fun onResponse(
                 call: Call<List<QuestionnaireModel>>,
                 response: Response<List<QuestionnaireModel>>

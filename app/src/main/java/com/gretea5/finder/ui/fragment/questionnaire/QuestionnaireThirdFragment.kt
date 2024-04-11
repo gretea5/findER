@@ -1,20 +1,19 @@
 package com.gretea5.finder.ui.fragment.questionnaire
 
-import android.app.DatePickerDialog
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.DatePicker
 import android.widget.EditText
+import android.widget.ImageView
 import android.widget.LinearLayout
-import android.widget.Toast
+import android.widget.RadioButton
+import android.widget.RadioGroup
+import android.widget.TextView
 import androidx.activity.OnBackPressedCallback
 import androidx.core.content.ContextCompat
-import androidx.core.view.marginEnd
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.NavController
@@ -27,7 +26,33 @@ import com.gretea5.finder.ui.viewmodel.QuestionnaireViewModel
 class QuestionnaireThirdFragment : Fragment() {
     private lateinit var binding : FragmentQuestionnaireThirdBinding
     private lateinit var navController: NavController
+
     private val viewModel: QuestionnaireViewModel by activityViewModels()
+
+    private val qnThirdBeforeBtn: TextView by lazy { binding.qnThirdBeforeBtn }
+    private val qnThirdNextBtn: TextView by lazy { binding.qnThirdNextBtn }
+
+    private val medicineRadioGroup: RadioGroup by lazy { binding.medicineRadioGroup }
+    private val medicineNoBtn: RadioButton by lazy { binding.medicineNoBtn }
+    private val medicineYesBtn: RadioButton by lazy { binding.medicineYesBtn }
+    private val medicineInfo: EditText by lazy { binding.medicineInfo }
+    private val medicineAddLayout: LinearLayout by lazy { binding.medicineAddLayout }
+    private val addMedicineInfoBtn: ImageView by lazy { binding.addMedicineInfoBtn }
+
+    private val surgeryRadioGroup: RadioGroup by lazy { binding.surgeryRadioGroup }
+    private val surgeryNoBtn: RadioButton by lazy { binding.surgeryNoBtn }
+    private val surgeryYesBtn: RadioButton by lazy { binding.surgeryYesBtn }
+    private val surgeryInfo: EditText by lazy { binding.surgeryInfo }
+    private val surgeryAddLayout: LinearLayout by lazy { binding.surgeryAddLayout }
+    private val addSurgeryInfoBtn: ImageView by lazy { binding.addSurgeryInfoBtn }
+
+    private val diseaseRadioGroup: RadioGroup by lazy { binding.diseaseRadioGroup }
+    private val diseaseNoBtn: RadioButton by lazy { binding.diseaseNoBtn }
+    private val diseaseYesBtn: RadioButton by lazy { binding.diseaseYesBtn }
+    private val diseaseInfo: EditText by lazy { binding.diseaseInfo }
+    private val diseaseAddLayout: LinearLayout by lazy { binding.diseaseAddLayout }
+    private val addDiseaseInfoBtn: ImageView by lazy { binding.addDiseaseInfoBtn }
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,31 +63,6 @@ class QuestionnaireThirdFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentQuestionnaireThirdBinding.inflate(inflater)
-
-        binding.addMedicineInfoBtn.setOnClickListener {
-            addInputView(
-                parent = binding.medicineAddLayout,
-                nameHint = getString(R.string.medicine_edittext_name),
-                dateHint = getString(R.string.medicine_edittext_date)
-            )
-        }
-
-        binding.addSurgeryInfoBtn.setOnClickListener {
-            addInputView(
-                parent = binding.surgeryAddLayout,
-                nameHint = getString(R.string.surgery_edittext_name),
-                dateHint = getString(R.string.surgery_edittext_date)
-            )
-        }
-
-        binding.addDiseaseInfoBtn.setOnClickListener {
-            addInputView(
-                parent = binding.diseaseAddLayout,
-                nameHint = getString(R.string.disease_edittext_name),
-                dateHint = getString(R.string.disease_edittext_date)
-            )
-        }
-
         return binding.root
     }
 
@@ -71,165 +71,77 @@ class QuestionnaireThirdFragment : Fragment() {
 
         navController = findNavController()
 
+        //viewModel값에 따른 UI 갱신
+        updateByViewModelValues()
+
+        //리스너 지정
+        setListeners()
+    }
+
+    private fun updateByViewModelValues() {
         //viewmodel 약값에 따른 UI 갱신
-        when(viewModel.medicine.value) {
-            //해당 없음인 값인 경우,
-            "X" -> {
-                binding.medicineNoBtn.isChecked = true
-                binding.medicineYesBtn.isChecked = false
-                binding.addMedicineInfoBtn.visibility = View.INVISIBLE
-            }
-            //해당 있음인 값인 경우,
-            "O" -> {
-                binding.medicineNoBtn.isChecked = false
-                binding.medicineYesBtn.isChecked = true
-                binding.addMedicineInfoBtn.visibility = View.VISIBLE
-            }
-            //라디오 버튼을 클릭하지 않았을 경우,
-            "" -> {
-                binding.medicineNoBtn.isChecked = false
-                binding.medicineYesBtn.isChecked = false
-                binding.addMedicineInfoBtn.visibility = View.INVISIBLE
-
-            }
-            else -> {
-                binding.medicineNoBtn.isChecked = false
-                binding.medicineYesBtn.isChecked = true
-                binding.medicineInfo.setText(viewModel.medicine.value)
-                binding.addMedicineInfoBtn.visibility = View.VISIBLE
-            }
-        }
-
-        //약 UI 이벤트에 따른 viwwModel 갱신
-        binding.medicineRadioGroup.setOnCheckedChangeListener { _, checkedId ->
-            when (checkedId) {
-                R.id.medicineYesBtn -> {
-                    viewModel.setMedicine("O")
-
-                    binding.addMedicineInfoBtn.visibility = View.VISIBLE
-                }
-                R.id.medicineNoBtn -> {
-                    binding.medicineInfo.setText("")
-                    viewModel.setMedicine("X")
-
-                    binding.addMedicineInfoBtn.visibility = View.INVISIBLE
-                }
-            }
-        }
-
-        //즉 빈 문자열이 들어왔을때, "O"으로 변경이 되는 문제가 존재,
-        binding.medicineInfo.addTextChangedListener {
-            if(!it.isNullOrBlank()) {
-                viewModel.setMedicine(it.toString())
-            }
-        }
+        updateUIByValue(viewModel.medicine.value, medicineYesBtn, medicineNoBtn, medicineInfo, addMedicineInfoBtn)
 
         //viewmodel 수술 이력 값에 따른 UI 갱신
-        when(viewModel.surgery.value) {
-            //해당 없음인 값인 경우,
+        updateUIByValue(viewModel.surgery.value, surgeryYesBtn, surgeryNoBtn, surgeryInfo, addSurgeryInfoBtn)
+
+        //viewModel 질병 이력 값에 따른 UI 갱신
+        updateUIByValue(viewModel.disease.value, diseaseYesBtn, diseaseNoBtn, diseaseInfo, addDiseaseInfoBtn)
+    }
+
+    //value값에 따른 라디오 그룹과 edittext 설정
+    private fun updateUIByValue(
+        value: String?,
+        yesBtn: RadioButton,
+        noBtn: RadioButton,
+        infoView: EditText,
+        addInfoBtn: ImageView) {
+        when (value) {
             "X" -> {
-                binding.surgeryNoBtn.isChecked = true
-                binding.surgeryYesBtn.isChecked = false
-                binding.addSurgeryInfoBtn.visibility = View.INVISIBLE
+                noBtn.isChecked = true
+                yesBtn.isChecked = false
+                infoView.text.clear()
+                addInfoBtn.visibility = View.INVISIBLE
             }
-            //해당 있음인 값인 경우,
             "O" -> {
-                binding.surgeryNoBtn.isChecked = false
-                binding.surgeryYesBtn.isChecked = true
-                binding.addSurgeryInfoBtn.visibility = View.VISIBLE
+                noBtn.isChecked = false
+                yesBtn.isChecked = true
+                infoView.text.clear()
+                addInfoBtn.visibility = View.VISIBLE
             }
-            //라디오 버튼을 클릭하지 않았을 경우,
             "" -> {
-                binding.surgeryNoBtn.isChecked = false
-                binding.surgeryYesBtn.isChecked = false
-                binding.addSurgeryInfoBtn.visibility = View.INVISIBLE
+                noBtn.isChecked = false
+                yesBtn.isChecked = false
+                infoView.text.clear()
+                addInfoBtn.visibility = View.INVISIBLE
             }
             else -> {
-                binding.surgeryNoBtn.isChecked = false
-                binding.surgeryYesBtn.isChecked = true
-                binding.surgeryInfo.setText(viewModel.surgery.value)
-                binding.addSurgeryInfoBtn.visibility = View.VISIBLE
+                noBtn.isChecked = false
+                yesBtn.isChecked = true
+                infoView.setText(value)
+                addInfoBtn.visibility = View.VISIBLE
             }
         }
+    }
 
-        //수술 이력 UI 이벤트에 따른 viewModel 갱신
-        binding.surgeryRadioGroup.setOnCheckedChangeListener { _, checkedId ->
-            when (checkedId) {
-                R.id.surgeryYesBtn -> {
-                    viewModel.setSurgery("O")
+    private fun setListeners() {
+        setToolBarListener()
+        setBackButtonListener()
+        setInputListener()
+        setAddViewListener()
+    }
 
-                    binding.addSurgeryInfoBtn.visibility = View.VISIBLE
-                }
-                R.id.surgeryNoBtn -> {
-                    binding.surgeryInfo.setText("")
-                    viewModel.setSurgery("X")
-
-                    binding.addSurgeryInfoBtn.visibility = View.INVISIBLE
-                }
-            }
+    private fun setToolBarListener() {
+        qnThirdBeforeBtn.setOnClickListener {
+            navController.navigateUp()
         }
 
-        binding.surgeryInfo.addTextChangedListener {
-            if(!it.isNullOrBlank()) {
-                viewModel.setSurgery(it.toString())
-            }
-
+        qnThirdNextBtn.setOnClickListener {
+            navController.navigate(R.id.action_questionnaireThirdFragment_to_questionnaireFinalFragment)
         }
+    }
 
-        //viewModel 수술 이력 값에 따른 UI 갱신
-        when(viewModel.disease.value) {
-            //해당 없음인 값인 경우,
-            "X" -> {
-                binding.diseaseNoBtn.isChecked = true
-                binding.diseaseYesBtn.isChecked = false
-                binding.addDiseaseInfoBtn.visibility = View.INVISIBLE
-            }
-            //해당 있음인 값인 경우,
-            "O" -> {
-                binding.diseaseNoBtn.isChecked = false
-                binding.diseaseYesBtn.isChecked = true
-                binding.addDiseaseInfoBtn.visibility = View.VISIBLE
-            }
-            //라디오 버튼을 클릭하지 않았을 경우,
-            "" -> {
-                binding.diseaseNoBtn.isChecked = false
-                binding.diseaseYesBtn.isChecked = false
-                binding.addDiseaseInfoBtn.visibility = View.INVISIBLE
-            }
-            else -> {
-                binding.diseaseNoBtn.isChecked = false
-                binding.diseaseYesBtn.isChecked = true
-                binding.diseaseInfo.setText(viewModel.disease.value)
-                binding.addDiseaseInfoBtn.visibility = View.VISIBLE
-            }
-        }
-
-        //수술 이력 UI 이벤트에 따른 viewModel 갱신
-        binding.diseaseRadioGroup.setOnCheckedChangeListener { _, checkedId ->
-            when (checkedId) {
-                R.id.diseaseYesBtn -> {
-                    viewModel.setDisease("O")
-
-                    binding.addDiseaseInfoBtn.visibility = View.VISIBLE
-                }
-                R.id.diseaseNoBtn -> {
-                    //해당 없음을 체크 했을 경우 내용 삭제
-                    binding.diseaseInfo.setText("")
-
-                    //"X"값으로 갱신
-                    viewModel.setDisease("X")
-
-                    binding.addDiseaseInfoBtn.visibility = View.INVISIBLE
-                }
-            }
-        }
-
-        binding.diseaseInfo.addTextChangedListener {
-            if(!it.isNullOrBlank()) {
-                viewModel.setDisease(it.toString())
-            }
-        }
-
+    private fun setBackButtonListener() {
         //백 버튼 클릭시 이전 fragment 돌아가기
         requireActivity().onBackPressedDispatcher
             .addCallback(viewLifecycleOwner, object : OnBackPressedCallback(true) {
@@ -237,13 +149,109 @@ class QuestionnaireThirdFragment : Fragment() {
                     navController.navigateUp()
                 }
             })
+    }
 
-        binding.qnThirdBeforeBtn.setOnClickListener {
-            navController.navigateUp()
+    private fun setInputListener() {
+        setRadioGroupListener(
+            radioGroup = medicineRadioGroup,
+            yesButton = medicineYesBtn,
+            noButton = medicineNoBtn,
+            infoEditText = medicineInfo,
+            infoButton = addMedicineInfoBtn,
+            viewModelSetter = { viewModel.setMedicine(it) }
+        )
+
+        setEditTextListener(
+            editText = medicineInfo,
+            viewModelSetter = { viewModel.setMedicine(it) }
+        )
+
+        setRadioGroupListener(
+            radioGroup = surgeryRadioGroup,
+            yesButton = surgeryYesBtn,
+            noButton = surgeryNoBtn,
+            infoEditText = surgeryInfo,
+            infoButton = addSurgeryInfoBtn,
+            viewModelSetter = { viewModel.setSurgery(it) }
+        )
+
+        setEditTextListener(
+            editText = surgeryInfo,
+            viewModelSetter = { viewModel.setSurgery(it) }
+        )
+
+        setRadioGroupListener(
+            radioGroup = diseaseRadioGroup,
+            yesButton = diseaseYesBtn,
+            noButton = diseaseNoBtn,
+            infoEditText = diseaseInfo,
+            infoButton = addDiseaseInfoBtn,
+            viewModelSetter = { viewModel.setDisease(it) }
+        )
+
+        setEditTextListener(
+            editText = diseaseInfo,
+            viewModelSetter = { viewModel.setDisease(it) }
+        )
+    }
+
+    private fun setRadioGroupListener(
+        radioGroup: RadioGroup,
+        yesButton: RadioButton,
+        noButton: RadioButton,
+        infoEditText: EditText,
+        infoButton: ImageView,
+        viewModelSetter: (String) -> Unit
+    ) {
+        radioGroup.setOnCheckedChangeListener { _, checkedId ->
+            when (checkedId) {
+                yesButton.id -> {
+                    viewModelSetter("O")
+                    infoButton.visibility = View.VISIBLE
+                }
+                noButton.id -> {
+                    infoEditText.setText("")
+                    viewModelSetter("X")
+                    infoButton.visibility = View.INVISIBLE
+                }
+            }
+        }
+    }
+
+    private fun setEditTextListener(
+        editText: EditText,
+        viewModelSetter: (String) -> Unit
+    ) {
+        editText.addTextChangedListener {
+            if (!it.isNullOrBlank()) {
+                viewModelSetter(it.toString())
+            }
+        }
+    }
+
+    private fun setAddViewListener() {
+        addMedicineInfoBtn.setOnClickListener {
+            addInputView(
+                parent = medicineAddLayout,
+                nameHint = getString(R.string.medicine_edittext_name),
+                dateHint = getString(R.string.medicine_edittext_date)
+            )
         }
 
-        binding.qnThirdNextBtn.setOnClickListener {
-            navController.navigate(R.id.action_questionnaireThirdFragment_to_questionnaireFinalFragment)
+        addSurgeryInfoBtn.setOnClickListener {
+            addInputView(
+                parent = surgeryAddLayout,
+                nameHint = getString(R.string.surgery_edittext_name),
+                dateHint = getString(R.string.surgery_edittext_date)
+            )
+        }
+
+        addDiseaseInfoBtn.setOnClickListener {
+            addInputView(
+                parent = diseaseAddLayout,
+                nameHint = getString(R.string.disease_edittext_name),
+                dateHint = getString(R.string.disease_edittext_date)
+            )
         }
     }
 
@@ -332,7 +340,7 @@ class QuestionnaireThirdFragment : Fragment() {
             LinearLayout.LayoutParams.WRAP_CONTENT,
             1f
         )
-        dateEdittextParams.marginEnd = resources.getDimensionPixelSize(R.dimen.write_qn_name_margin) // 간격을 위한 마진 추가
+        dateEdittextParams.marginEnd = resources.getDimensionPixelSize(R.dimen.write_qn_name_margin)
         editText.layoutParams = dateEdittextParams
 
         editText.background = ContextCompat.getDrawable(context, R.drawable.edittext_unaccessible_border)

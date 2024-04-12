@@ -17,7 +17,7 @@ import com.gretea5.finder.data.model.LoginModel
 import com.gretea5.finder.ui.activity.SignupActivity.Companion.PHONE_NUMBER_SIZE
 import com.gretea5.finder.ui.activity.SignupActivity.Companion.RESIDENCE_NUMBER_SIZE
 import com.gretea5.finder.databinding.ActivityLoginBinding
-import com.gretea5.finder.ui.util.SharedPreferenceUtil.savePhoneNumber
+import com.gretea5.finder.util.sharedpreference.SharedPreferenceUtil.savePhoneNumber
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response

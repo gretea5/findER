@@ -18,7 +18,7 @@ import androidx.navigation.fragment.findNavController
 import com.gretea5.finder.R
 import com.gretea5.finder.databinding.FragmentQuestionnaireFirstBinding
 import com.gretea5.finder.ui.activity.SearchAddressActivity
-import com.gretea5.finder.ui.util.SharedPreferenceUtil.getUpdateMode
+import com.gretea5.finder.util.sharedpreference.SharedPreferenceUtil.getUpdateMode
 import com.gretea5.finder.ui.viewmodel.QuestionnaireViewModel
 
 class QuestionnaireFirstFragment : Fragment() {

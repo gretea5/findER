@@ -14,13 +14,14 @@ import android.widget.RadioGroup
 import android.widget.TextView
 import androidx.activity.OnBackPressedCallback
 import androidx.core.content.ContextCompat
-import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import com.gretea5.finder.R
 import com.gretea5.finder.databinding.FragmentQuestionnaireThirdBinding
 import com.gretea5.finder.ui.dialog.YearMonthPickerDialog
+import com.gretea5.finder.util.view.ViewEventUtils.setEditTextListener
+import com.gretea5.finder.util.view.ViewEventUtils.setRadioGroupListener
 import com.gretea5.finder.ui.viewmodel.QuestionnaireViewModel
 
 class QuestionnaireThirdFragment : Fragment() {
@@ -80,13 +81,32 @@ class QuestionnaireThirdFragment : Fragment() {
 
     private fun updateByViewModelValues() {
         //viewmodel 약값에 따른 UI 갱신
-        updateUIByValue(viewModel.medicine.value, medicineYesBtn, medicineNoBtn, medicineInfo, addMedicineInfoBtn)
+        updateUIByValue(
+            value = viewModel.medicine.value,
+            yesBtn = medicineYesBtn,
+            noBtn = medicineNoBtn,
+            infoView = medicineInfo,
+            inVisibleType = View.INVISIBLE,
+            addInfoBtn = addMedicineInfoBtn
+        )
 
-        //viewmodel 수술 이력 값에 따른 UI 갱신
-        updateUIByValue(viewModel.surgery.value, surgeryYesBtn, surgeryNoBtn, surgeryInfo, addSurgeryInfoBtn)
+        updateUIByValue(
+            value = viewModel.surgery.value,
+            yesBtn = surgeryYesBtn,
+            noBtn = surgeryNoBtn,
+            infoView = surgeryInfo,
+            inVisibleType = View.INVISIBLE,
+            addInfoBtn = addSurgeryInfoBtn
+        )
 
-        //viewModel 질병 이력 값에 따른 UI 갱신
-        updateUIByValue(viewModel.disease.value, diseaseYesBtn, diseaseNoBtn, diseaseInfo, addDiseaseInfoBtn)
+        updateUIByValue(
+            value = viewModel.disease.value,
+            yesBtn = diseaseYesBtn,
+            noBtn = diseaseNoBtn,
+            infoView = diseaseInfo,
+            inVisibleType = View.INVISIBLE,
+            addInfoBtn = addDiseaseInfoBtn
+        )
     }
 
     //value값에 따른 라디오 그룹과 edittext 설정
@@ -95,31 +115,32 @@ class QuestionnaireThirdFragment : Fragment() {
         yesBtn: RadioButton,
         noBtn: RadioButton,
         infoView: EditText,
-        addInfoBtn: ImageView) {
+        inVisibleType: Int,
+        addInfoBtn: ImageView? = null) {
         when (value) {
             "X" -> {
                 noBtn.isChecked = true
                 yesBtn.isChecked = false
                 infoView.text.clear()
-                addInfoBtn.visibility = View.INVISIBLE
+                addInfoBtn?.visibility = inVisibleType
             }
             "O" -> {
                 noBtn.isChecked = false
                 yesBtn.isChecked = true
                 infoView.text.clear()
-                addInfoBtn.visibility = View.VISIBLE
+                addInfoBtn?.visibility = View.VISIBLE
             }
             "" -> {
                 noBtn.isChecked = false
                 yesBtn.isChecked = false
                 infoView.text.clear()
-                addInfoBtn.visibility = View.INVISIBLE
+                addInfoBtn?.visibility = inVisibleType
             }
             else -> {
                 noBtn.isChecked = false
                 yesBtn.isChecked = true
                 infoView.setText(value)
-                addInfoBtn.visibility = View.VISIBLE
+                addInfoBtn?.visibility = View.VISIBLE
             }
         }
     }
@@ -157,7 +178,8 @@ class QuestionnaireThirdFragment : Fragment() {
             yesButton = medicineYesBtn,
             noButton = medicineNoBtn,
             infoEditText = medicineInfo,
-            infoButton = addMedicineInfoBtn,
+            visibleView = addMedicineInfoBtn,
+            visibleType = View.INVISIBLE,
             viewModelSetter = { viewModel.setMedicine(it) }
         )
 
@@ -171,7 +193,8 @@ class QuestionnaireThirdFragment : Fragment() {
             yesButton = surgeryYesBtn,
             noButton = surgeryNoBtn,
             infoEditText = surgeryInfo,
-            infoButton = addSurgeryInfoBtn,
+            visibleView = addSurgeryInfoBtn,
+            visibleType = View.INVISIBLE,
             viewModelSetter = { viewModel.setSurgery(it) }
         )
 
@@ -185,7 +208,8 @@ class QuestionnaireThirdFragment : Fragment() {
             yesButton = diseaseYesBtn,
             noButton = diseaseNoBtn,
             infoEditText = diseaseInfo,
-            infoButton = addDiseaseInfoBtn,
+            visibleView = addDiseaseInfoBtn,
+            visibleType = View.INVISIBLE,
             viewModelSetter = { viewModel.setDisease(it) }
         )
 
@@ -195,44 +219,11 @@ class QuestionnaireThirdFragment : Fragment() {
         )
     }
 
-    private fun setRadioGroupListener(
-        radioGroup: RadioGroup,
-        yesButton: RadioButton,
-        noButton: RadioButton,
-        infoEditText: EditText,
-        infoButton: ImageView,
-        viewModelSetter: (String) -> Unit
-    ) {
-        radioGroup.setOnCheckedChangeListener { _, checkedId ->
-            when (checkedId) {
-                yesButton.id -> {
-                    viewModelSetter("O")
-                    infoButton.visibility = View.VISIBLE
-                }
-                noButton.id -> {
-                    infoEditText.setText("")
-                    viewModelSetter("X")
-                    infoButton.visibility = View.INVISIBLE
-                }
-            }
-        }
-    }
-
-    private fun setEditTextListener(
-        editText: EditText,
-        viewModelSetter: (String) -> Unit
-    ) {
-        editText.addTextChangedListener {
-            if (!it.isNullOrBlank()) {
-                viewModelSetter(it.toString())
-            }
-        }
-    }
-
     private fun setAddViewListener() {
         addMedicineInfoBtn.setOnClickListener {
             addInputView(
                 parent = medicineAddLayout,
+                context = requireContext(),
                 nameHint = getString(R.string.medicine_edittext_name),
                 dateHint = getString(R.string.medicine_edittext_date)
             )
@@ -241,6 +232,7 @@ class QuestionnaireThirdFragment : Fragment() {
         addSurgeryInfoBtn.setOnClickListener {
             addInputView(
                 parent = surgeryAddLayout,
+                context = requireContext(),
                 nameHint = getString(R.string.surgery_edittext_name),
                 dateHint = getString(R.string.surgery_edittext_date)
             )
@@ -249,6 +241,7 @@ class QuestionnaireThirdFragment : Fragment() {
         addDiseaseInfoBtn.setOnClickListener {
             addInputView(
                 parent = diseaseAddLayout,
+                context = requireContext(),
                 nameHint = getString(R.string.disease_edittext_name),
                 dateHint = getString(R.string.disease_edittext_date)
             )
@@ -257,10 +250,10 @@ class QuestionnaireThirdFragment : Fragment() {
 
     private fun addInputView(
         parent: LinearLayout,
+        context: Context,
         nameHint: String,
         dateHint: String
     ) {
-        val context = requireContext()
 
         val childLinearLayout = LinearLayout(context)
         customLinearLayout(childLinearLayout)
@@ -280,6 +273,7 @@ class QuestionnaireThirdFragment : Fragment() {
             dateEdittext = dateEdittext
         )
     }
+
 
     //edittext를 감싸고 있는 linearLayout custom
     private fun customLinearLayout(linearLayout: LinearLayout) {

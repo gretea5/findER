@@ -1,4 +1,4 @@
-package com.gretea5.finder.ui.util
+package com.gretea5.finder.util.sharedpreference
 
 import android.content.Context
 import com.gretea5.finder.R

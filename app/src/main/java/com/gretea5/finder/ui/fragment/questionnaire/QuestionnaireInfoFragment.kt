@@ -14,8 +14,8 @@ import com.gretea5.finder.R
 import com.gretea5.finder.data.ApiService
 import com.gretea5.finder.data.model.QuestionnaireUnlinkModel
 import com.gretea5.finder.databinding.FragmentQuestionnaireInfoBinding
-import com.gretea5.finder.ui.util.SharedPreferenceUtil.getPhoneNumber
-import com.gretea5.finder.ui.util.SharedPreferenceUtil.setUpdateMode
+import com.gretea5.finder.util.sharedpreference.SharedPreferenceUtil.getPhoneNumber
+import com.gretea5.finder.util.sharedpreference.SharedPreferenceUtil.setUpdateMode
 import com.gretea5.finder.ui.viewmodel.QuestionnaireViewModel
 import retrofit2.Call
 import retrofit2.Callback

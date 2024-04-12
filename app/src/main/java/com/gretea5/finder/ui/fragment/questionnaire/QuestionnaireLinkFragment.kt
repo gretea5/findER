@@ -13,8 +13,7 @@ import com.gretea5.finder.R
 import com.gretea5.finder.data.ApiService
 import com.gretea5.finder.data.model.QuestionnaireLinkModel
 import com.gretea5.finder.databinding.FragmentQuestionnaireLinkBinding
-import com.gretea5.finder.ui.util.SharedPreferenceUtil
-import com.gretea5.finder.ui.util.SharedPreferenceUtil.getPhoneNumber
+import com.gretea5.finder.util.sharedpreference.SharedPreferenceUtil.getPhoneNumber
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response

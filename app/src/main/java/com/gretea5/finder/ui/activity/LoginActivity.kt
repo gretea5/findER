@@ -25,13 +25,13 @@ import retrofit2.Response
 class LoginActivity : AppCompatActivity() {
     private lateinit var binding : ActivityLoginBinding
 
-    private lateinit var txtSignup : TextView
-    private lateinit var residenceNumberTextView : TextView
+    private val txtSignup: TextView by lazy { binding.txtSignup }
+    private val residenceNumberTextView : TextView by lazy { binding.residenceNumberTextView }
 
-    private lateinit var phoneEditText : EditText
-    private lateinit var residenceNumberEditText : EditText
+    private val phoneEditText : EditText by lazy { binding.phoneEditText }
+    private val residenceNumberEditText : EditText by lazy { binding.residenceNumberEditText }
 
-    private lateinit var btnSignin : Button
+    private val btnSignin : Button by lazy { binding.btnSignin }
 
     private val api = ApiService.create()
 
@@ -42,19 +42,7 @@ class LoginActivity : AppCompatActivity() {
 
         setContentView(binding.root)
 
-        initializeViews()
-
         setListeners()
-    }
-
-    private fun initializeViews() {
-        txtSignup = binding.txtSignup
-        residenceNumberTextView = binding.residenceNumberTextView
-
-        phoneEditText = binding.phoneEditText
-        residenceNumberEditText = binding.residenceNumberEditText
-
-        btnSignin = binding.btnSignin
     }
 
     private fun setListeners() {

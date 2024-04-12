@@ -28,14 +28,14 @@ class SignupActivity : AppCompatActivity() {
     }
     private lateinit var binding: ActivitySignupBinding
 
-    private lateinit var phoneEditText: EditText
-    private lateinit var residenceNumberEditText: EditText
-    private lateinit var editText: EditText
+    private val phoneEditText: EditText by lazy { binding.phoneEditText }
+    private val residenceNumberEditText: EditText by lazy { binding.residenceNumberEditText }
+    private val editText: EditText by lazy { binding.editText }
 
-    private lateinit var btnSignup: Button
+    private val btnSignup: Button by lazy { binding.btnSignup }
 
-    private lateinit var residenceNumberTitle: TextView
-    private lateinit var residenceNumberReInputTitle: TextView
+    private val residenceNumberTitle: TextView by lazy { binding.residenceNumberTitle }
+    private val residenceNumberReInputTitle: TextView by lazy { binding.residenceNumberReInputTitle }
 
     private val phoneNumberSize = 11
     private val residenceNumberSize = 13
@@ -48,20 +48,7 @@ class SignupActivity : AppCompatActivity() {
         binding = ActivitySignupBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        initializeViews()
-
         setListeners()
-    }
-
-    private fun initializeViews() {
-        phoneEditText = binding.phoneEditText
-        residenceNumberEditText = binding.residenceNumberEditText
-        editText = binding.editText
-
-        btnSignup = binding.btnSignup
-
-        residenceNumberTitle = binding.residenceNumberTitle
-        residenceNumberReInputTitle = binding.residenceNumberReInputTitle
     }
 
     private fun setListeners() {

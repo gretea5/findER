@@ -81,8 +81,6 @@ class QuestionnaireFragment : Fragment() {
             ) {
                 val data = response.body()
 
-                Log.d("getQuestionnaireListData", data.toString())
-
                 data?.let {
                     qnList = it
                     qnAdapter = QuestionnaireAdapter(qnList, requireContext())

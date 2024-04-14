@@ -111,9 +111,6 @@ class LoginActivity : AppCompatActivity() {
         api.login(loginModel).enqueue(object : Callback<String> {
             override fun onResponse(call: Call<String>, response: Response<String>) {
                 if(response.isSuccessful) {
-                    Log.d("LoginActivity ResponseBody", response.code().toString())
-                    Log.d("LoginActivity ResponseBody", response.body().toString())
-
                     savePhoneNumber(baseContext, phoneNumber)
 
                     val intent = Intent(applicationContext, MainActivity::class.java)

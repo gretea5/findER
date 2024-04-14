@@ -65,15 +65,11 @@ class QuestionnaireLinkFragment : Fragment() {
     private fun fetchSerialNumber() {
         val phoneNumber = getPhoneNumber(requireActivity())
 
-        Log.d("QuestionnaireLinkFragment", phoneNumber)
-
         api.getSerialNumber(phoneNumber).enqueue(object : Callback<String> {
             override fun onResponse(call: Call<String>, response: Response<String>) {
                 if(response.isSuccessful) {
                     binding.mySerialNumber.text = response.body().toString()
                 }
-                Log.d("QuestionnaireLinkFragment", response.code().toString())
-                Log.d("QuestionnaireLinkFragment", response.body().toString())
             }
 
             override fun onFailure(call: Call<String>, t: Throwable) {

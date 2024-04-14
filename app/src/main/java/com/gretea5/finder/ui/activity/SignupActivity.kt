@@ -151,9 +151,6 @@ class SignupActivity : AppCompatActivity() {
         val phoneNumber = binding.phoneEditText.text.toString()
         val rrn = binding.residenceNumberEditText.text.toString()
 
-        Log.d("SignupActivity", phoneNumber)
-        Log.d("SignupActivity", rrn)
-
         val signupModel = SignupModel(phoneNumber, rrn)
 
         api.signUp(signupModel).enqueue(object : Callback<String> {

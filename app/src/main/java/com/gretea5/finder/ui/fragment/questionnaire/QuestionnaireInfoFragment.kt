@@ -100,8 +100,6 @@ class QuestionnaireInfoFragment : Fragment() {
         api.deleteQuestionnaire(phoneNumber).enqueue(object : Callback<String> {
             override fun onResponse(call: Call<String>, response: Response<String>) {
                 if(response.isSuccessful) {
-                    Log.d("deleteQuestionnaire", response.code().toString())
-                    Log.d("deleteQuestionnaire", response.body().toString())
                     navController.navigateUp()
                 }
             }

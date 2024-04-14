@@ -2,6 +2,7 @@ package com.gretea5.finder.ui.fragment.questionnaire
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -78,6 +79,36 @@ class QuestionnaireThirdFragment : Fragment() {
         //리스너 지정
         setListeners()
     }
+
+    override fun onPause() {
+        super.onPause()
+        saveMedicineViewModelData()
+    }
+
+    private fun saveMedicineViewModelData() {
+        val parentLinearLayout = medicineAddLayout
+
+        val childCount: Int = parentLinearLayout.childCount
+
+        val builder = StringBuilder()
+
+        for (i in 0 until childCount) {
+            val childLinearLayout: LinearLayout = parentLinearLayout.getChildAt(i) as LinearLayout
+
+            val nameEdittext: EditText = childLinearLayout.getChildAt(0) as EditText
+            val name = nameEdittext.text.toString()
+
+            val dateEdittext: EditText = childLinearLayout.getChildAt(1) as EditText
+            val date = dateEdittext.text.toString()
+
+            builder.append(name).append(" ").append(date).append("\n")
+        }
+
+        Log.d("saveMedicineViewModelData", builder.toString())
+
+        viewModel.setMedicine(builder.toString())
+    }
+
 
     private fun updateByViewModelValues() {
         //viewmodel 약값에 따른 UI 갱신

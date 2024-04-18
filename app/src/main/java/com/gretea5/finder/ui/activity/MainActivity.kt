@@ -15,7 +15,6 @@ class MainActivity : AppCompatActivity() {
 
     private val appBarConfiguration = AppBarConfiguration(setOf(
         R.id.mapFragment,
-        R.id.listFragment,
         R.id.questionnaireFragment
     ))
 

@@ -12,12 +12,6 @@
         tools:layout="@layout/fragment_map" />
 
     <fragment
-        android:id="@+id/listFragment"
-        android:name="com.gretea5.finder.ui.fragment.main.ListFragment"
-        android:label="ListFragment"
-        tools:layout="@layout/fragment_list" />
-
-    <fragment
         android:id="@+id/questionnaireFragment"
         android:name="com.gretea5.finder.ui.fragment.main.QuestionnaireFragment"
         android:label="QuestionnaireFragment"

@@ -12,7 +12,9 @@ import com.gretea5.finder.R
 import com.gretea5.finder.databinding.FragmentQuestionnaireModeBinding
 
 class QuestionnaireModeFragment : Fragment() {
-    private lateinit var binding : FragmentQuestionnaireModeBinding
+
+    private var _binding : FragmentQuestionnaireModeBinding? = null
+    private val binding get() = _binding!!
     private lateinit var navController : NavController
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -23,7 +25,7 @@ class QuestionnaireModeFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = FragmentQuestionnaireModeBinding.inflate(inflater)
+        _binding = FragmentQuestionnaireModeBinding.inflate(inflater)
         return binding.root
     }
 

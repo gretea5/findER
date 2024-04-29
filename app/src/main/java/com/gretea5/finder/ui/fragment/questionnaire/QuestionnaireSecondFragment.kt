@@ -15,7 +15,9 @@ import com.gretea5.finder.databinding.FragmentQuestionnaireSecondBinding
 import com.gretea5.finder.ui.viewmodel.QuestionnaireViewModel
 
 class QuestionnaireSecondFragment : Fragment() {
-    private lateinit var binding : FragmentQuestionnaireSecondBinding
+    private var _binding : FragmentQuestionnaireSecondBinding? = null
+    private val binding get() = _binding!!
+
     private lateinit var navController: NavController
     private val viewModel: QuestionnaireViewModel by activityViewModels()
 
@@ -26,8 +28,8 @@ class QuestionnaireSecondFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        binding = FragmentQuestionnaireSecondBinding.inflate(inflater)
+    ): View {
+        _binding = FragmentQuestionnaireSecondBinding.inflate(inflater)
         return binding.root
     }
 

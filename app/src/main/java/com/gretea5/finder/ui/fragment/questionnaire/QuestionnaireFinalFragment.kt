@@ -7,8 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.RadioButton
-import android.widget.RadioGroup
-import android.widget.TextView
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.NavController
@@ -27,29 +25,13 @@ import retrofit2.Callback
 import retrofit2.Response
 
 class QuestionnaireFinalFragment : Fragment() {
-    private lateinit var binding : FragmentQuestionnaireFinalBinding
+    private var _binding: FragmentQuestionnaireFinalBinding? = null
+    private val binding get() = _binding!!
+
     private lateinit var navController: NavController
 
     private val viewModel: QuestionnaireViewModel by activityViewModels()
     private val api = ApiService.create()
-
-    private val qnFinalBeforeBtn: TextView by lazy { binding.qnFinalBeforeBtn }
-    private val qnFinalCompleteBtn: TextView by lazy { binding.qnFinalCompleteBtn }
-
-    private val smokeRadioGroup: RadioGroup by lazy { binding.smokeRadioGroup }
-    private val smokeNoBtn: RadioButton by lazy { binding.smokeNoBtn }
-    private val smokeYesBtn: RadioButton by lazy { binding.smokeYesBtn }
-    private val smokeInfo: EditText by lazy { binding.smokeInfo }
-
-    private val drinkRadioGroup: RadioGroup by lazy { binding.drinkRadioGroup }
-    private val drinkNoBtn: RadioButton by lazy { binding.drinkNoBtn }
-    private val drinkYesBtn: RadioButton by lazy { binding.drinkYesBtn }
-    private val drinkInfo: EditText by lazy { binding.drinkInfo }
-
-    private val etcRadioGroup: RadioGroup by lazy { binding.etcRadioGroup }
-    private val etcNoBtn: RadioButton by lazy { binding.etcNoBtn }
-    private val etcYesBtn: RadioButton by lazy { binding.etcYesBtn }
-    private val etcInfo: EditText by lazy { binding.etcInfo }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -58,8 +40,8 @@ class QuestionnaireFinalFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        binding = FragmentQuestionnaireFinalBinding.inflate(inflater)
+    ): View {
+        _binding = FragmentQuestionnaireFinalBinding.inflate(inflater)
         return binding.root
     }
 
@@ -76,25 +58,25 @@ class QuestionnaireFinalFragment : Fragment() {
     private fun updateByViewModelValues() {
         updateUIByValue(
             value = viewModel.smoke.value,
-            yesBtn = smokeYesBtn,
-            noBtn = smokeNoBtn,
-            infoView = smokeInfo,
+            yesBtn = binding.smokeYesBtn,
+            noBtn = binding.smokeNoBtn,
+            infoView = binding.smokeInfo,
             inVisibleType = View.GONE
         )
 
         updateUIByValue(
             value = viewModel.drink.value,
-            yesBtn = drinkYesBtn,
-            noBtn = drinkNoBtn,
-            infoView = drinkInfo,
+            yesBtn = binding.drinkYesBtn,
+            noBtn = binding.drinkNoBtn,
+            infoView = binding.drinkInfo,
             inVisibleType = View.GONE
         )
 
         updateUIByValue(
             value = viewModel.etc.value,
-            yesBtn = etcYesBtn,
-            noBtn = etcNoBtn,
-            infoView = etcInfo,
+            yesBtn = binding.etcYesBtn,
+            noBtn = binding.etcNoBtn,
+            infoView = binding.etcInfo,
             inVisibleType = View.GONE
         )
     }
@@ -139,17 +121,17 @@ class QuestionnaireFinalFragment : Fragment() {
 
     private fun setToolBarListener() {
         //이전 버튼 클릭시
-        qnFinalBeforeBtn.setOnClickListener {
+        binding.qnFinalBeforeBtn.setOnClickListener {
             navController.navigateUp()
         }
 
-        qnFinalCompleteBtn.text = if (getUpdateMode(requireActivity()))
+        binding.qnFinalCompleteBtn.text = if (getUpdateMode(requireActivity()))
             getString(R.string.update)
         else
             getString(R.string.complete)
 
         //수정/완료 버튼 클릭시
-        qnFinalCompleteBtn.setOnClickListener {
+        binding.qnFinalCompleteBtn.setOnClickListener {
             if(getUpdateMode(requireActivity()))  {
                 updateQuestionnaire()
             }
@@ -171,47 +153,47 @@ class QuestionnaireFinalFragment : Fragment() {
 
     private fun setInputListener() {
         setRadioGroupListener(
-            radioGroup = smokeRadioGroup,
-            yesButton = smokeYesBtn,
-            noButton = smokeNoBtn,
-            infoEditText = smokeInfo,
-            visibleView = smokeInfo,
+            radioGroup = binding.smokeRadioGroup,
+            yesButton = binding.smokeYesBtn,
+            noButton = binding.smokeNoBtn,
+            infoEditText = binding.smokeInfo,
+            visibleView = binding.smokeInfo,
             visibleType = View.GONE,
             viewModelSetter = { viewModel.setSmoke(it) }
         )
 
         setEditTextListener(
-            editText = smokeInfo,
+            editText = binding.smokeInfo,
             viewModelSetter = { viewModel.setSmoke(it) }
         )
 
         setRadioGroupListener(
-            radioGroup = drinkRadioGroup,
-            yesButton = drinkYesBtn,
-            noButton = drinkNoBtn,
-            infoEditText = drinkInfo,
-            visibleView = drinkInfo,
+            radioGroup = binding.drinkRadioGroup,
+            yesButton = binding.drinkYesBtn,
+            noButton = binding.drinkNoBtn,
+            infoEditText = binding.drinkInfo,
+            visibleView = binding.drinkInfo,
             visibleType = View.GONE,
             viewModelSetter = { viewModel.setDrink(it) }
         )
 
         setEditTextListener(
-            editText = drinkInfo,
+            editText = binding.drinkInfo,
             viewModelSetter = { viewModel.setDrink(it) }
         )
 
         setRadioGroupListener(
-            radioGroup = etcRadioGroup,
-            yesButton = etcYesBtn,
-            noButton = etcNoBtn,
-            infoEditText = etcInfo,
-            visibleView = etcInfo,
+            radioGroup = binding.etcRadioGroup,
+            yesButton = binding.etcYesBtn,
+            noButton = binding.etcNoBtn,
+            infoEditText = binding.etcInfo,
+            visibleView = binding.etcInfo,
             visibleType = View.GONE,
             viewModelSetter = { viewModel.setEtc(it) }
         )
 
         setEditTextListener(
-            editText = etcInfo,
+            editText = binding.etcInfo,
             viewModelSetter = { viewModel.setEtc(it) }
         )
     }

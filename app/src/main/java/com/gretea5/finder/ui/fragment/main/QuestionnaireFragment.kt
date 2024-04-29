@@ -1,7 +1,6 @@
 package com.gretea5.finder.ui.fragment.main
 
 import android.os.Bundle
-import android.util.Log
 import android.view.*
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -21,7 +20,10 @@ import retrofit2.Callback
 import retrofit2.Response
 
 class QuestionnaireFragment : Fragment() {
-    private lateinit var binding : FragmentQuestionnaireBinding
+    private var _binding: FragmentQuestionnaireBinding? = null
+
+    private val binding get() = _binding!!
+
     private lateinit var qnAdapter : QuestionnaireAdapter
     private lateinit var qnRecyclerView: RecyclerView
     private lateinit var navController : NavController
@@ -37,8 +39,8 @@ class QuestionnaireFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        binding = FragmentQuestionnaireBinding.inflate(inflater)
+    ): View {
+        _binding = FragmentQuestionnaireBinding.inflate(inflater)
 
         qnRecyclerView = binding.qnRecyclerView
         qnRecyclerView.layoutManager = LinearLayoutManager(activity)
@@ -48,12 +50,6 @@ class QuestionnaireFragment : Fragment() {
         getQuestionnaireListData()
 
         return binding.root
-    }
-
-    override fun onResume() {
-        super.onResume()
-
-        getQuestionnaireListData()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -70,6 +66,17 @@ class QuestionnaireFragment : Fragment() {
                 else -> false
             }
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        getQuestionnaireListData()
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
     private fun getQuestionnaireListData() {

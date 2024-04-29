@@ -1,10 +1,8 @@
 package com.gretea5.finder.ui.fragment.questionnaire
 
-import android.app.Activity
 import android.app.Activity.RESULT_OK
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -22,7 +20,8 @@ import com.gretea5.finder.util.sharedpreference.SharedPreferenceUtil.getUpdateMo
 import com.gretea5.finder.ui.viewmodel.QuestionnaireViewModel
 
 class QuestionnaireFirstFragment : Fragment() {
-    private lateinit var binding : FragmentQuestionnaireFirstBinding
+    private var _binding: FragmentQuestionnaireFirstBinding? = null
+    private val binding get() = _binding!!
     private lateinit var navController : NavController
     private val viewModel: QuestionnaireViewModel by activityViewModels()
 
@@ -45,7 +44,7 @@ class QuestionnaireFirstFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = FragmentQuestionnaireFirstBinding.inflate(inflater)
+        _binding = FragmentQuestionnaireFirstBinding.inflate(inflater)
         return binding.root
     }
 

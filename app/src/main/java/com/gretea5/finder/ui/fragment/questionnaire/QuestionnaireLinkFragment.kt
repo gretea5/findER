@@ -1,7 +1,6 @@
 package com.gretea5.finder.ui.fragment.questionnaire
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -19,7 +18,9 @@ import retrofit2.Callback
 import retrofit2.Response
 
 class QuestionnaireLinkFragment : Fragment() {
-    private lateinit var binding : FragmentQuestionnaireLinkBinding
+    private var _binding : FragmentQuestionnaireLinkBinding? = null
+    private val binding get() = _binding!!
+
     private lateinit var navController : NavController
 
     private val api = ApiService.create()
@@ -31,8 +32,8 @@ class QuestionnaireLinkFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        binding = FragmentQuestionnaireLinkBinding.inflate(inflater)
+    ): View {
+        _binding = FragmentQuestionnaireLinkBinding.inflate(inflater)
 
         fetchSerialNumber()
         // Inflate the layout for this fragment

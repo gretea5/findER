@@ -11,8 +11,6 @@ import android.widget.EditText
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.RadioButton
-import android.widget.RadioGroup
-import android.widget.TextView
 import androidx.activity.OnBackPressedCallback
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.activityViewModels
@@ -26,35 +24,12 @@ import com.gretea5.finder.util.view.ViewEventUtils.setRadioGroupListener
 import com.gretea5.finder.ui.viewmodel.QuestionnaireViewModel
 
 class QuestionnaireThirdFragment : Fragment() {
-    private lateinit var binding : FragmentQuestionnaireThirdBinding
+    private var _binding: FragmentQuestionnaireThirdBinding? = null
+
+    private val binding get() = _binding!!
     private lateinit var navController: NavController
 
     private val viewModel: QuestionnaireViewModel by activityViewModels()
-
-    private val qnThirdBeforeBtn: TextView by lazy { binding.qnThirdBeforeBtn }
-    private val qnThirdNextBtn: TextView by lazy { binding.qnThirdNextBtn }
-
-    private val medicineRadioGroup: RadioGroup by lazy { binding.medicineRadioGroup }
-    private val medicineNoBtn: RadioButton by lazy { binding.medicineNoBtn }
-    private val medicineYesBtn: RadioButton by lazy { binding.medicineYesBtn }
-    private val medicineInfo: EditText by lazy { binding.medicineInfo }
-    private val medicineAddLayout: LinearLayout by lazy { binding.medicineAddLayout }
-    private val addMedicineInfoBtn: ImageView by lazy { binding.addMedicineInfoBtn }
-
-    private val surgeryRadioGroup: RadioGroup by lazy { binding.surgeryRadioGroup }
-    private val surgeryNoBtn: RadioButton by lazy { binding.surgeryNoBtn }
-    private val surgeryYesBtn: RadioButton by lazy { binding.surgeryYesBtn }
-    private val surgeryInfo: EditText by lazy { binding.surgeryInfo }
-    private val surgeryAddLayout: LinearLayout by lazy { binding.surgeryAddLayout }
-    private val addSurgeryInfoBtn: ImageView by lazy { binding.addSurgeryInfoBtn }
-
-    private val diseaseRadioGroup: RadioGroup by lazy { binding.diseaseRadioGroup }
-    private val diseaseNoBtn: RadioButton by lazy { binding.diseaseNoBtn }
-    private val diseaseYesBtn: RadioButton by lazy { binding.diseaseYesBtn }
-    private val diseaseInfo: EditText by lazy { binding.diseaseInfo }
-    private val diseaseAddLayout: LinearLayout by lazy { binding.diseaseAddLayout }
-    private val addDiseaseInfoBtn: ImageView by lazy { binding.addDiseaseInfoBtn }
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -63,8 +38,9 @@ class QuestionnaireThirdFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        binding = FragmentQuestionnaireThirdBinding.inflate(inflater)
+    ): View {
+        _binding = FragmentQuestionnaireThirdBinding.inflate(inflater, container, false)
+
         return binding.root
     }
 
@@ -73,6 +49,10 @@ class QuestionnaireThirdFragment : Fragment() {
 
         navController = findNavController()
 
+        Log.d("viewModel medicine", viewModel.medicine.value.toString())
+        Log.d("viewModel surgery", viewModel.surgery.value.toString())
+        Log.d("viewModel disease", viewModel.disease.value.toString())
+
         //viewModel값에 따른 UI 갱신
         updateByViewModelValues()
 
@@ -80,13 +60,13 @@ class QuestionnaireThirdFragment : Fragment() {
         setListeners()
     }
 
-    override fun onPause() {
-        super.onPause()
-        saveMedicineViewModelData()
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
     private fun saveMedicineViewModelData() {
-        val parentLinearLayout = medicineAddLayout
+        val parentLinearLayout = binding.medicineAddLayout
 
         val childCount: Int = parentLinearLayout.childCount
 
@@ -114,29 +94,29 @@ class QuestionnaireThirdFragment : Fragment() {
         //viewmodel 약값에 따른 UI 갱신
         updateUIByValue(
             value = viewModel.medicine.value,
-            yesBtn = medicineYesBtn,
-            noBtn = medicineNoBtn,
-            infoView = medicineInfo,
+            yesBtn = binding.medicineYesBtn,
+            noBtn = binding.medicineNoBtn,
+            infoView = binding.medicineInfo,
             inVisibleType = View.INVISIBLE,
-            addInfoBtn = addMedicineInfoBtn
+            addInfoBtn = binding.addMedicineInfoBtn
         )
 
         updateUIByValue(
             value = viewModel.surgery.value,
-            yesBtn = surgeryYesBtn,
-            noBtn = surgeryNoBtn,
-            infoView = surgeryInfo,
+            yesBtn = binding.surgeryYesBtn,
+            noBtn = binding.surgeryNoBtn,
+            infoView = binding.surgeryInfo,
             inVisibleType = View.INVISIBLE,
-            addInfoBtn = addSurgeryInfoBtn
+            addInfoBtn = binding.addSurgeryInfoBtn
         )
 
         updateUIByValue(
             value = viewModel.disease.value,
-            yesBtn = diseaseYesBtn,
-            noBtn = diseaseNoBtn,
-            infoView = diseaseInfo,
+            yesBtn = binding.diseaseYesBtn,
+            noBtn = binding.diseaseNoBtn,
+            infoView = binding.diseaseInfo,
             inVisibleType = View.INVISIBLE,
-            addInfoBtn = addDiseaseInfoBtn
+            addInfoBtn = binding.addDiseaseInfoBtn
         )
     }
 
@@ -184,11 +164,13 @@ class QuestionnaireThirdFragment : Fragment() {
     }
 
     private fun setToolBarListener() {
-        qnThirdBeforeBtn.setOnClickListener {
+        binding.qnThirdBeforeBtn.setOnClickListener {
+            Log.d("qnThirdBeforeBtn", "clicked!")
             navController.navigateUp()
         }
 
-        qnThirdNextBtn.setOnClickListener {
+        binding.qnThirdNextBtn.setOnClickListener {
+            Log.d("qnThirdNextBtn", "clicked!")
             navController.navigate(R.id.action_questionnaireThirdFragment_to_questionnaireFinalFragment)
         }
     }
@@ -205,73 +187,73 @@ class QuestionnaireThirdFragment : Fragment() {
 
     private fun setInputListener() {
         setRadioGroupListener(
-            radioGroup = medicineRadioGroup,
-            yesButton = medicineYesBtn,
-            noButton = medicineNoBtn,
-            infoEditText = medicineInfo,
-            visibleView = addMedicineInfoBtn,
+            radioGroup = binding.medicineRadioGroup,
+            yesButton = binding.medicineYesBtn,
+            noButton = binding.medicineNoBtn,
+            infoEditText = binding.medicineInfo,
+            visibleView = binding.addMedicineInfoBtn,
             visibleType = View.INVISIBLE,
             viewModelSetter = { viewModel.setMedicine(it) }
         )
 
         setEditTextListener(
-            editText = medicineInfo,
+            editText = binding.medicineInfo,
             viewModelSetter = { viewModel.setMedicine(it) }
         )
 
         setRadioGroupListener(
-            radioGroup = surgeryRadioGroup,
-            yesButton = surgeryYesBtn,
-            noButton = surgeryNoBtn,
-            infoEditText = surgeryInfo,
-            visibleView = addSurgeryInfoBtn,
+            radioGroup = binding.surgeryRadioGroup,
+            yesButton = binding.surgeryYesBtn,
+            noButton = binding.surgeryNoBtn,
+            infoEditText = binding.surgeryInfo,
+            visibleView = binding.addSurgeryInfoBtn,
             visibleType = View.INVISIBLE,
             viewModelSetter = { viewModel.setSurgery(it) }
         )
 
         setEditTextListener(
-            editText = surgeryInfo,
+            editText = binding.surgeryInfo,
             viewModelSetter = { viewModel.setSurgery(it) }
         )
 
         setRadioGroupListener(
-            radioGroup = diseaseRadioGroup,
-            yesButton = diseaseYesBtn,
-            noButton = diseaseNoBtn,
-            infoEditText = diseaseInfo,
-            visibleView = addDiseaseInfoBtn,
+            radioGroup = binding.diseaseRadioGroup,
+            yesButton = binding.diseaseYesBtn,
+            noButton = binding.diseaseNoBtn,
+            infoEditText = binding.diseaseInfo,
+            visibleView = binding.addDiseaseInfoBtn,
             visibleType = View.INVISIBLE,
             viewModelSetter = { viewModel.setDisease(it) }
         )
 
         setEditTextListener(
-            editText = diseaseInfo,
+            editText = binding.diseaseInfo,
             viewModelSetter = { viewModel.setDisease(it) }
         )
     }
 
     private fun setAddViewListener() {
-        addMedicineInfoBtn.setOnClickListener {
+        binding.addMedicineInfoBtn.setOnClickListener {
             addInputView(
-                parent = medicineAddLayout,
+                parent = binding.medicineAddLayout,
                 context = requireContext(),
                 nameHint = getString(R.string.medicine_edittext_name),
                 dateHint = getString(R.string.medicine_edittext_date)
             )
         }
 
-        addSurgeryInfoBtn.setOnClickListener {
+        binding.addSurgeryInfoBtn.setOnClickListener {
             addInputView(
-                parent = surgeryAddLayout,
+                parent = binding.surgeryAddLayout,
                 context = requireContext(),
                 nameHint = getString(R.string.surgery_edittext_name),
                 dateHint = getString(R.string.surgery_edittext_date)
             )
         }
 
-        addDiseaseInfoBtn.setOnClickListener {
+        binding.addDiseaseInfoBtn.setOnClickListener {
             addInputView(
-                parent = diseaseAddLayout,
+                parent = binding.diseaseAddLayout,
                 context = requireContext(),
                 nameHint = getString(R.string.disease_edittext_name),
                 dateHint = getString(R.string.disease_edittext_date)

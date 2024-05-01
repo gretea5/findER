@@ -1,7 +1,6 @@
-package com.gretea5.finder.ui.Adapter
+package com.gretea5.finder.ui.adapter
 
 import android.content.Context
-import android.content.res.Resources
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup

@@ -12,7 +12,7 @@ import com.gretea5.finder.R
 import com.gretea5.finder.data.ApiService
 import com.gretea5.finder.data.model.QuestionnaireModel
 import com.gretea5.finder.databinding.FragmentQuestionnaireBinding
-import com.gretea5.finder.ui.Adapter.QuestionnaireAdapter
+import com.gretea5.finder.ui.adapter.QuestionnaireAdapter
 import com.gretea5.finder.util.sharedpreference.SharedPreferenceUtil.getPhoneNumber
 import com.gretea5.finder.ui.viewmodel.QuestionnaireViewModel
 import retrofit2.Call

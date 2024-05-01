@@ -88,8 +88,8 @@
 
                 <ImageView
                     android:id="@+id/addMedicineInfoBtn"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
                     android:scaleType="fitXY"
                     android:src="@drawable/icon_plus2"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -128,14 +128,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical" />
-
-            <EditText
-                android:id="@+id/medicineInfo"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
-                android:background="@drawable/edittext_unaccessible_border"
-                android:padding="7dp" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
@@ -223,14 +215,6 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical" />
 
-            <EditText
-                android:id="@+id/surgeryInfo"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
-                android:background="@drawable/edittext_unaccessible_border"
-                android:padding="7dp" />
-
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -302,14 +286,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical" />
-
-            <EditText
-                android:id="@+id/diseaseInfo"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
-                android:background="@drawable/edittext_unaccessible_border"
-                android:padding="7dp" />
 
         </LinearLayout>
     </ScrollView>

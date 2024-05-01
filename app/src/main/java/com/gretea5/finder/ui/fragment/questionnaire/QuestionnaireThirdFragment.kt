@@ -21,6 +21,7 @@ import com.gretea5.finder.databinding.FragmentQuestionnaireThirdBinding
 import com.gretea5.finder.ui.dialog.YearMonthPickerDialog
 import com.gretea5.finder.util.view.ViewEventUtils.setEditTextListener
 import com.gretea5.finder.util.view.ViewEventUtils.setRadioGroupListener
+import com.gretea5.finder.util.view.ViewEventUtils.setRadioGroupNameDataUIListener
 import com.gretea5.finder.ui.viewmodel.QuestionnaireViewModel
 
 class QuestionnaireThirdFragment : Fragment() {
@@ -221,12 +222,10 @@ class QuestionnaireThirdFragment : Fragment() {
 
     private fun setToolBarListener() {
         binding.qnThirdBeforeBtn.setOnClickListener {
-            Log.d("qnThirdBeforeBtn", "clicked!")
             navController.navigateUp()
         }
 
         binding.qnThirdNextBtn.setOnClickListener {
-            Log.d("qnThirdNextBtn", "clicked!")
             navController.navigate(R.id.action_questionnaireThirdFragment_to_questionnaireFinalFragment)
         }
     }
@@ -242,48 +241,30 @@ class QuestionnaireThirdFragment : Fragment() {
     }
 
     private fun setInputListener() {
-        setRadioGroupListener(
+        setRadioGroupNameDataUIListener(
             radioGroup = binding.medicineRadioGroup,
             yesButton = binding.medicineYesBtn,
             noButton = binding.medicineNoBtn,
-            infoEditText = binding.medicineInfo,
-            visibleView = binding.addMedicineInfoBtn,
-            visibleType = View.INVISIBLE,
+            addViewBtn = binding.addMedicineInfoBtn,
+            parentLinearLayout = binding.medicineAddLayout,
             viewModelSetter = { viewModel.setMedicine(it) }
         )
 
-        setEditTextListener(
-            editText = binding.medicineInfo,
-            viewModelSetter = { viewModel.setMedicine(it) }
-        )
-
-        setRadioGroupListener(
+        setRadioGroupNameDataUIListener(
             radioGroup = binding.surgeryRadioGroup,
             yesButton = binding.surgeryYesBtn,
             noButton = binding.surgeryNoBtn,
-            infoEditText = binding.surgeryInfo,
-            visibleView = binding.addSurgeryInfoBtn,
-            visibleType = View.INVISIBLE,
+            addViewBtn = binding.addSurgeryInfoBtn,
+            parentLinearLayout = binding.surgeryAddLayout,
             viewModelSetter = { viewModel.setSurgery(it) }
         )
 
-        setEditTextListener(
-            editText = binding.surgeryInfo,
-            viewModelSetter = { viewModel.setSurgery(it) }
-        )
-
-        setRadioGroupListener(
+        setRadioGroupNameDataUIListener(
             radioGroup = binding.diseaseRadioGroup,
             yesButton = binding.diseaseYesBtn,
             noButton = binding.diseaseNoBtn,
-            infoEditText = binding.diseaseInfo,
-            visibleView = binding.addDiseaseInfoBtn,
-            visibleType = View.INVISIBLE,
-            viewModelSetter = { viewModel.setDisease(it) }
-        )
-
-        setEditTextListener(
-            editText = binding.diseaseInfo,
+            addViewBtn = binding.addDiseaseInfoBtn,
+            parentLinearLayout = binding.diseaseAddLayout,
             viewModelSetter = { viewModel.setDisease(it) }
         )
     }

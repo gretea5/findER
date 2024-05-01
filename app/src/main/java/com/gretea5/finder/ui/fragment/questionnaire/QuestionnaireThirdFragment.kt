@@ -49,9 +49,9 @@ class QuestionnaireThirdFragment : Fragment() {
 
         navController = findNavController()
 
-        Log.d("viewModel medicine", viewModel.medicine.value.toString())
-        Log.d("viewModel surgery", viewModel.surgery.value.toString())
-        Log.d("viewModel disease", viewModel.disease.value.toString())
+        Log.d("QuestionnaireThirdFragment medicine", viewModel.medicine.value.toString())
+        Log.d("QuestionnaireThirdFragment surgery", viewModel.surgery.value.toString())
+        Log.d("QuestionnaireThirdFragment disease", viewModel.disease.value.toString())
 
         //viewModel값에 따른 UI 갱신
         updateByViewModelValues()
@@ -60,14 +60,44 @@ class QuestionnaireThirdFragment : Fragment() {
         setListeners()
     }
 
+    override fun onPause() {
+        super.onPause()
+        saveInfoData()
+        Log.d("QuestionnaireThirdFragment onPause", "onPause")
+    }
+
+    override fun onStop() {
+        super.onStop()
+        Log.d("QuestionnaireThirdFragment onStop", "onStop")
+    }
+
     override fun onDestroyView() {
         super.onDestroyView()
+        Log.d("QuestionnaireThirdFragment onDestroyView", "onDestroyView")
         _binding = null
     }
 
-    private fun saveMedicineViewModelData() {
-        val parentLinearLayout = binding.medicineAddLayout
+    private fun saveInfoData() {
+        saveNameAndDate(
+            parentLinearLayout = binding.medicineAddLayout,
+            viewModelSetter = { viewModel.setMedicine(it) }
+        )
 
+        saveNameAndDate(
+            parentLinearLayout = binding.surgeryAddLayout,
+            viewModelSetter = { viewModel.setSurgery(it) }
+        )
+
+        saveNameAndDate(
+            parentLinearLayout = binding.diseaseAddLayout,
+            viewModelSetter = { viewModel.setDisease(it) }
+        )
+    }
+
+    private fun saveNameAndDate(
+        parentLinearLayout: LinearLayout,
+        viewModelSetter: (String) -> Unit
+    ) {
         val childCount: Int = parentLinearLayout.childCount
 
         val builder = StringBuilder()
@@ -84,11 +114,8 @@ class QuestionnaireThirdFragment : Fragment() {
             builder.append(name).append(" ").append(date).append("\n")
         }
 
-        Log.d("saveMedicineViewModelData", builder.toString())
-
-        viewModel.setMedicine(builder.toString())
+        viewModelSetter(builder.toString())
     }
-
 
     private fun updateByViewModelValues() {
         //viewmodel 약값에 따른 UI 갱신
@@ -96,7 +123,8 @@ class QuestionnaireThirdFragment : Fragment() {
             value = viewModel.medicine.value,
             yesBtn = binding.medicineYesBtn,
             noBtn = binding.medicineNoBtn,
-            infoView = binding.medicineInfo,
+            parent = binding.medicineAddLayout,
+            context = requireContext(),
             inVisibleType = View.INVISIBLE,
             addInfoBtn = binding.addMedicineInfoBtn
         )
@@ -105,7 +133,8 @@ class QuestionnaireThirdFragment : Fragment() {
             value = viewModel.surgery.value,
             yesBtn = binding.surgeryYesBtn,
             noBtn = binding.surgeryNoBtn,
-            infoView = binding.surgeryInfo,
+            parent = binding.surgeryAddLayout,
+            context = requireContext(),
             inVisibleType = View.INVISIBLE,
             addInfoBtn = binding.addSurgeryInfoBtn
         )
@@ -114,44 +143,71 @@ class QuestionnaireThirdFragment : Fragment() {
             value = viewModel.disease.value,
             yesBtn = binding.diseaseYesBtn,
             noBtn = binding.diseaseNoBtn,
-            infoView = binding.diseaseInfo,
+            parent = binding.diseaseAddLayout,
+            context = requireContext(),
             inVisibleType = View.INVISIBLE,
             addInfoBtn = binding.addDiseaseInfoBtn
         )
     }
 
-    //value값에 따른 라디오 그룹과 edittext 설정
+    //value값에 따른 라디오 그룹과 linearlayout에 뿌린다.
     private fun updateUIByValue(
         value: String?,
         yesBtn: RadioButton,
         noBtn: RadioButton,
-        infoView: EditText,
+        parent: LinearLayout,
+        context: Context,
         inVisibleType: Int,
         addInfoBtn: ImageView? = null) {
         when (value) {
             "X" -> {
                 noBtn.isChecked = true
                 yesBtn.isChecked = false
-                infoView.text.clear()
                 addInfoBtn?.visibility = inVisibleType
             }
             "O" -> {
                 noBtn.isChecked = false
                 yesBtn.isChecked = true
-                infoView.text.clear()
                 addInfoBtn?.visibility = View.VISIBLE
             }
             "" -> {
                 noBtn.isChecked = false
                 yesBtn.isChecked = false
-                infoView.text.clear()
                 addInfoBtn?.visibility = inVisibleType
             }
             else -> {
                 noBtn.isChecked = false
                 yesBtn.isChecked = true
-                infoView.setText(value)
+                updateNameAndData(
+                    parent = parent,
+                    context = context,
+                    value = value!!
+                )
                 addInfoBtn?.visibility = View.VISIBLE
+            }
+        }
+    }
+
+    private fun updateNameAndData(
+        parent: LinearLayout,
+        context: Context,
+        value: String
+    ) {
+        val entries = value.trim().split("\n")
+
+        for(entry in entries) {
+            val parts = entry.split(" ", limit = 2)
+
+            if (parts.size == 2) {
+                val name = parts[0]
+                val date = parts[1]
+
+                addInputView(
+                    parent = parent,
+                    context = context,
+                    name = name,
+                    date = date
+                )
             }
         }
     }
@@ -264,17 +320,22 @@ class QuestionnaireThirdFragment : Fragment() {
     private fun addInputView(
         parent: LinearLayout,
         context: Context,
-        nameHint: String,
-        dateHint: String
+        name: String = getString(R.string.empty_string),
+        date: String = getString(R.string.empty_string),
+        nameHint: String = getString(R.string.empty_string),
+        dateHint: String = getString(R.string.empty_string)
     ) {
 
         val childLinearLayout = LinearLayout(context)
         customLinearLayout(childLinearLayout)
 
         val nameEdittext = EditText(context)
-        customNameEdittext(nameEdittext, context, nameHint)
-
         val dateEdittext = EditText(context)
+
+        nameEdittext.setText(name)
+        dateEdittext.setText(date)
+
+        customNameEdittext(nameEdittext, context, nameHint)
         customDateEdittext(dateEdittext, context, dateHint)
 
         setDateEdittextFocusListener(dateEdittext)
@@ -286,7 +347,6 @@ class QuestionnaireThirdFragment : Fragment() {
             dateEdittext = dateEdittext
         )
     }
-
 
     //edittext를 감싸고 있는 linearLayout custom
     private fun customLinearLayout(linearLayout: LinearLayout) {

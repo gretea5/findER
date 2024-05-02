@@ -79,20 +79,26 @@ class QuestionnaireThirdFragment : Fragment() {
     }
 
     private fun saveInfoData() {
-        saveNameAndDate(
-            parentLinearLayout = binding.medicineAddLayout,
-            viewModelSetter = { viewModel.setMedicine(it) }
-        )
+        if (binding.medicineAddLayout.childCount > 0) {
+            saveNameAndDate(
+                parentLinearLayout = binding.medicineAddLayout,
+                viewModelSetter = { viewModel.setMedicine(it) }
+            )
+        }
 
-        saveNameAndDate(
-            parentLinearLayout = binding.surgeryAddLayout,
-            viewModelSetter = { viewModel.setSurgery(it) }
-        )
+        if (binding.surgeryAddLayout.childCount > 0) {
+            saveNameAndDate(
+                parentLinearLayout = binding.surgeryAddLayout,
+                viewModelSetter = { viewModel.setSurgery(it) }
+            )
+        }
 
-        saveNameAndDate(
-            parentLinearLayout = binding.diseaseAddLayout,
-            viewModelSetter = { viewModel.setDisease(it) }
-        )
+        if (binding.diseaseAddLayout.childCount > 0) {
+            saveNameAndDate(
+                parentLinearLayout = binding.diseaseAddLayout,
+                viewModelSetter = { viewModel.setDisease(it) }
+            )
+        }
     }
 
     private fun saveNameAndDate(

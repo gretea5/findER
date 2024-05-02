@@ -88,18 +88,18 @@ class QuestionnaireFinalFragment : Fragment() {
         infoView: EditText,
         inVisibleType: Int) {
         when (value) {
-            "X" -> {
+            getString(R.string.condition_absent) -> {
                 noBtn.isChecked = true
                 yesBtn.isChecked = false
                 infoView.visibility = inVisibleType
             }
-            "O" -> {
+            getString(R.string.condition_present) -> {
                 noBtn.isChecked = false
                 yesBtn.isChecked = true
                 infoView.visibility = View.VISIBLE
             }
             //라디오 버튼을 클릭하지 않았을 경우,
-            "" -> {
+            getString(R.string.empty_string) -> {
                 noBtn.isChecked = false
                 yesBtn.isChecked = false
                 infoView.visibility = inVisibleType
@@ -153,6 +153,7 @@ class QuestionnaireFinalFragment : Fragment() {
 
     private fun setInputListener() {
         setRadioGroupListener(
+            context = requireContext(),
             radioGroup = binding.smokeRadioGroup,
             yesButton = binding.smokeYesBtn,
             noButton = binding.smokeNoBtn,
@@ -168,6 +169,7 @@ class QuestionnaireFinalFragment : Fragment() {
         )
 
         setRadioGroupListener(
+            context = requireContext(),
             radioGroup = binding.drinkRadioGroup,
             yesButton = binding.drinkYesBtn,
             noButton = binding.drinkNoBtn,
@@ -183,6 +185,7 @@ class QuestionnaireFinalFragment : Fragment() {
         )
 
         setRadioGroupListener(
+            context = requireContext(),
             radioGroup = binding.etcRadioGroup,
             yesButton = binding.etcYesBtn,
             noButton = binding.etcNoBtn,

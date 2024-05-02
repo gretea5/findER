@@ -30,7 +30,7 @@ class QuestionnaireFirstFragment : Fragment() {
             //Search Activity로 부터의 결과값을 전달받으면,
             if (result.resultCode == RESULT_OK) {
                 if (result.data != null) {
-                    val data = result.data!!.getStringExtra("data")
+                    val data = result.data!!.getStringExtra(getString(R.string.address))
                     binding.qnAddress.setText(data)
                 }
             }
@@ -59,11 +59,11 @@ class QuestionnaireFirstFragment : Fragment() {
         binding.qnAddress.setText(viewModel.address.value.toString())
 
         when(viewModel.gender.value) {
-            "남성" -> {
+            getString(R.string.male) -> {
                 binding.qnMale.isChecked = true
                 binding.qnFemale.isChecked = false
             }
-            "여성" -> {
+            getString(R.string.female) -> {
                 binding.qnMale.isChecked = false
                 binding.qnFemale.isChecked = true
             }
@@ -88,9 +88,9 @@ class QuestionnaireFirstFragment : Fragment() {
 
         binding.genderRadioGroup.setOnCheckedChangeListener { _, checkedId ->
             viewModel.setGender(when (checkedId) {
-                R.id.qnMale -> "남성"
-                R.id.qnFemale -> "여성"
-                else -> ""
+                R.id.qnMale -> getString(R.string.male)
+                R.id.qnFemale -> getString(R.string.female)
+                else -> getString(R.string.empty_string)
             })
         }
 

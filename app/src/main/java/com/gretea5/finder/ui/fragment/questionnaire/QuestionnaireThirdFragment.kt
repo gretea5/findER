@@ -171,17 +171,17 @@ class QuestionnaireThirdFragment : Fragment() {
         inVisibleType: Int,
         addInfoBtn: ImageView? = null) {
         when (value) {
-            "X" -> {
+            getString(R.string.condition_absent) -> {
                 noBtn.isChecked = true
                 yesBtn.isChecked = false
                 addInfoBtn?.visibility = inVisibleType
             }
-            "O" -> {
+            getString(R.string.condition_present) -> {
                 noBtn.isChecked = false
                 yesBtn.isChecked = true
                 addInfoBtn?.visibility = View.VISIBLE
             }
-            "" -> {
+            getString(R.string.empty_string)-> {
                 noBtn.isChecked = false
                 yesBtn.isChecked = false
                 addInfoBtn?.visibility = inVisibleType
@@ -252,6 +252,7 @@ class QuestionnaireThirdFragment : Fragment() {
 
     private fun setInputListener() {
         setRadioGroupNameDataUIListener(
+            context = requireContext(),
             radioGroup = binding.medicineRadioGroup,
             yesButton = binding.medicineYesBtn,
             noButton = binding.medicineNoBtn,
@@ -261,6 +262,7 @@ class QuestionnaireThirdFragment : Fragment() {
         )
 
         setRadioGroupNameDataUIListener(
+            context = requireContext(),
             radioGroup = binding.surgeryRadioGroup,
             yesButton = binding.surgeryYesBtn,
             noButton = binding.surgeryNoBtn,
@@ -270,6 +272,7 @@ class QuestionnaireThirdFragment : Fragment() {
         )
 
         setRadioGroupNameDataUIListener(
+            context = requireContext(),
             radioGroup = binding.diseaseRadioGroup,
             yesButton = binding.diseaseYesBtn,
             noButton = binding.diseaseNoBtn,

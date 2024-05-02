@@ -1,5 +1,6 @@
 package com.gretea5.finder.util.view
 
+import android.content.Context
 import android.view.View
 import android.widget.EditText
 import android.widget.ImageView
@@ -7,9 +8,11 @@ import android.widget.LinearLayout
 import android.widget.RadioButton
 import android.widget.RadioGroup
 import androidx.core.widget.addTextChangedListener
+import com.gretea5.finder.R
 
 object ViewEventUtils {
     fun setRadioGroupNameDataUIListener(
+        context: Context,
         radioGroup: RadioGroup,
         yesButton: RadioButton,
         noButton: RadioButton,
@@ -20,12 +23,12 @@ object ViewEventUtils {
         radioGroup.setOnCheckedChangeListener { _, checkedId ->
             when (checkedId) {
                 yesButton.id -> {
-                    viewModelSetter("O")
+                    viewModelSetter(context.getString(R.string.condition_present))
                     parentLinearLayout.visibility = View.VISIBLE
                     addViewBtn.visibility = View.VISIBLE
                 }
                 noButton.id -> {
-                    viewModelSetter("X")
+                    viewModelSetter(context.getString(R.string.condition_absent))
                     parentLinearLayout.removeAllViewsInLayout()
                     parentLinearLayout.visibility = View.GONE
                     parentLinearLayout.visibility = View.INVISIBLE
@@ -36,6 +39,7 @@ object ViewEventUtils {
     }
 
     fun setRadioGroupListener(
+        context: Context,
         radioGroup: RadioGroup,
         yesButton: RadioButton,
         noButton: RadioButton,
@@ -47,12 +51,12 @@ object ViewEventUtils {
         radioGroup.setOnCheckedChangeListener { _, checkedId ->
             when (checkedId) {
                 yesButton.id -> {
-                    viewModelSetter("O")
+                    viewModelSetter(context.getString(R.string.condition_present))
                     visibleView.visibility = View.VISIBLE
                 }
                 noButton.id -> {
-                    infoEditText.setText("")
-                    viewModelSetter("X")
+                    infoEditText.setText(context.getString(R.string.empty_string))
+                    viewModelSetter(context.getString(R.string.condition_absent))
                     visibleView.visibility = visibleType
                 }
             }

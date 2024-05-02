@@ -2,6 +2,7 @@ package com.gretea5.finder.data
 
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
+import com.gretea5.finder.BuildConfig
 import com.gretea5.finder.data.model.*
 import retrofit2.Call
 import retrofit2.Retrofit
@@ -53,7 +54,7 @@ interface ApiService {
     fun updateQuestionnaire(@Body questionnaireModel: QuestionnaireModel) : Call<String>
 
     companion object {
-        private const val BASE_URL = "http://13.125.1.150:8080"
+        private const val BASE_URL = BuildConfig.SERVER_URL
 
         fun create(): ApiService {
             val gson : Gson = GsonBuilder().setLenient().create()

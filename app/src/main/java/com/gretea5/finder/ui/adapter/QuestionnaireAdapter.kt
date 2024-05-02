@@ -31,23 +31,25 @@ class QuestionnaireAdapter(
 
             val color = ContextCompat.getColor(context, R.color.main_color)
 
-            if (questionnaireModel.drink != "X") {
+            val conditionAbsent = context.getString(R.string.condition_absent)
+
+            if (questionnaireModel.drink != conditionAbsent) {
                 binding.qnItemDrink.setColorFilter(color)
             }
 
-            if (questionnaireModel.smoke != "X") {
+            if (questionnaireModel.smoke != conditionAbsent) {
                 binding.qnItemSmoke.setColorFilter(color)
             }
 
-            if (questionnaireModel.medicine != "X") {
+            if (questionnaireModel.medicine != conditionAbsent) {
                 binding.qnItemMedicine.setColorFilter(color)
             }
 
-            if (questionnaireModel.allergy != "X") {
+            if (questionnaireModel.allergy != conditionAbsent) {
                 binding.qnItemAllergy.setColorFilter(color)
             }
 
-            if (questionnaireModel.surgery != "X") {
+            if (questionnaireModel.surgery != conditionAbsent) {
                 binding.qnItemSurgery.setColorFilter(color)
             }
         }

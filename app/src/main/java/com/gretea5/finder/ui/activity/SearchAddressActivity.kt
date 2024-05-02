@@ -36,7 +36,7 @@ class SearchAddressActivity : AppCompatActivity() {
         fun processDATA(data: String) {
             //다음(카카오) 주소 검색 API 결과 값 브릿지 통로를 통해 전달 받는다.
             val intent = Intent()
-            intent.putExtra("data", data)
+            intent.putExtra(getString(R.string.address), data)
             setResult(RESULT_OK, intent)
             finish()
         }

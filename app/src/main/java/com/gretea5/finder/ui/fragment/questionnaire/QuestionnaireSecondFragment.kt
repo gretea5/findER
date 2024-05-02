@@ -38,77 +38,77 @@ class QuestionnaireSecondFragment : Fragment() {
 
         navController = findNavController()
 
-        if(viewModel.bloodType.value?.contains ("Rh+") == true) {
+        if(viewModel.bloodType.value?.contains(getString(R.string.blood_rh_plus)) == true) {
             binding.rhRadioGroup.check(R.id.rhPlusBtn)
         }
 
-        if(viewModel.bloodType.value?.contains ("Rh-") == true) {
+        if(viewModel.bloodType.value?.contains(getString(R.string.blood_rh_minus)) == true) {
             binding.rhRadioGroup.check(R.id.rhMinusBtn)
         }
 
-        if(viewModel.bloodType.value?.contains("A") == true) {
+        if(viewModel.bloodType.value?.contains(getString(R.string.blood_a)) == true) {
             binding.bloodRadioGroup.check(R.id.aBtn)
         }
 
-        if(viewModel.bloodType.value?.contains("B") == true) {
+        if(viewModel.bloodType.value?.contains(getString(R.string.blood_b)) == true) {
             binding.bloodRadioGroup.check(R.id.bBtn)
         }
 
-        if(viewModel.bloodType.value?.contains("O") == true) {
+        if(viewModel.bloodType.value?.contains(getString(R.string.blood_o)) == true) {
             binding.bloodRadioGroup.check(R.id.oBtn)
         }
 
-        if(viewModel.bloodType.value?.contains("AB") == true) {
+        if(viewModel.bloodType.value?.contains(getString(R.string.blood_ab)) == true) {
             binding.bloodRadioGroup.check(R.id.abBtn)
         }
 
         binding.rhRadioGroup.setOnCheckedChangeListener { _, checkedId  ->
             val rhType = when (checkedId) {
-                R.id.rhPlusBtn -> "Rh+"
-                R.id.rhMinusBtn -> "Rh-"
-                else -> ""
+                R.id.rhPlusBtn -> getString(R.string.blood_rh_plus)
+                R.id.rhMinusBtn -> getString(R.string.blood_rh_minus)
+                else -> getString(R.string.empty_string)
             }
             val bloodType = when (binding.bloodRadioGroup.checkedRadioButtonId) {
-                R.id.aBtn -> "A"
-                R.id.bBtn -> "B"
-                R.id.abBtn -> "AB"
-                R.id.oBtn -> "O"
-                else -> ""
+                R.id.aBtn -> getString(R.string.blood_a)
+                R.id.bBtn -> getString(R.string.blood_b)
+                R.id.abBtn -> getString(R.string.blood_ab)
+                R.id.oBtn -> getString(R.string.blood_o)
+                else -> getString(R.string.empty_string)
             }
             viewModel.onBloodTypeSelected(rhType, bloodType)
         }
 
         binding.bloodRadioGroup.setOnCheckedChangeListener { _, checkedId ->
             val rhType = when (binding.rhRadioGroup.checkedRadioButtonId) {
-                R.id.rhPlusBtn -> "Rh+"
-                R.id.rhMinusBtn -> "Rh-"
-                else -> ""
+                R.id.rhPlusBtn -> getString(R.string.blood_rh_plus)
+                R.id.rhMinusBtn -> getString(R.string.blood_rh_minus)
+                else -> getString(R.string.empty_string)
             }
             val bloodType = when (checkedId) {
-                R.id.aBtn -> "A"
-                R.id.bBtn -> "B"
-                R.id.abBtn -> "AB"
-                R.id.oBtn -> "O"
-                else -> ""
+                R.id.aBtn -> getString(R.string.blood_a)
+                R.id.bBtn -> getString(R.string.blood_b)
+                R.id.abBtn -> getString(R.string.blood_ab)
+                R.id.oBtn -> getString(R.string.blood_o)
+                else -> getString(R.string.empty_string)
             }
             viewModel.onBloodTypeSelected(rhType, bloodType)
         }
 
         when(viewModel.allergy.value) {
             //해당 없음인 값인 경우,
-            "X" -> {
+            getString(R.string.condition_absent) -> {
                 binding.noAllergy.isChecked = true
                 binding.yesAllergy.isChecked = false
                 binding.allergyInfo.visibility = View.GONE
             }
             //해당 있음인 값인 경우,
-            "O" -> {
+            getString(R.string.condition_present) -> {
                 binding.noAllergy.isChecked = false
                 binding.yesAllergy.isChecked = true
                 binding.allergyInfo.visibility = View.VISIBLE
             }
             //라디오 버튼을 클릭하지 않았을 경우,
-            "" -> {
+            getString(R.string.empty_string) -> {
                 binding.noAllergy.isChecked = false
                 binding.yesAllergy.isChecked = false
                 binding.allergyInfo.visibility = View.GONE
@@ -124,12 +124,12 @@ class QuestionnaireSecondFragment : Fragment() {
         binding.allergyRadioGroup.setOnCheckedChangeListener { _, checkedId ->
             when (checkedId) {
                 R.id.yesAllergy -> {
-                    viewModel.setAllergy("O")
+                    viewModel.setAllergy(getString(R.string.condition_present))
                     binding.allergyInfo.visibility = View.VISIBLE
                 }
                 R.id.noAllergy -> {
-                    viewModel.setAllergy("X")
-                    binding.allergyInfo.setText("")
+                    viewModel.setAllergy(getString(R.string.condition_absent))
+                    binding.allergyInfo.setText(getString(R.string.empty_string))
                     binding.allergyInfo.visibility = View.GONE
                 }
             }

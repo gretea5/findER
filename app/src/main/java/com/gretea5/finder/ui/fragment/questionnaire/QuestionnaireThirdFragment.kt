@@ -118,7 +118,11 @@ class QuestionnaireThirdFragment : Fragment() {
             val dateEdittext: EditText = childLinearLayout.getChildAt(1) as EditText
             val date = dateEdittext.text.toString()
 
-            builder.append(name).append(" ").append(date).append("\n")
+            builder.append(name).append(" ").append(date)
+
+            if (i < childCount - 1) {
+                builder.append("\n")
+            }
         }
 
         viewModelSetter(builder.toString())

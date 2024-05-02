@@ -11,6 +11,7 @@
 
     <!-- fragment_questionnaire.xml -->
     <string name="questionnaireToolbarTitle">건강 상태</string>
+    <string name="mapToolbarTitle">지도</string>
 
     <!-- menu_toolbar.xml -->
     <string name="questionnaireMenuMove">문진표 메뉴 이동</string>

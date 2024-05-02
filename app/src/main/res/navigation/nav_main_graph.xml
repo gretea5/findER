@@ -7,13 +7,13 @@
 
     <fragment
         android:id="@+id/mapFragment"
-        android:name="com.gretea5.finder.ui.fragment.main.MapFragment"
+        android:name="com.gretea5.finder.ui.fragment.MapFragment"
         android:label="MapFragment"
         tools:layout="@layout/fragment_map" />
 
     <fragment
         android:id="@+id/questionnaireFragment"
-        android:name="com.gretea5.finder.ui.fragment.main.QuestionnaireFragment"
+        android:name="com.gretea5.finder.ui.fragment.QuestionnaireFragment"
         android:label="QuestionnaireFragment"
         tools:layout="@layout/fragment_questionnaire" >
         <action
@@ -33,7 +33,7 @@
     </fragment>
     <fragment
         android:id="@+id/questionnaireModeFragment"
-        android:name="com.gretea5.finder.ui.fragment.questionnaire.QuestionnaireModeFragment"
+        android:name="com.gretea5.finder.ui.fragment.QuestionnaireModeFragment"
         android:label="fragment_questionnaire_mode"
         tools:layout="@layout/fragment_questionnaire_mode" >
         <action
@@ -53,7 +53,7 @@
     </fragment>
     <fragment
         android:id="@+id/questionnaireInfoFragment"
-        android:name="com.gretea5.finder.ui.fragment.questionnaire.QuestionnaireInfoFragment"
+        android:name="com.gretea5.finder.ui.fragment.QuestionnaireInfoFragment"
         android:label="fragment_questionnaire_info"
         tools:layout="@layout/fragment_questionnaire_info" >
         <action
@@ -66,7 +66,7 @@
     </fragment>
     <fragment
         android:id="@+id/questionnaireLinkFragment"
-        android:name="com.gretea5.finder.ui.fragment.questionnaire.QuestionnaireLinkFragment"
+        android:name="com.gretea5.finder.ui.fragment.QuestionnaireLinkFragment"
         android:label="fragment_questionnaire_link"
         tools:layout="@layout/fragment_questionnaire_link" >
         <action
@@ -79,7 +79,7 @@
     </fragment>
     <fragment
         android:id="@+id/questionnaireFirstFragment"
-        android:name="com.gretea5.finder.ui.fragment.questionnaire.QuestionnaireFirstFragment"
+        android:name="com.gretea5.finder.ui.fragment.QuestionnaireFirstFragment"
         android:label="fragment_questionnaire_first"
         tools:layout="@layout/fragment_questionnaire_first" >
         <action
@@ -92,7 +92,7 @@
     </fragment>
     <fragment
         android:id="@+id/questionnaireSecondFragment"
-        android:name="com.gretea5.finder.ui.fragment.questionnaire.QuestionnaireSecondFragment"
+        android:name="com.gretea5.finder.ui.fragment.QuestionnaireSecondFragment"
         android:label="fragment_questionnaire_second"
         tools:layout="@layout/fragment_questionnaire_second" >
         <action
@@ -105,7 +105,7 @@
     </fragment>
     <fragment
         android:id="@+id/questionnaireFinalFragment"
-        android:name="com.gretea5.finder.ui.fragment.questionnaire.QuestionnaireFinalFragment"
+        android:name="com.gretea5.finder.ui.fragment.QuestionnaireFinalFragment"
         android:label="fragment_questionnaire_final"
         tools:layout="@layout/fragment_questionnaire_final" >
         <action
@@ -119,7 +119,7 @@
     </fragment>
     <fragment
         android:id="@+id/questionnaireThirdFragment"
-        android:name="com.gretea5.finder.ui.fragment.questionnaire.QuestionnaireThirdFragment"
+        android:name="com.gretea5.finder.ui.fragment.QuestionnaireThirdFragment"
         android:label="fragment_questionnaire_third"
         tools:layout="@layout/fragment_questionnaire_third" >
         <action

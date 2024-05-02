@@ -1,4 +1,4 @@
-package com.gretea5.finder.ui.fragment.questionnaire
+package com.gretea5.finder.ui.fragment
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment

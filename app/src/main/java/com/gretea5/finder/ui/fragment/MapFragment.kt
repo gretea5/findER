@@ -1,14 +1,15 @@
-package com.gretea5.finder.ui.fragment.main
+package com.gretea5.finder.ui.fragment
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.gretea5.finder.databinding.FragmentListBinding
+import com.gretea5.finder.databinding.FragmentMapBinding
 
-class ListFragment : Fragment() {
-    private var _binding : FragmentListBinding? = null
+
+class MapFragment : Fragment() {
+    private var _binding: FragmentMapBinding? = null
     private val binding get() = _binding!!
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -19,7 +20,7 @@ class ListFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentListBinding.inflate(inflater)
+        _binding = FragmentMapBinding.inflate(inflater)
 
         return binding.root
     }

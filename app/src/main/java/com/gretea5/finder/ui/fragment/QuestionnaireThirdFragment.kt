@@ -1,4 +1,4 @@
-package com.gretea5.finder.ui.fragment.questionnaire
+package com.gretea5.finder.ui.fragment
 
 import android.content.Context
 import android.os.Bundle
@@ -19,8 +19,6 @@ import androidx.navigation.fragment.findNavController
 import com.gretea5.finder.R
 import com.gretea5.finder.databinding.FragmentQuestionnaireThirdBinding
 import com.gretea5.finder.ui.dialog.YearMonthPickerDialog
-import com.gretea5.finder.util.view.ViewEventUtils.setEditTextListener
-import com.gretea5.finder.util.view.ViewEventUtils.setRadioGroupListener
 import com.gretea5.finder.util.view.ViewEventUtils.setRadioGroupNameDataUIListener
 import com.gretea5.finder.ui.viewmodel.QuestionnaireViewModel
 

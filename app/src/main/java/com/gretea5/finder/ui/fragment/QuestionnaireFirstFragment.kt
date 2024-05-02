@@ -1,4 +1,4 @@
-package com.gretea5.finder.ui.fragment.questionnaire
+package com.gretea5.finder.ui.fragment
 
 import android.app.Activity.RESULT_OK
 import android.content.Intent

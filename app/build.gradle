@@ -20,6 +20,7 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
         buildConfigField "String", "SERVER_URL", "\"${properties['spring.server.url']}\""
+        buildConfigField "String", "KAKAO_MAP_KEY", "\"${properties['kakao.map.key']}\""
     }
 
     buildTypes {
@@ -61,4 +62,6 @@ dependencies {
     // Kotlin
     implementation "androidx.navigation:navigation-fragment-ktx:$nav_version"
     implementation "androidx.navigation:navigation-ui-ktx:$nav_version"
+
+    implementation 'com.kakao.maps.open:android:2.9.5'
 }

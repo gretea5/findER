@@ -20,10 +20,7 @@ import com.gretea5.finder.R
 import com.gretea5.finder.databinding.FragmentQuestionnaireThirdBinding
 import com.gretea5.finder.util.view.ViewEventUtils.setRadioGroupNameDataUIListener
 import com.gretea5.finder.ui.viewmodel.QuestionnaireViewModel
-import com.gretea5.finder.util.view.ViewCustomizationUtils.customDateEdittext
-import com.gretea5.finder.util.view.ViewCustomizationUtils.customNameEdittext
-import com.gretea5.finder.util.view.ViewCustomizationUtils.customLinearLayout
-import com.gretea5.finder.util.view.ViewEventUtils.setDateEdittextFocusListener
+import com.gretea5.finder.util.view.ViewAdditionUtils.addInputView
 
 class QuestionnaireThirdFragment : Fragment() {
     private var _binding: FragmentQuestionnaireThirdBinding? = null
@@ -320,49 +317,5 @@ class QuestionnaireThirdFragment : Fragment() {
                 dateHint = getString(R.string.disease_edittext_date)
             )
         }
-    }
-
-    private fun addInputView(
-        parent: LinearLayout,
-        context: Context,
-        fragmentManager: FragmentManager,
-        name: String = getString(R.string.empty_string),
-        date: String = getString(R.string.empty_string),
-        nameHint: String = getString(R.string.empty_string),
-        dateHint: String = getString(R.string.empty_string)
-    ) {
-
-        val childLinearLayout = LinearLayout(context)
-        customLinearLayout(childLinearLayout, context)
-
-        val nameEdittext = EditText(context)
-        val dateEdittext = EditText(context)
-
-        nameEdittext.setText(name)
-        dateEdittext.setText(date)
-
-        customNameEdittext(nameEdittext, context, nameHint)
-        customDateEdittext(dateEdittext, context, dateHint)
-
-        setDateEdittextFocusListener(dateEdittext, fragmentManager)
-
-        addParentLinearLayout(
-            parent = parent,
-            child = childLinearLayout,
-            nameEditText = nameEdittext,
-            dateEdittext = dateEdittext
-        )
-    }
-
-    private fun addParentLinearLayout(
-        parent: LinearLayout,
-        child: LinearLayout,
-        nameEditText: EditText,
-        dateEdittext: EditText
-    ) {
-        child.addView(nameEditText)
-        child.addView(dateEdittext)
-
-        parent.addView(child)
     }
 }

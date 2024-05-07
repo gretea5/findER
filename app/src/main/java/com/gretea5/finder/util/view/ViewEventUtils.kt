@@ -8,7 +8,9 @@ import android.widget.LinearLayout
 import android.widget.RadioButton
 import android.widget.RadioGroup
 import androidx.core.widget.addTextChangedListener
+import androidx.fragment.app.FragmentManager
 import com.gretea5.finder.R
+import com.gretea5.finder.ui.dialog.YearMonthPickerDialog
 
 object ViewEventUtils {
     fun setRadioGroupNameDataUIListener(
@@ -70,6 +72,24 @@ object ViewEventUtils {
         editText.addTextChangedListener {
             if (!it.isNullOrBlank()) {
                 viewModelSetter(it.toString())
+            }
+        }
+    }
+
+    fun setDateEdittextFocusListener(
+        editText: EditText,
+        fragmentManager: FragmentManager
+    ) {
+        editText.onFocusChangeListener = View.OnFocusChangeListener { _, hasFocus ->
+            if (hasFocus) {
+                val pickerDialog = YearMonthPickerDialog()
+
+                pickerDialog.setListener { _, year, month, _ ->
+                    val selectedDate = "$year-$month"
+                    editText.setText(selectedDate)
+                }
+
+                pickerDialog.show(fragmentManager, "YearMonthPickerDialog")
             }
         }
     }

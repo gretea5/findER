@@ -12,15 +12,18 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.RadioButton
 import androidx.activity.OnBackPressedCallback
-import androidx.core.content.ContextCompat
+import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import com.gretea5.finder.R
 import com.gretea5.finder.databinding.FragmentQuestionnaireThirdBinding
-import com.gretea5.finder.ui.dialog.YearMonthPickerDialog
 import com.gretea5.finder.util.view.ViewEventUtils.setRadioGroupNameDataUIListener
 import com.gretea5.finder.ui.viewmodel.QuestionnaireViewModel
+import com.gretea5.finder.util.view.ViewCustomizationUtils.customDateEdittext
+import com.gretea5.finder.util.view.ViewCustomizationUtils.customNameEdittext
+import com.gretea5.finder.util.view.ViewCustomizationUtils.customLinearLayout
+import com.gretea5.finder.util.view.ViewEventUtils.setDateEdittextFocusListener
 
 class QuestionnaireThirdFragment : Fragment() {
     private var _binding: FragmentQuestionnaireThirdBinding? = null
@@ -134,6 +137,7 @@ class QuestionnaireThirdFragment : Fragment() {
             noBtn = binding.medicineNoBtn,
             parent = binding.medicineAddLayout,
             context = requireContext(),
+            fragmentManager = childFragmentManager,
             inVisibleType = View.INVISIBLE,
             addInfoBtn = binding.addMedicineInfoBtn
         )
@@ -144,6 +148,7 @@ class QuestionnaireThirdFragment : Fragment() {
             noBtn = binding.surgeryNoBtn,
             parent = binding.surgeryAddLayout,
             context = requireContext(),
+            fragmentManager = childFragmentManager,
             inVisibleType = View.INVISIBLE,
             addInfoBtn = binding.addSurgeryInfoBtn
         )
@@ -154,6 +159,7 @@ class QuestionnaireThirdFragment : Fragment() {
             noBtn = binding.diseaseNoBtn,
             parent = binding.diseaseAddLayout,
             context = requireContext(),
+            fragmentManager = childFragmentManager,
             inVisibleType = View.INVISIBLE,
             addInfoBtn = binding.addDiseaseInfoBtn
         )
@@ -166,6 +172,7 @@ class QuestionnaireThirdFragment : Fragment() {
         noBtn: RadioButton,
         parent: LinearLayout,
         context: Context,
+        fragmentManager: FragmentManager,
         inVisibleType: Int,
         addInfoBtn: ImageView? = null) {
         when (value) {
@@ -190,6 +197,7 @@ class QuestionnaireThirdFragment : Fragment() {
                 updateNameAndData(
                     parent = parent,
                     context = context,
+                    fragmentManager = fragmentManager,
                     value = value!!
                 )
                 addInfoBtn?.visibility = View.VISIBLE
@@ -200,6 +208,7 @@ class QuestionnaireThirdFragment : Fragment() {
     private fun updateNameAndData(
         parent: LinearLayout,
         context: Context,
+        fragmentManager: FragmentManager,
         value: String
     ) {
         val entries = value.trim().split("\n")
@@ -214,6 +223,7 @@ class QuestionnaireThirdFragment : Fragment() {
                 addInputView(
                     parent = parent,
                     context = context,
+                    fragmentManager = fragmentManager,
                     name = name,
                     date = date
                 )
@@ -285,6 +295,7 @@ class QuestionnaireThirdFragment : Fragment() {
             addInputView(
                 parent = binding.medicineAddLayout,
                 context = requireContext(),
+                fragmentManager = childFragmentManager,
                 nameHint = getString(R.string.medicine_edittext_name),
                 dateHint = getString(R.string.medicine_edittext_date)
             )
@@ -294,6 +305,7 @@ class QuestionnaireThirdFragment : Fragment() {
             addInputView(
                 parent = binding.surgeryAddLayout,
                 context = requireContext(),
+                fragmentManager = childFragmentManager,
                 nameHint = getString(R.string.surgery_edittext_name),
                 dateHint = getString(R.string.surgery_edittext_date)
             )
@@ -303,6 +315,7 @@ class QuestionnaireThirdFragment : Fragment() {
             addInputView(
                 parent = binding.diseaseAddLayout,
                 context = requireContext(),
+                fragmentManager = childFragmentManager,
                 nameHint = getString(R.string.disease_edittext_name),
                 dateHint = getString(R.string.disease_edittext_date)
             )
@@ -312,6 +325,7 @@ class QuestionnaireThirdFragment : Fragment() {
     private fun addInputView(
         parent: LinearLayout,
         context: Context,
+        fragmentManager: FragmentManager,
         name: String = getString(R.string.empty_string),
         date: String = getString(R.string.empty_string),
         nameHint: String = getString(R.string.empty_string),
@@ -319,7 +333,7 @@ class QuestionnaireThirdFragment : Fragment() {
     ) {
 
         val childLinearLayout = LinearLayout(context)
-        customLinearLayout(childLinearLayout)
+        customLinearLayout(childLinearLayout, context)
 
         val nameEdittext = EditText(context)
         val dateEdittext = EditText(context)
@@ -330,7 +344,7 @@ class QuestionnaireThirdFragment : Fragment() {
         customNameEdittext(nameEdittext, context, nameHint)
         customDateEdittext(dateEdittext, context, dateHint)
 
-        setDateEdittextFocusListener(dateEdittext)
+        setDateEdittextFocusListener(dateEdittext, fragmentManager)
 
         addParentLinearLayout(
             parent = parent,
@@ -338,106 +352,6 @@ class QuestionnaireThirdFragment : Fragment() {
             nameEditText = nameEdittext,
             dateEdittext = dateEdittext
         )
-    }
-
-    //edittext를 감싸고 있는 linearLayout custom
-    private fun customLinearLayout(linearLayout: LinearLayout) {
-        val linearLayoutParams = LinearLayout.LayoutParams(
-            LinearLayout.LayoutParams.MATCH_PARENT,
-            LinearLayout.LayoutParams.WRAP_CONTENT
-        )
-
-        linearLayoutParams.topMargin = resources.getDimensionPixelSize(R.dimen.write_qn_linearlayout_margin)
-        linearLayoutParams.bottomMargin = resources.getDimensionPixelSize(R.dimen.write_qn_linearlayout_margin)
-
-        linearLayout.layoutParams = linearLayoutParams
-        linearLayout.orientation = LinearLayout.HORIZONTAL
-    }
-
-    //이름을 입력받는 edittext custom
-    private fun customNameEdittext(
-        editText: EditText,
-        context: Context,
-        hint: String
-    ) {
-        val nameEdittextParams = LinearLayout.LayoutParams(
-            0,
-            LinearLayout.LayoutParams.WRAP_CONTENT,
-            1f
-        )
-
-        nameEdittextParams.marginEnd = resources.getDimensionPixelSize(R.dimen.write_qn_name_margin)
-        editText.layoutParams = nameEdittextParams
-
-        editText.background = ContextCompat.getDrawable(context, R.drawable.edittext_unaccessible_border)
-        editText.hint = hint
-
-        editText.setPadding(
-            resources.getDimensionPixelSize(R.dimen.write_qn_name_padding),
-            resources.getDimensionPixelSize(R.dimen.write_qn_name_padding),
-            resources.getDimensionPixelSize(R.dimen.write_qn_name_padding),
-            resources.getDimensionPixelSize(R.dimen.write_qn_name_padding)
-        )
-    }
-
-    private fun customDateEdittext(
-        editText: EditText,
-        context: Context,
-        hint: String
-    ) {
-        setDateEdittextStyle(editText, context, hint)
-        setDateEdittextCalendarIcon(editText, context)
-    }
-
-    private fun setDateEdittextStyle(
-        editText: EditText,
-        context: Context,
-        hint: String
-    ) {
-        val dateEdittextParams = LinearLayout.LayoutParams(
-            0,
-            LinearLayout.LayoutParams.WRAP_CONTENT,
-            1f
-        )
-        dateEdittextParams.marginEnd = resources.getDimensionPixelSize(R.dimen.write_qn_name_margin)
-        editText.layoutParams = dateEdittextParams
-
-        editText.background = ContextCompat.getDrawable(context, R.drawable.edittext_unaccessible_border)
-        editText.hint = hint
-        editText.setPadding( // padding 값을 지정
-            resources.getDimensionPixelSize(R.dimen.write_qn_name_padding),
-            resources.getDimensionPixelSize(R.dimen.write_qn_name_padding),
-            resources.getDimensionPixelSize(R.dimen.write_qn_name_padding),
-            resources.getDimensionPixelSize(R.dimen.write_qn_name_padding)
-        )
-    }
-
-    private fun setDateEdittextCalendarIcon(editText: EditText, context: Context) {
-        val calendarIcon = ContextCompat.getDrawable(context, R.drawable.icon_calendar)
-
-        calendarIcon?.setBounds(0, 0, 70, 70)
-
-        editText.setCompoundDrawables(
-            null,
-            null,
-            calendarIcon,
-            null
-        )
-    }
-
-    private fun setDateEdittextFocusListener(editText: EditText) {
-        editText.onFocusChangeListener = View.OnFocusChangeListener { _, hasFocus ->
-            if (hasFocus) {
-                val pickerDialog = YearMonthPickerDialog()
-
-                pickerDialog.setListener { _, year, month, _ ->
-                    val selectedDate = "$year-$month"
-                    editText.setText(selectedDate)
-                }
-
-                pickerDialog.show(childFragmentManager, "YearMonthPickerDialog")
-            }
-        }
     }
 
     private fun addParentLinearLayout(

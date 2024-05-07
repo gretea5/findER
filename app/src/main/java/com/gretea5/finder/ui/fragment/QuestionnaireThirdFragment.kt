@@ -48,10 +48,6 @@ class QuestionnaireThirdFragment : Fragment() {
 
         navController = findNavController()
 
-        Log.d("QuestionnaireThirdFragment medicine", viewModel.medicine.value.toString())
-        Log.d("QuestionnaireThirdFragment surgery", viewModel.surgery.value.toString())
-        Log.d("QuestionnaireThirdFragment disease", viewModel.disease.value.toString())
-
         //viewModel값에 따른 UI 갱신
         updateByViewModelValues()
 
@@ -62,17 +58,14 @@ class QuestionnaireThirdFragment : Fragment() {
     override fun onPause() {
         super.onPause()
         saveInfoData()
-        Log.d("QuestionnaireThirdFragment onPause", "onPause")
     }
 
     override fun onStop() {
         super.onStop()
-        Log.d("QuestionnaireThirdFragment onStop", "onStop")
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
-        Log.d("QuestionnaireThirdFragment onDestroyView", "onDestroyView")
         _binding = null
     }
 

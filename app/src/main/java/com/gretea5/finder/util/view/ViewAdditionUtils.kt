@@ -7,7 +7,6 @@ import androidx.fragment.app.FragmentManager
 import com.gretea5.finder.R
 
 object ViewAdditionUtils {
-    
     fun addInputView(
         parent: LinearLayout,
         context: Context,
@@ -40,7 +39,7 @@ object ViewAdditionUtils {
         )
     }
 
-    fun addParentLinearLayout(
+    private fun addParentLinearLayout(
         parent: LinearLayout,
         child: LinearLayout,
         nameEditText: EditText,

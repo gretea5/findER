@@ -5,7 +5,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.gretea5.finder.data.model.QuestionnaireModel
-import com.gretea5.finder.ui.model.QuestionnaireInfo
 
 class QuestionnaireViewModel : ViewModel() {
     // MutableLiveData로 selectedBloodType 선언

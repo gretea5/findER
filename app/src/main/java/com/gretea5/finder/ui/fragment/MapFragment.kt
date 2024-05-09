@@ -40,20 +40,12 @@ class MapFragment : Fragment() {
         _binding = FragmentMapBinding.inflate(inflater)
 
         binding.mapView.start(object : MapLifeCycleCallback() {
-            override fun onMapDestroy() {
-                //TODO("Not yet implemented")
-                Log.d("KakaoMap", "onMapDestroy");
-            }
-
-            override fun onMapError(p0: Exception?) {
-                //TODO("Not yet implemented")
-                Log.d("KakaoMap", "onMapError");
-            }
+            override fun onMapDestroy() {}
+            override fun onMapError(p0: Exception?) {}
 
         }, object : KakaoMapReadyCallback() {
             override fun onMapReady(p0: KakaoMap) {
                 _kakaoMap = p0
-                Log.d("KakaoMap", "onMapReady");
             }
         })
 
@@ -75,8 +67,6 @@ class MapFragment : Fragment() {
         val client = KakaoApiClient.getClient().create(KakaoApiService::class.java)
         val call = client.searchAddress("KakaoAK ${BuildConfig.KAKAO_REST_KEY}", keyword)
 
-        Log.d("searchKeyword", keyword)
-
         call.enqueue(object: Callback<AddressResponse> {
             override fun onResponse(
                 call: Call<AddressResponse>,
@@ -86,8 +76,8 @@ class MapFragment : Fragment() {
                     val keywordResponse = response.body()!!
 
                     if (keywordResponse.documents.isNotEmpty()) {
-                        val lat = keywordResponse.documents.get(0).y.toDouble()
-                        val lon = keywordResponse.documents.get(0).x.toDouble()
+                        val lat = keywordResponse.documents[0].y.toDouble()
+                        val lon = keywordResponse.documents[0].x.toDouble()
 
                         val cameraUpdate = CameraUpdateFactory.newCenterPosition(LatLng.from(lat, lon))
                         kakaoMap.moveCamera(cameraUpdate)
@@ -95,10 +85,7 @@ class MapFragment : Fragment() {
                 }
             }
 
-            override fun onFailure(call: Call<AddressResponse>, t: Throwable) {
-                Log.d("searchKeyword", call.toString())
-                Log.d("searchKeyword", t.toString())
-            }
+            override fun onFailure(call: Call<AddressResponse>, t: Throwable) {}
         })
     }
 }

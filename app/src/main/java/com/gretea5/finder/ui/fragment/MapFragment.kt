@@ -46,6 +46,29 @@ class MapFragment : Fragment() {
         }, object : KakaoMapReadyCallback() {
             override fun onMapReady(p0: KakaoMap) {
                 _kakaoMap = p0
+
+                kakaoMap.setOnCameraMoveEndListener { kakaoMap, cameraPosition, gestureType ->
+                    val top = kakaoMap.viewport.top
+                    val bottom = kakaoMap.viewport.bottom
+
+                    val right = kakaoMap.viewport.right
+                    val left = kakaoMap.viewport.left
+
+                    val swPos = kakaoMap.fromScreenPoint(left, bottom)
+                    val nePos = kakaoMap.fromScreenPoint(right, top)
+                    val centerPos = cameraPosition.position
+
+                    Log.d("kakaoMap", "moveEnd")
+
+                    Log.d("kakaoMap swPos", swPos?.latitude.toString())
+                    Log.d("kakaoMap swPos", swPos?.longitude.toString())
+
+                    Log.d("kakaoMap centerPos", centerPos?.latitude.toString())
+                    Log.d("kakaoMap centerPos", centerPos?.longitude.toString())
+
+                    Log.d("kakaoMap nePos", nePos?.latitude.toString())
+                    Log.d("kakaoMap nePos", nePos?.longitude.toString())
+                }
             }
         })
 
@@ -57,7 +80,6 @@ class MapFragment : Fragment() {
 
         binding.searchIconImageView.setOnClickListener {
             if (binding.searchEditText.toString().isNotEmpty()) {
-                Log.d("searchKeyword", "setOnClickListener")
                 searchName(binding.searchEditText.text.toString())
             }
         }

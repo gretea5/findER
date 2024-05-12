@@ -37,7 +37,7 @@ interface ApiService {
     @POST("/api/unlink")
     fun unLinkQuestionnaire(@Body questionnaireUnlinkModel: QuestionnaireUnlinkModel) : Call<String>
 
-    @GET("/api/{phoneNumber}")
+    @GET("/api/account/serialNumber/{phoneNumber}")
     @Headers("accept: application/json",
         "content-type: application/json")
     fun getSerialNumber(@Path("phoneNumber") phoneNumber: String) : Call<String>

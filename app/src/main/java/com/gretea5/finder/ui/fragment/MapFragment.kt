@@ -57,17 +57,6 @@ class MapFragment : Fragment() {
                     val swPos = kakaoMap.fromScreenPoint(left, bottom)
                     val nePos = kakaoMap.fromScreenPoint(right, top)
                     val centerPos = cameraPosition.position
-
-                    Log.d("kakaoMap", "moveEnd")
-
-                    Log.d("kakaoMap swPos", swPos?.latitude.toString())
-                    Log.d("kakaoMap swPos", swPos?.longitude.toString())
-
-                    Log.d("kakaoMap centerPos", centerPos?.latitude.toString())
-                    Log.d("kakaoMap centerPos", centerPos?.longitude.toString())
-
-                    Log.d("kakaoMap nePos", nePos?.latitude.toString())
-                    Log.d("kakaoMap nePos", nePos?.longitude.toString())
                 }
             }
         })

@@ -94,6 +94,8 @@ class MapFragment : Fragment() {
                         kakaoMap.moveCamera(cameraUpdate)
 
                         binding.searchEditText.text.clear()
+
+                        binding.searchEditText.clearFocus()
                     }
                 }
             }

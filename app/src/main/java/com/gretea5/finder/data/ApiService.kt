@@ -18,12 +18,12 @@ import retrofit2.http.Path
 
 interface ApiService {
 
-    @POST("/api/signup")
+    @POST("/api/account/signup")
     @Headers("accept: application/json",
         "content-type: application/json")
     fun signUp(@Body signupModel: SignupModel) : Call<String>
 
-    @POST("/api/login")
+    @POST("/api/account/login")
     @Headers("accept: application/json",
         "content-type: application/json")
     fun login(@Body loginModel: LoginModel) : Call<String>

@@ -92,6 +92,8 @@ class MapFragment : Fragment() {
 
                         val cameraUpdate = CameraUpdateFactory.newCenterPosition(LatLng.from(lat, lon))
                         kakaoMap.moveCamera(cameraUpdate)
+
+                        binding.searchEditText.text.clear()
                     }
                 }
             }

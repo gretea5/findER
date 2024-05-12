@@ -31,10 +31,10 @@ interface ApiService {
     @POST("/api/questionnaire")
     fun writeQuestionnaire(@Body questionnaireModel: QuestionnaireModel) : Call<String>
 
-    @POST("/api/link")
+    @POST("/api/account/link")
     fun linkQuestionnaire(@Body questionnaireLinkModel: QuestionnaireLinkModel) : Call<String>
 
-    @POST("/api/unlink")
+    @POST("/api/account/unlink")
     fun unLinkQuestionnaire(@Body questionnaireUnlinkModel: QuestionnaireUnlinkModel) : Call<String>
 
     @GET("/api/account/serialNumber/{phoneNumber}")

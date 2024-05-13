@@ -15,6 +15,7 @@ import retrofit2.http.Headers
 import retrofit2.http.PATCH
 import retrofit2.http.POST
 import retrofit2.http.Path
+import retrofit2.http.Query
 
 interface ApiService {
 
@@ -52,6 +53,14 @@ interface ApiService {
 
     @PATCH("/api/questionnaire")
     fun updateQuestionnaire(@Body questionnaireModel: QuestionnaireModel) : Call<String>
+
+    @GET("/api/er/nearBy")
+    fun getNearByLocations(
+        @Query("swLat") swLat : Double,
+        @Query("swLon") swLon : Double,
+        @Query("neLat") neLat : Double,
+        @Query("neLon") neLon : Double,
+    ) : Call<List<LocationResponse>>
 
     companion object {
         private const val BASE_URL = BuildConfig.SERVER_URL

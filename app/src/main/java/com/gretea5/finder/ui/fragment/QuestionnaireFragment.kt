@@ -58,7 +58,7 @@ class QuestionnaireFragment : Fragment() {
         navController = findNavController()
 
         binding.toolbar.setOnMenuItemClickListener {
-            when(it.itemId) {
+            when (it.itemId) {
                 R.id.questionnaireMenuMove -> {
                     findNavController().navigate(R.id.action_questionnaireFragment_to_questionnaireModeFragment)
                     true

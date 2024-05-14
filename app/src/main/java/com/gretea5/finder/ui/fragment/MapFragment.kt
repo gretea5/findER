@@ -1,10 +1,22 @@
 package com.gretea5.finder.ui.fragment
 
+import android.Manifest
+import android.annotation.SuppressLint
+import android.content.Intent
+import android.content.pm.PackageManager
+import android.net.Uri
 import android.os.Bundle
+import android.provider.Settings
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
+import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.LocationServices
 import com.gretea5.finder.BuildConfig
 import com.gretea5.finder.R
 import com.gretea5.finder.data.ApiService
@@ -29,6 +41,10 @@ import java.lang.Exception
 
 
 class MapFragment : Fragment() {
+    private lateinit var _fusedLocationClient : FusedLocationProviderClient
+    private val fusedLocationClient get() = _fusedLocationClient!!
+    private val LOCATION_PERMISSION_REQUEST_CODE = 1
+
     private var _binding: FragmentMapBinding? = null
     private val binding get() = _binding!!
 
@@ -44,6 +60,7 @@ class MapFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentMapBinding.inflate(inflater)
+        _fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireActivity())
 
         binding.mapView.start(object : MapLifeCycleCallback() {
             override fun onMapDestroy() {}
@@ -82,6 +99,16 @@ class MapFragment : Fragment() {
         binding.searchIconImageView.setOnClickListener {
             if (binding.searchEditText.toString().isNotEmpty()) {
                 searchName(binding.searchEditText.text.toString())
+            }
+        }
+
+        binding.toolbar.setOnMenuItemClickListener {
+            when (it.itemId) {
+                R.id.locationBtn -> {
+                    requestLocationPermission()
+                    true
+                }
+                else -> false
             }
         }
     }
@@ -157,5 +184,86 @@ class MapFragment : Fragment() {
 
             override fun onFailure(call: Call<List<LocationResponse>>, t: Throwable) {}
         })
+    }
+
+    private fun requestLocationPermission() {
+        if (ContextCompat.checkSelfPermission(
+                requireContext(),
+                Manifest.permission.ACCESS_FINE_LOCATION
+            ) == PackageManager.PERMISSION_GRANTED &&
+            ContextCompat.checkSelfPermission(
+                requireContext(),
+                Manifest.permission.ACCESS_COARSE_LOCATION
+            ) == PackageManager.PERMISSION_GRANTED
+        ) {
+            getCurrentLocation()
+        } else {
+            requestLocationPermissionMode()
+        }
+    }
+
+    @SuppressLint("MissingPermission")
+    private fun getCurrentLocation() {
+        fusedLocationClient.lastLocation
+            .addOnSuccessListener { location ->
+                if (location != null) {
+                    val lat = location.latitude
+                    val lon = location.longitude
+
+                    val cameraUpdate = CameraUpdateFactory.newCenterPosition(LatLng.from(lat, lon))
+
+                    kakaoMap.moveCamera(cameraUpdate)
+                }
+            }
+            .addOnFailureListener {}
+    }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        if (requestCode == LOCATION_PERMISSION_REQUEST_CODE) {
+            if (grantResults.isNotEmpty() &&
+                grantResults[0] == PackageManager.PERMISSION_GRANTED &&
+                grantResults[1] == PackageManager.PERMISSION_GRANTED
+            ) {
+                getCurrentLocation()
+            } else {
+                requestLocationPermissionMode()
+            }
+        }
+    }
+
+    private fun requestLocationPermissionMode() {
+        if (ActivityCompat.shouldShowRequestPermissionRationale(
+                requireActivity(),
+                Manifest.permission.ACCESS_COARSE_LOCATION
+            ) || ActivityCompat.shouldShowRequestPermissionRationale(
+                requireActivity(),
+                Manifest.permission.ACCESS_FINE_LOCATION
+            )
+        ) {
+            showAppSettings()
+        } else {
+            ActivityCompat.requestPermissions(
+                requireActivity(),
+                arrayOf(
+                    Manifest.permission.ACCESS_COARSE_LOCATION,
+                    Manifest.permission.ACCESS_FINE_LOCATION
+                ),
+                LOCATION_PERMISSION_REQUEST_CODE
+            )
+        }
+    }
+
+    private fun showAppSettings() {
+        val intent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS)
+        val uri: Uri = Uri.fromParts("package", requireActivity().packageName, null)
+
+        intent.data = uri
+
+        startActivity(intent)
     }
 }

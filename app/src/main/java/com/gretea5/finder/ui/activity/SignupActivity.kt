@@ -14,7 +14,6 @@ import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
 import com.gretea5.finder.data.ApiService
 import com.gretea5.finder.R
-import com.gretea5.finder.data.model.SignupModel
 import com.gretea5.finder.databinding.ActivitySignupBinding
 import retrofit2.Call
 import retrofit2.Callback

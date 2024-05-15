@@ -22,12 +22,12 @@ interface ApiService {
     @POST("/api/account/signup")
     @Headers("accept: application/json",
         "content-type: application/json")
-    fun signUp(@Body signupModel: SignupModel) : Call<String>
+    fun signUp(@Body authData: AuthData) : Call<String>
 
     @POST("/api/account/login")
     @Headers("accept: application/json",
         "content-type: application/json")
-    fun login(@Body loginModel: LoginModel) : Call<String>
+    fun login(@Body authData: AuthData) : Call<String>
 
     @POST("/api/questionnaire")
     fun writeQuestionnaire(@Body questionnaireModel: QuestionnaireModel) : Call<String>

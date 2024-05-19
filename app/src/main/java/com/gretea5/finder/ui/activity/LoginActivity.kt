@@ -12,7 +12,7 @@ import android.widget.TextView
 import androidx.core.content.ContextCompat
 import com.gretea5.finder.data.ApiService
 import com.gretea5.finder.R
-import com.gretea5.finder.data.model.LoginModel
+import com.gretea5.finder.data.model.AuthData
 import com.gretea5.finder.ui.activity.SignupActivity.Companion.PHONE_NUMBER_SIZE
 import com.gretea5.finder.ui.activity.SignupActivity.Companion.RESIDENCE_NUMBER_SIZE
 import com.gretea5.finder.databinding.ActivityLoginBinding
@@ -105,7 +105,7 @@ class LoginActivity : AppCompatActivity() {
         val phoneNumber = binding.phoneEditText.text.toString()
         val rrn = binding.residenceNumberEditText.text.toString()
 
-        val loginModel = LoginModel(phoneNumber, rrn)
+        val loginModel = AuthData(phoneNumber, rrn)
 
         api.login(loginModel).enqueue(object : Callback<String> {
             override fun onResponse(call: Call<String>, response: Response<String>) {

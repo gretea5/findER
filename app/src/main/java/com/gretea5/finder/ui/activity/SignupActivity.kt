@@ -14,6 +14,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
 import com.gretea5.finder.data.ApiService
 import com.gretea5.finder.R
+import com.gretea5.finder.data.model.AuthData
 import com.gretea5.finder.databinding.ActivitySignupBinding
 import retrofit2.Call
 import retrofit2.Callback
@@ -149,7 +150,7 @@ class SignupActivity : AppCompatActivity() {
         val phoneNumber = binding.phoneEditText.text.toString()
         val rrn = binding.residenceNumberEditText.text.toString()
 
-        val signupModel = SignupModel(phoneNumber, rrn)
+        val signupModel = AuthData(phoneNumber, rrn)
 
         api.signUp(signupModel).enqueue(object : Callback<String> {
             override fun onResponse(call: Call<String>, response: Response<String>) {

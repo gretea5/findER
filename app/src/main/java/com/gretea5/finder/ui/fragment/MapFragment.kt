@@ -69,24 +69,6 @@ class MapFragment : Fragment() {
         }, object : KakaoMapReadyCallback() {
             override fun onMapReady(p0: KakaoMap) {
                 _kakaoMap = p0
-
-                kakaoMap.setOnCameraMoveEndListener { kakaoMap, _, _ ->
-                    val swPos = kakaoMap.fromScreenPoint(kakaoMap.viewport.left, kakaoMap.viewport.bottom)!!
-                    val nePos = kakaoMap.fromScreenPoint(kakaoMap.viewport.right, kakaoMap.viewport.top)!!
-
-                    val swLat = swPos.latitude
-                    val swLon = swPos.longitude
-
-                    val neLat = nePos.latitude
-                    val neLon = nePos.longitude
-
-                    setERLabels(
-                        swLat = swLat,
-                        swLon = swLon,
-                        neLat = neLat,
-                        neLon = neLon
-                    )
-                }
             }
         })
 
@@ -140,49 +122,6 @@ class MapFragment : Fragment() {
             }
 
             override fun onFailure(call: Call<AddressResponse>, t: Throwable) {}
-        })
-    }
-
-    private fun setERLabels(
-        swLat: Double,
-        swLon: Double,
-        neLat: Double,
-        neLon : Double) {
-
-        val api = ApiService.create()
-
-        val call = api.getNearByLocations(swLat, swLon, neLat, neLon)
-        call.enqueue(object : Callback<List<LocationResponse>> {
-            override fun onResponse(
-                call: Call<List<LocationResponse>>,
-                response: Response<List<LocationResponse>>
-            ) {
-                if (response.isSuccessful) {
-                    val locations = response.body()
-                    val labelOptionsList = mutableListOf<LabelOptions>()
-
-                    val styles = LabelStyles.from(LabelStyle.from(R.drawable.icon_map_marker))
-
-                    locations?.let {
-                        for (location in locations) {
-                            val labelOptions = LabelOptions.from(
-                                LatLng.from(location.latitude, location.longitude)
-                            )
-
-                            labelOptions.styles = styles
-                            labelOptions.labelId = location.hpID
-
-                            labelOptionsList.add(labelOptions)
-                        }
-                    }
-
-                    val layer: LodLabelLayer = kakaoMap.labelManager?.lodLayer!!
-
-                    val label = layer.addLodLabels(labelOptionsList)
-                }
-            }
-
-            override fun onFailure(call: Call<List<LocationResponse>>, t: Throwable) {}
         })
     }
 

@@ -54,6 +54,11 @@ interface ApiService {
     @PATCH("/api/questionnaire")
     fun updateQuestionnaire(@Body questionnaireModel: QuestionnaireModel) : Call<String>
 
+    @GET("/api/er/location")
+    @Headers("accept: application/json",
+        "content-type: application/json")
+    fun getERAll() : Call<List<LocationResponse>>
+
     companion object {
         private const val BASE_URL = BuildConfig.SERVER_URL
 

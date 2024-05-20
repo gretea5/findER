@@ -69,6 +69,8 @@ class MapFragment : Fragment() {
         }, object : KakaoMapReadyCallback() {
             override fun onMapReady(p0: KakaoMap) {
                 _kakaoMap = p0
+
+                getERAllLabel()
             }
         })
 
@@ -93,6 +95,41 @@ class MapFragment : Fragment() {
                 else -> false
             }
         }
+    }
+
+    private fun getERAllLabel() {
+        val api = ApiService.create()
+
+        val call = api.getERAll()
+        call.enqueue(object: Callback<List<LocationResponse>> {
+            override fun onResponse(
+                call: Call<List<LocationResponse>>,
+                response: Response<List<LocationResponse>>
+            ) {
+                if (response.isSuccessful) {
+                    val labels = response.body()
+                    val labelOptionsList = mutableListOf<LabelOptions>()
+
+                    val styles = LabelStyles.from(LabelStyle.from(R.drawable.icon_map_marker))
+
+                    labels?.let {
+                        for (label in labels) {
+                            val labelOptions = LabelOptions.from(LatLng.from(label.latitude, label.longitude))
+
+                            labelOptions.styles = styles
+                            labelOptions.labelId = label.hpID
+
+                            labelOptionsList.add(labelOptions)
+                        }
+                    }
+
+                    val layer: LodLabelLayer = kakaoMap.labelManager?.lodLayer!!
+                    layer.addLodLabels(labelOptionsList)
+                }
+            }
+
+            override fun onFailure(call: Call<List<LocationResponse>>, t: Throwable) {}
+        })
     }
 
     private fun searchName(keyword: String) {

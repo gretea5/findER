@@ -1,7 +1,10 @@
 package com.gretea5.finder.util.sharedpreference
 
 import android.content.Context
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
 import com.gretea5.finder.R
+import com.gretea5.finder.data.model.LocationResponse
 
 object SharedPreferenceUtil {
     enum class SharedPreferenceMode(val value: Int) {
@@ -57,5 +60,39 @@ object SharedPreferenceUtil {
         val sharedEditor = sharedPref.edit()
         sharedEditor.putString(context.getString(R.string.phonenumber_key), phoneNumber)
         sharedEditor.apply()
+    }
+
+    fun saveLabels(context: Context, labels : List<LocationResponse>) {
+        val sharedPref = context.getSharedPreferences(
+            context.getString(R.string.pref_name),
+            SharedPreferenceMode.MODE_PRIVATE.value
+        )
+        val sharedEditor = sharedPref.edit()
+        val gson = Gson()
+
+        val jsonData = gson.toJson(labels)
+
+        sharedEditor.putString(context.getString(R.string.labels), jsonData)
+        sharedEditor.apply()
+    }
+
+    fun getLabels(context: Context) : List<LocationResponse> {
+        val sharedPref = context.getSharedPreferences(
+            context.getString(R.string.pref_name),
+            SharedPreferenceMode.MODE_PRIVATE.value
+        )
+
+        val jsonLabels = sharedPref.getString(
+            context.getString(R.string.labels),
+            null
+        )
+
+        return if (!jsonLabels.isNullOrEmpty()) {
+            val gson = Gson()
+            val listType = object : TypeToken<List<LocationResponse>>() {}.type
+            gson.fromJson(jsonLabels, listType)
+        } else {
+            emptyList()
+        }
     }
 }

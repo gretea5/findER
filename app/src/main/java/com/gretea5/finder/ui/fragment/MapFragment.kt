@@ -7,6 +7,7 @@ import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
 import android.provider.Settings
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -29,6 +30,7 @@ import com.kakao.vectormap.KakaoMap
 import com.kakao.vectormap.KakaoMapReadyCallback
 import com.kakao.vectormap.LatLng
 import com.kakao.vectormap.MapLifeCycleCallback
+import com.kakao.vectormap.camera.CameraAnimation
 import com.kakao.vectormap.camera.CameraUpdateFactory
 import com.kakao.vectormap.label.LabelOptions
 import com.kakao.vectormap.label.LabelStyle
@@ -53,7 +55,9 @@ class MapFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        saveEmergencyLabels()
+
+        //MapFragment가 처음 onCreate가 될 시에, 서버에서 응급실 Label 정보 가져오기
+        //saveEmergencyLabels()
     }
 
     override fun onCreateView(
@@ -73,6 +77,7 @@ class MapFragment : Fragment() {
 
                 val labels = getLabels(requireContext())
                 showMapLabels(labels)
+                setLabelClickListener()
             }
         })
 
@@ -96,6 +101,20 @@ class MapFragment : Fragment() {
                 }
                 else -> false
             }
+        }
+    }
+
+    private fun setLabelClickListener() {
+        kakaoMap.setOnLodLabelClickListener { kakaoMap, lodLabelLayer, lodLabel ->
+            Log.d(LOGTAG, lodLabel.labelId)
+            Log.d(LOGTAG, lodLabel.position.latitude.toString())
+            Log.d(LOGTAG, lodLabel.position.longitude.toString())
+
+            val labelLat = lodLabel.position.latitude
+            val labelLon = lodLabel.position.longitude
+
+            val cameraUpdate = CameraUpdateFactory.newCenterPosition(LatLng.from(labelLat, labelLon))
+            kakaoMap.moveCamera(cameraUpdate, CameraAnimation.from(300, true, true))
         }
     }
 

@@ -7,12 +7,10 @@ import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
 import android.provider.Settings
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.google.android.gms.location.FusedLocationProviderClient
@@ -25,6 +23,8 @@ import com.gretea5.finder.data.KakaoApiService
 import com.gretea5.finder.data.model.AddressResponse
 import com.gretea5.finder.data.model.LocationResponse
 import com.gretea5.finder.databinding.FragmentMapBinding
+import com.gretea5.finder.util.sharedpreference.SharedPreferenceUtil.getLabels
+import com.gretea5.finder.util.sharedpreference.SharedPreferenceUtil.saveLabels
 import com.kakao.vectormap.KakaoMap
 import com.kakao.vectormap.KakaoMapReadyCallback
 import com.kakao.vectormap.LatLng
@@ -33,7 +33,6 @@ import com.kakao.vectormap.camera.CameraUpdateFactory
 import com.kakao.vectormap.label.LabelOptions
 import com.kakao.vectormap.label.LabelStyle
 import com.kakao.vectormap.label.LabelStyles
-import com.kakao.vectormap.label.LodLabelLayer
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -41,6 +40,7 @@ import java.lang.Exception
 
 
 class MapFragment : Fragment() {
+    private val LOGTAG = "MapFragment"
     private lateinit var _fusedLocationClient : FusedLocationProviderClient
     private val fusedLocationClient get() = _fusedLocationClient!!
     private val LOCATION_PERMISSION_REQUEST_CODE = 1
@@ -53,6 +53,7 @@ class MapFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        saveEmergencyLabels()
     }
 
     override fun onCreateView(
@@ -70,7 +71,8 @@ class MapFragment : Fragment() {
             override fun onMapReady(p0: KakaoMap) {
                 _kakaoMap = p0
 
-                getERAllLabel()
+                val labels = getLabels(requireContext())
+                showMapLabels(labels)
             }
         })
 
@@ -97,7 +99,26 @@ class MapFragment : Fragment() {
         }
     }
 
-    private fun getERAllLabel() {
+    private fun showMapLabels(labels : List<LocationResponse>) {
+        val labelOptionsList = mutableListOf<LabelOptions>()
+
+        val styles = LabelStyles.from(LabelStyle.from(R.drawable.icon_map_marker))
+
+        for (label in labels) {
+            val labelOptions = LabelOptions.from(LatLng.from(label.latitude, label.longitude))
+
+            labelOptions.labelId = label.hpID
+            labelOptions.styles = styles
+
+            labelOptionsList.add(labelOptions)
+        }
+
+        val layer = kakaoMap.labelManager?.lodLayer!!
+        layer.addLodLabels(labelOptionsList)
+    }
+
+    //서버에서 받아온 label에 대한 정보를 sharedPreference에 저장
+    private fun saveEmergencyLabels() {
         val api = ApiService.create()
 
         val call = api.getERAll()
@@ -107,24 +128,9 @@ class MapFragment : Fragment() {
                 response: Response<List<LocationResponse>>
             ) {
                 if (response.isSuccessful) {
-                    val labels = response.body()
-                    val labelOptionsList = mutableListOf<LabelOptions>()
+                    val labels = response.body() ?: emptyList()
 
-                    val styles = LabelStyles.from(LabelStyle.from(R.drawable.icon_map_marker))
-
-                    labels?.let {
-                        for (label in labels) {
-                            val labelOptions = LabelOptions.from(LatLng.from(label.latitude, label.longitude))
-
-                            labelOptions.styles = styles
-                            labelOptions.labelId = label.hpID
-
-                            labelOptionsList.add(labelOptions)
-                        }
-                    }
-
-                    val layer: LodLabelLayer = kakaoMap.labelManager?.lodLayer!!
-                    layer.addLodLabels(labelOptionsList)
+                    saveLabels(requireContext(), labels)
                 }
             }
 

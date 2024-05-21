@@ -5,7 +5,6 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
-    <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />
 
     <application
         android:name=".conf.KakaoMapConf"
@@ -19,6 +18,11 @@
         android:theme="@style/Theme.FindER"
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
+
+        <service
+            android:name=".conf.LocationService"
+            android:foregroundServiceType="location" />
+
         <activity
             android:name=".ui.activity.SearchAddressActivity"
             android:exported="false">

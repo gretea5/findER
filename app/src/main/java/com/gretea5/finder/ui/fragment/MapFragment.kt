@@ -84,6 +84,16 @@ class MapFragment : Fragment() {
 
                 setLabelClickListener()
 
+                kakaoMap.setOnMapClickListener { _, _, _, _ ->
+                    if (labelClicked) {
+                        binding.erPreView.visibility = View.VISIBLE
+                        labelClicked = false
+                    }
+                    else {
+                        binding.erPreView.visibility = View.INVISIBLE
+                    }
+                }
+
                 kakaoMap.setOnCameraMoveStartListener { _, _ ->
                     //label이 클릭되었을 경우,
                     if (labelClicked) {
@@ -135,6 +145,7 @@ class MapFragment : Fragment() {
 
     private fun setLabelClickListener() {
         kakaoMap.setOnLodLabelClickListener { _, _, lodLabel ->
+            Log.d(LOGTAG, "setOnLodLabelClickListener")
             //위치 권한이 부여 되었을 경우,
             if (checkLocationPermission()) {
                 labelClicked = true

@@ -215,6 +215,10 @@ class MapFragment : Fragment() {
         call.enqueue(object: Callback<ERPreview> {
             override fun onResponse(call: Call<ERPreview>, response: Response<ERPreview>) {
                 if (response.isSuccessful) {
+                    val erPreview = response.body()!!
+
+                    bindERPreview(erPreview)
+
                     Log.d(LOGTAG, response.code().toString())
                     Log.d(LOGTAG, response.body().toString())
                 }
@@ -222,6 +226,17 @@ class MapFragment : Fragment() {
 
             override fun onFailure(call: Call<ERPreview>, t: Throwable) {}
         })
+    }
+
+    private fun bindERPreview(erPreview: ERPreview) {
+        binding.preViewName.text = erPreview.name
+        binding.preViewAddress.text = erPreview.address
+        binding.preViewTel.text = erPreview.tel
+        binding.preViewBed.text = erPreview.bedCount.toString()
+        binding.preViewBedTime.text = erPreview.bedTime
+        binding.preViewDistance.text = "${erPreview.distance}km"
+        binding.preViewEta.text = "예상 도착 시간 ${erPreview.eta}"
+        binding.preViewEmergencyTel.text = erPreview.ertel
     }
 
     //서버에서 받아온 label에 대한 정보를 sharedPreference에 저장

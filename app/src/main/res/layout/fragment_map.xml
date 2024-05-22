@@ -69,6 +69,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
+                android:id="@+id/preViewDistance"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
@@ -140,11 +141,11 @@
                 android:src="@drawable/icon_tel"
                 android:layout_marginEnd="3dp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/textView6"
+                app:layout_constraintEnd_toStartOf="@+id/preViewTel"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/textView6"
+                android:id="@+id/preViewTel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="1661-7575"

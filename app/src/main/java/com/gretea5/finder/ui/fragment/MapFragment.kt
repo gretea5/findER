@@ -8,10 +8,12 @@ import android.net.Uri
 import android.os.Bundle
 import android.provider.Settings
 import android.util.Log
+import android.view.Gravity
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.google.android.gms.location.FusedLocationProviderClient
@@ -46,7 +48,6 @@ class MapFragment : Fragment() {
     private lateinit var _fusedLocationClient : FusedLocationProviderClient
     private val fusedLocationClient get() = _fusedLocationClient!!
     private val LOCATION_PERMISSION_REQUEST_CODE = 1
-    private val BACKGROUND_LOCATION_PERMISSION_REQUEST_CODE = 2
 
     private var _binding: FragmentMapBinding? = null
     private val binding get() = _binding!!
@@ -79,6 +80,10 @@ class MapFragment : Fragment() {
                 val labels = getLabels(requireContext())
                 showMapLabels(labels)
                 setLabelClickListener()
+
+                if (checkLocationPermission()) {
+                    setCenterCurrentLocation()
+                }
             }
         })
 
@@ -107,15 +112,23 @@ class MapFragment : Fragment() {
 
     private fun setLabelClickListener() {
         kakaoMap.setOnLodLabelClickListener { kakaoMap, lodLabelLayer, lodLabel ->
-            Log.d(LOGTAG, lodLabel.labelId)
-            Log.d(LOGTAG, lodLabel.position.latitude.toString())
-            Log.d(LOGTAG, lodLabel.position.longitude.toString())
+            //위치 권한이 부여 되었을 경우,
+            if (checkLocationPermission()) {
+                val labelId = lodLabel.labelId
+                val labelLat = lodLabel.position.latitude
+                val labelLon = lodLabel.position.longitude
 
-            val labelLat = lodLabel.position.latitude
-            val labelLon = lodLabel.position.longitude
-
-            val cameraUpdate = CameraUpdateFactory.newCenterPosition(LatLng.from(labelLat, labelLon))
-            kakaoMap.moveCamera(cameraUpdate, CameraAnimation.from(300, true, true))
+                val cameraUpdate = CameraUpdateFactory.newCenterPosition(LatLng.from(labelLat, labelLon))
+                kakaoMap.moveCamera(
+                    cameraUpdate,
+                    CameraAnimation.from(300, true, true)
+                )
+            }
+            //위치 권한이 부여되지 않았을 경우,
+            else {
+                val toast = Toast.makeText(context, "왼쪽 상단 위치 버튼을 눌러 위치 권한을 허용해주세요.", Toast.LENGTH_SHORT)
+                toast.show()
+            }
         }
     }
 
@@ -188,24 +201,28 @@ class MapFragment : Fragment() {
         })
     }
 
-    private fun requestLocationPermission() {
-        if (ContextCompat.checkSelfPermission(
+    private fun checkLocationPermission() : Boolean {
+        return (ContextCompat.checkSelfPermission(
                 requireContext(),
                 Manifest.permission.ACCESS_FINE_LOCATION
-            ) == PackageManager.PERMISSION_GRANTED &&
+            ) == PackageManager.PERMISSION_GRANTED ||
             ContextCompat.checkSelfPermission(
                 requireContext(),
                 Manifest.permission.ACCESS_COARSE_LOCATION
             ) == PackageManager.PERMISSION_GRANTED
-        ) {
-            getCurrentLocation()
+        )
+    }
+
+    private fun requestLocationPermission() {
+        if (checkLocationPermission()) {
+            setCenterCurrentLocation()
         } else {
             requestLocationPermissionMode()
         }
     }
 
     @SuppressLint("MissingPermission")
-    private fun getCurrentLocation() {
+    private fun setCenterCurrentLocation() {
         fusedLocationClient.lastLocation
             .addOnSuccessListener { location ->
                 if (location != null) {
@@ -231,7 +248,7 @@ class MapFragment : Fragment() {
                 grantResults[0] == PackageManager.PERMISSION_GRANTED &&
                 grantResults[1] == PackageManager.PERMISSION_GRANTED
             ) {
-                getCurrentLocation()
+                setCenterCurrentLocation()
             } else {
                 requestLocationPermissionMode()
             }
@@ -247,6 +264,7 @@ class MapFragment : Fragment() {
                 Manifest.permission.ACCESS_FINE_LOCATION
             )
         ) {
+            Toast.makeText(context, "위치 권한을 허용해주세요.", Toast.LENGTH_SHORT).show()
             showAppSettings()
         } else {
             ActivityCompat.requestPermissions(

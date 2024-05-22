@@ -59,6 +59,15 @@ interface ApiService {
         "content-type: application/json")
     fun getERAll() : Call<List<LocationResponse>>
 
+    @GET("/api/er/preview/{hpID}")
+    @Headers("accept: application/json",
+        "content-type: application/json")
+    fun getERPreview(
+        @Path("hpID") hpID: String,
+        @Query("lat") lat: Double,
+        @Query("lon") lon: Double
+    ) : Call<ERPreview>
+
     companion object {
         private const val BASE_URL = BuildConfig.SERVER_URL
 

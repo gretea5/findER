@@ -8,7 +8,6 @@ import android.net.Uri
 import android.os.Bundle
 import android.provider.Settings
 import android.util.Log
-import android.view.Gravity
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -24,6 +23,7 @@ import com.gretea5.finder.data.ApiService
 import com.gretea5.finder.data.KakaoApiClient
 import com.gretea5.finder.data.KakaoApiService
 import com.gretea5.finder.data.model.AddressResponse
+import com.gretea5.finder.data.model.ERPreview
 import com.gretea5.finder.data.model.LocationResponse
 import com.gretea5.finder.databinding.FragmentMapBinding
 import com.gretea5.finder.util.sharedpreference.SharedPreferenceUtil.getLabels
@@ -145,12 +145,30 @@ class MapFragment : Fragment() {
 
     private fun setLabelClickListener() {
         kakaoMap.setOnLodLabelClickListener { _, _, lodLabel ->
-            Log.d(LOGTAG, "setOnLodLabelClickListener")
             //위치 권한이 부여 되었을 경우,
             if (checkLocationPermission()) {
                 labelClicked = true
 
-                val labelId = lodLabel.labelId
+                //응급의료기관 식별자
+                val hpID = lodLabel.labelId
+
+                //위치를 받아서 프리뷰를 보여준다.
+                fusedLocationClient.lastLocation
+                    .addOnSuccessListener { location ->
+                        if (location != null) {
+                            val lat = location.latitude
+                            val lon = location.longitude
+
+                            showERPreview(
+                                hpID = hpID,
+                                lat = lat,
+                                lon = lon
+                            )
+                        }
+                    }
+                    .addOnFailureListener {}
+
+                //label의 위도, 경도
                 val labelLat = lodLabel.position.latitude
                 val labelLon = lodLabel.position.longitude
 
@@ -184,6 +202,26 @@ class MapFragment : Fragment() {
 
         val layer = kakaoMap.labelManager?.lodLayer!!
         layer.addLodLabels(labelOptionsList)
+    }
+
+    private fun showERPreview(
+        hpID: String,
+        lat: Double,
+        lon: Double
+    ) {
+        val api = ApiService.create()
+
+        val call = api.getERPreview(hpID = hpID, lat = lat, lon = lon)
+        call.enqueue(object: Callback<ERPreview> {
+            override fun onResponse(call: Call<ERPreview>, response: Response<ERPreview>) {
+                if (response.isSuccessful) {
+                    Log.d(LOGTAG, response.code().toString())
+                    Log.d(LOGTAG, response.body().toString())
+                }
+            }
+
+            override fun onFailure(call: Call<ERPreview>, t: Throwable) {}
+        })
     }
 
     //서버에서 받아온 label에 대한 정보를 sharedPreference에 저장

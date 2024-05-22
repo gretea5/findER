@@ -55,6 +55,8 @@ class MapFragment : Fragment() {
     private var _kakaoMap: KakaoMap? = null
     private val kakaoMap get() = _kakaoMap!!
 
+    private var labelClicked = false
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -79,7 +81,28 @@ class MapFragment : Fragment() {
 
                 val labels = getLabels(requireContext())
                 showMapLabels(labels)
+
                 setLabelClickListener()
+
+                kakaoMap.setOnCameraMoveStartListener { _, _ ->
+                    //label이 클릭되었을 경우,
+                    if (labelClicked) {
+                        binding.erPreView.visibility = View.VISIBLE
+                    }
+                    else {
+                        binding.erPreView.visibility = View.INVISIBLE
+                    }
+                }
+
+                kakaoMap.setOnCameraMoveEndListener { _, _, _ ->
+                    if (labelClicked) {
+                        binding.erPreView.visibility = View.VISIBLE
+                        labelClicked = false
+                    }
+                    else {
+                        binding.erPreView.visibility = View.INVISIBLE
+                    }
+                }
 
                 if (checkLocationPermission()) {
                     setCenterCurrentLocation()
@@ -111,9 +134,11 @@ class MapFragment : Fragment() {
     }
 
     private fun setLabelClickListener() {
-        kakaoMap.setOnLodLabelClickListener { kakaoMap, lodLabelLayer, lodLabel ->
+        kakaoMap.setOnLodLabelClickListener { _, _, lodLabel ->
             //위치 권한이 부여 되었을 경우,
             if (checkLocationPermission()) {
+                labelClicked = true
+
                 val labelId = lodLabel.labelId
                 val labelLat = lodLabel.position.latitude
                 val labelLon = lodLabel.position.longitude

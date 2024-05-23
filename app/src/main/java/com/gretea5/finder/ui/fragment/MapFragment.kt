@@ -229,7 +229,7 @@ class MapFragment : Fragment() {
     }
 
     private fun bindERPreview(erPreview: ERPreview) {
-        binding.preViewName.text = erPreview.name
+        binding.preViewName.text = erPreview.name.trim()
         binding.preViewAddress.text = erPreview.address
         binding.preViewTel.text = erPreview.tel
         binding.preViewBed.text = erPreview.bedCount.toString()
@@ -237,6 +237,21 @@ class MapFragment : Fragment() {
         binding.preViewDistance.text = "${erPreview.distance}km"
         binding.preViewEta.text = "예상 도착 시간 ${erPreview.eta}"
         binding.preViewEmergencyTel.text = erPreview.ertel
+
+        //ems 설정
+        val nameLength = binding.preViewName.text.toString().length
+        val addressLength = binding.preViewAddress.text.toString().length
+
+        Log.d(LOGTAG, nameLength.toString())
+        Log.d(LOGTAG, addressLength.toString())
+
+        if (nameLength >= 7) {
+            binding.preViewName.setEms(7)
+        }
+
+        if (addressLength >= 11) {
+            binding.preViewAddress.setEms(11)
+        }
     }
 
     //서버에서 받아온 label에 대한 정보를 sharedPreference에 저장

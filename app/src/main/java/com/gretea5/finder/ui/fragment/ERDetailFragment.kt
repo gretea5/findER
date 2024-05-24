@@ -10,10 +10,17 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.gretea5.finder.databinding.FragmentErDetailBinding
 import com.gretea5.finder.ui.viewmodel.ERViewModel
+import com.kakao.vectormap.KakaoMap
+import com.kakao.vectormap.KakaoMapReadyCallback
+import com.kakao.vectormap.MapLifeCycleCallback
+import java.lang.Exception
 
 class ERDetailFragment : Fragment() {
     private var _binding : FragmentErDetailBinding? = null
     private val binding get() = _binding!!
+
+    private var _kakaoMap : KakaoMap? = null
+    private val kakaoMap get() = _kakaoMap!!
 
     private val erViewModel : ERViewModel by activityViewModels()
 
@@ -27,6 +34,18 @@ class ERDetailFragment : Fragment() {
     ): View {
         _binding = FragmentErDetailBinding.inflate(inflater)
 
+        binding.detailMapView.start(object : MapLifeCycleCallback() {
+            override fun onMapDestroy() {}
+
+            override fun onMapError(p0: Exception?) {}
+
+        }, object : KakaoMapReadyCallback() {
+            override fun onMapReady(p0: KakaoMap) {
+                _kakaoMap = p0
+            }
+        })
+
+        //이름 ems 처리
         var name = erViewModel.erDetailData.value?.name
 
         if (name?.length!! >= 15) {

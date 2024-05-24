@@ -7,7 +7,6 @@ import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
 import android.provider.Settings
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -223,9 +222,6 @@ class MapFragment : Fragment() {
                     val erPreview = response.body()!!
 
                     bindERPreview(erPreview)
-
-                    Log.d(LOGTAG, response.code().toString())
-                    Log.d(LOGTAG, response.body().toString())
                 }
             }
 
@@ -246,9 +242,6 @@ class MapFragment : Fragment() {
         //ems 설정
         val nameLength = binding.preViewName.text.toString().length
         val addressLength = binding.preViewAddress.text.toString().length
-
-        Log.d(LOGTAG, nameLength.toString())
-        Log.d(LOGTAG, addressLength.toString())
 
         if (nameLength >= 7) {
             binding.preViewName.setEms(7)
@@ -301,8 +294,6 @@ class MapFragment : Fragment() {
                     val erDetailData = response.body()!!
 
                     erViewModel.setERDetailData(erDetailData)
-
-                    Log.d(LOGTAG, erDetailData.toString())
                 }
             }
 

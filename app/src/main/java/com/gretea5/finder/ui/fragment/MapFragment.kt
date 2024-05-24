@@ -15,6 +15,7 @@ import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.fragment.findNavController
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.gretea5.finder.BuildConfig
@@ -294,6 +295,8 @@ class MapFragment : Fragment() {
                     val erDetailData = response.body()!!
 
                     erViewModel.setERDetailData(erDetailData)
+
+                    findNavController().navigate(R.id.action_mapFragment_to_ERDetailFragment)
                 }
             }
 

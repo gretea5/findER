@@ -9,7 +9,15 @@
         android:id="@+id/mapFragment"
         android:name="com.gretea5.finder.ui.fragment.MapFragment"
         android:label="MapFragment"
-        tools:layout="@layout/fragment_map" />
+        tools:layout="@layout/fragment_map" >
+        <action
+            android:id="@+id/action_mapFragment_to_ERDetailFragment"
+            app:destination="@id/ERDetailFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+    </fragment>
 
     <fragment
         android:id="@+id/questionnaireFragment"
@@ -130,5 +138,10 @@
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right"/>
     </fragment>
+    <fragment
+        android:id="@+id/ERDetailFragment"
+        android:name="com.gretea5.finder.ui.fragment.ERDetailFragment"
+        android:label="fragment_er_detail"
+        tools:layout="@layout/fragment_er_detail" />
 
 </navigation>

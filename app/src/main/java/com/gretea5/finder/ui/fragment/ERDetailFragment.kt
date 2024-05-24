@@ -1,11 +1,15 @@
 package com.gretea5.finder.ui.fragment
 
+import android.content.ClipData
+import android.content.ClipboardManager
+import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.gretea5.finder.R
@@ -84,6 +88,17 @@ class ERDetailFragment : Fragment() {
 
         binding.backBtn.setOnClickListener {
             findNavController().navigateUp()
+        }
+
+        binding.addressCopyBtn.setOnClickListener {
+            val address = erViewModel.erDetailData.value?.address!!
+
+            val clipboard = requireContext().getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+            val clip = ClipData.newPlainText("label", address)
+
+            clipboard.setPrimaryClip(clip)
+
+            Toast.makeText(requireContext(), "주소 복사 성공!", Toast.LENGTH_SHORT).show()
         }
     }
 

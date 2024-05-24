@@ -148,6 +148,18 @@ class MapFragment : Fragment() {
         }
     }
 
+    override fun onResume() {
+        super.onResume()
+
+        binding.mapView.resume()
+    }
+
+    override fun onPause() {
+        super.onPause()
+
+        binding.mapView.pause()
+    }
+
     private fun setLabelClickListener() {
         kakaoMap.setOnLodLabelClickListener { _, _, lodLabel ->
             //위치 권한이 부여 되었을 경우,

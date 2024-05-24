@@ -64,4 +64,16 @@ class ERDetailFragment : Fragment() {
             findNavController().navigateUp()
         }
     }
+
+    override fun onResume() {
+        super.onResume()
+
+        binding.detailMapView.resume()
+    }
+
+    override fun onPause() {
+        super.onPause()
+
+        binding.detailMapView.pause()
+    }
 }

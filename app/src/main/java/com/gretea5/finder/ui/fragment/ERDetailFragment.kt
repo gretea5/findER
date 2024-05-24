@@ -8,11 +8,18 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
+import com.gretea5.finder.R
 import com.gretea5.finder.databinding.FragmentErDetailBinding
 import com.gretea5.finder.ui.viewmodel.ERViewModel
 import com.kakao.vectormap.KakaoMap
 import com.kakao.vectormap.KakaoMapReadyCallback
+import com.kakao.vectormap.LatLng
 import com.kakao.vectormap.MapLifeCycleCallback
+import com.kakao.vectormap.camera.CameraAnimation
+import com.kakao.vectormap.camera.CameraUpdateFactory
+import com.kakao.vectormap.label.LabelOptions
+import com.kakao.vectormap.label.LabelStyle
+import com.kakao.vectormap.label.LabelStyles
 import java.lang.Exception
 
 class ERDetailFragment : Fragment() {
@@ -42,6 +49,21 @@ class ERDetailFragment : Fragment() {
         }, object : KakaoMapReadyCallback() {
             override fun onMapReady(p0: KakaoMap) {
                 _kakaoMap = p0
+
+                val lat = erViewModel.erDetailData.value?.latitude!!
+                val lon = erViewModel.erDetailData.value?.longitude!!
+
+                //마커 찍기
+                val styles = LabelStyles.from(LabelStyle.from(R.drawable.icon_map_marker))
+
+                val options = LabelOptions.from(LatLng.from(lat, lon)).setStyles(styles)
+
+                val layer = kakaoMap.labelManager?.lodLayer
+                layer?.addLodLabel(options)
+
+                //위도 경도 중앙에 찍기
+                val cameraUpdate = CameraUpdateFactory.newCenterPosition(LatLng.from(lat, lon))
+                kakaoMap.moveCamera(cameraUpdate)
             }
         })
 

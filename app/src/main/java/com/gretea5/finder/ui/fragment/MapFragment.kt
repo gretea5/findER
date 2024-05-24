@@ -15,6 +15,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.activityViewModels
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.gretea5.finder.BuildConfig
@@ -23,9 +24,11 @@ import com.gretea5.finder.data.ApiService
 import com.gretea5.finder.data.KakaoApiClient
 import com.gretea5.finder.data.KakaoApiService
 import com.gretea5.finder.data.model.AddressResponse
+import com.gretea5.finder.data.model.ERDetail
 import com.gretea5.finder.data.model.ERPreview
 import com.gretea5.finder.data.model.LocationResponse
 import com.gretea5.finder.databinding.FragmentMapBinding
+import com.gretea5.finder.ui.viewmodel.ERViewModel
 import com.gretea5.finder.util.sharedpreference.SharedPreferenceUtil.getLabels
 import com.gretea5.finder.util.sharedpreference.SharedPreferenceUtil.saveLabels
 import com.kakao.vectormap.KakaoMap
@@ -56,6 +59,8 @@ class MapFragment : Fragment() {
     private val kakaoMap get() = _kakaoMap!!
 
     private var labelClicked = false
+
+    private val erViewModel : ERViewModel by activityViewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -235,7 +240,7 @@ class MapFragment : Fragment() {
         binding.preViewBed.text = erPreview.bedCount.toString()
         binding.preViewBedTime.text = erPreview.bedTime
         binding.preViewDistance.text = "${erPreview.distance}km"
-        binding.preViewEta.text = "예상 도착 시간 ${erPreview.eta}"
+        binding.preViewEta.text = "${erPreview.eta} 도착 예정"
         binding.preViewEmergencyTel.text = erPreview.ertel
 
         //ems 설정
@@ -252,6 +257,57 @@ class MapFragment : Fragment() {
         if (addressLength >= 11) {
             binding.preViewAddress.setEms(11)
         }
+
+        //자세히보기시 클릭시 이동
+        binding.preViewDetail.setOnClickListener {
+            if (checkLocationPermission()) {
+                //위치를 받아서 프리뷰를 보여준다.
+                fusedLocationClient.lastLocation
+                    .addOnSuccessListener { location ->
+                        if (location != null) {
+                            val hpID = erPreview.hpID
+                            val lat = location.latitude
+                            val lon = location.longitude
+
+                            //응급실 상세보기 정보 viewModel에 저장
+                            setDetailData(
+                                hpID = hpID,
+                                lat = lat,
+                                lon = lon
+                            )
+                        }
+                    }
+                    .addOnFailureListener {}
+            }
+        }
+    }
+
+    private fun setDetailData(
+        hpID: String,
+        lat: Double,
+        lon: Double
+    ) {
+        val api = ApiService.create()
+
+        val call = api.getERDetailData(
+            hpID = hpID,
+            lat = lat,
+            lon = lon
+        )
+
+        call.enqueue(object: Callback<ERDetail> {
+            override fun onResponse(call: Call<ERDetail>, response: Response<ERDetail>) {
+                if (response.isSuccessful) {
+                    val erDetailData = response.body()!!
+
+                    erViewModel.setERDetailData(erDetailData)
+
+                    Log.d(LOGTAG, erDetailData.toString())
+                }
+            }
+
+            override fun onFailure(call: Call<ERDetail>, t: Throwable) {}
+        })
     }
 
     //서버에서 받아온 label에 대한 정보를 sharedPreference에 저장

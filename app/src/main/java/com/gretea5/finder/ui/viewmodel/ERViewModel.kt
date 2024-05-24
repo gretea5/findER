@@ -9,4 +9,8 @@ class ERViewModel : ViewModel() {
     private val _erDetailData = MutableLiveData<ERDetail>()
     val erDetailData : LiveData<ERDetail>
         get() = _erDetailData
+
+    fun setERDetailData(erDetail: ERDetail) {
+        _erDetailData.value = erDetail
+    }
 }

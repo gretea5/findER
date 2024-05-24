@@ -68,6 +68,15 @@ interface ApiService {
         @Query("lon") lon: Double
     ) : Call<ERPreview>
 
+    @GET("/api/er/detailView/{hpID}")
+    @Headers("accept: application/json",
+        "content-type: application/json")
+    fun getERDetailData(
+        @Path("hpID") hpID: String,
+        @Query("lat") lat : Double,
+        @Query("lon") lon : Double
+    ) : Call<ERDetail>
+
     companion object {
         private const val BASE_URL = BuildConfig.SERVER_URL
 

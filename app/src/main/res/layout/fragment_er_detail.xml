@@ -24,6 +24,7 @@
             style="@style/ToolbarTitleText" />
 
         <ImageView
+            android:id="@+id/backBtn"
             android:src="@drawable/icon_left_arrow"
             android:scaleType="fitXY"
             android:layout_width="12dp"

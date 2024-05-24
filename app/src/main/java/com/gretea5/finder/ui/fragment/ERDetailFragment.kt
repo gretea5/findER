@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.fragment.findNavController
 import com.gretea5.finder.databinding.FragmentErDetailBinding
 import com.gretea5.finder.ui.viewmodel.ERViewModel
 
@@ -35,5 +36,13 @@ class ERDetailFragment : Fragment() {
         binding.erName.text = name
 
         return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        binding.backBtn.setOnClickListener {
+            findNavController().navigateUp()
+        }
     }
 }

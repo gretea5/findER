@@ -72,12 +72,19 @@ class ERDetailFragment : Fragment() {
         })
 
         //이름 ems 처리
-        var name = erViewModel.erDetailData.value?.name
+        var name = erViewModel.erDetailData.value?.name!!
 
-        if (name?.length!! >= 15) {
+        if (name.length >= 15) {
             name = "${name.substring(0, 16)}..."
         }
 
+        var address = erViewModel.erDetailData.value?.address!!
+
+        if (address.length >= 17) {
+            address = "${address.substring(0, 18)}..."
+        }
+
+        binding.detailAddress.text = address
         binding.erName.text = name
 
         return binding.root

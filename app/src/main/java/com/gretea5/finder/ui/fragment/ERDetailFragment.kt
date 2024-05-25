@@ -1,17 +1,24 @@
 package com.gretea5.finder.ui.fragment
 
+import android.Manifest
+import android.annotation.SuppressLint
 import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
+import android.content.Intent
+import android.content.pm.PackageManager
+import android.net.Uri
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
+import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.LocationServices
 import com.gretea5.finder.R
 import com.gretea5.finder.databinding.FragmentErDetailBinding
 import com.gretea5.finder.ui.viewmodel.ERViewModel
@@ -19,7 +26,6 @@ import com.kakao.vectormap.KakaoMap
 import com.kakao.vectormap.KakaoMapReadyCallback
 import com.kakao.vectormap.LatLng
 import com.kakao.vectormap.MapLifeCycleCallback
-import com.kakao.vectormap.camera.CameraAnimation
 import com.kakao.vectormap.camera.CameraUpdateFactory
 import com.kakao.vectormap.label.LabelOptions
 import com.kakao.vectormap.label.LabelStyle
@@ -33,6 +39,9 @@ class ERDetailFragment : Fragment() {
     private var _kakaoMap : KakaoMap? = null
     private val kakaoMap get() = _kakaoMap!!
 
+    private lateinit var _fusedLocationClient : FusedLocationProviderClient
+    private val fusedLocationClient get() = _fusedLocationClient!!
+
     private val erViewModel : ERViewModel by activityViewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -44,6 +53,7 @@ class ERDetailFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentErDetailBinding.inflate(inflater)
+        _fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireActivity())
 
         binding.detailMapView.start(object : MapLifeCycleCallback() {
             override fun onMapDestroy() {}
@@ -107,6 +117,27 @@ class ERDetailFragment : Fragment() {
 
             Toast.makeText(requireContext(), "주소 복사 성공!", Toast.LENGTH_SHORT).show()
         }
+
+        binding.kakaoMapBtn.setOnClickListener {
+            if (checkLocationPermission()) {
+                fusedLocationClient.lastLocation
+                    .addOnSuccessListener { location ->
+                        val startLat = location.latitude
+                        val startLon = location.longitude
+
+                        val endLat = erViewModel.erDetailData.value?.latitude!!
+                        val endLon = erViewModel.erDetailData.value?.longitude!!
+
+                        openKakaoMapForNavigation(
+                            startLat = startLat,
+                            startLon = startLon,
+                            endLat = endLat,
+                            endLon = endLon
+                        )
+                    }
+                    .addOnFailureListener {}
+            }
+        }
     }
 
     override fun onResume() {
@@ -119,5 +150,39 @@ class ERDetailFragment : Fragment() {
         super.onPause()
 
         binding.detailMapView.pause()
+    }
+
+    @SuppressLint("MissingPermission")
+    private fun openKakaoMapForNavigation(
+        startLat: Double,
+        startLon: Double,
+        endLat: Double,
+        endLon: Double
+    ) {
+        val url = "kakaomap://route?sp=$startLat,$startLon&ep=$endLat,$endLon&by=CAR"
+        val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
+
+        if (intent.resolveActivity(requireActivity().packageManager) != null) {
+            startActivity(intent)
+        } else {
+            // 카카오맵 앱이 없는 경우, 구글 플레이 스토어로 이동
+            val playStoreIntent = Intent(
+                Intent.ACTION_VIEW,
+                Uri.parse("market://details?id=net.daum.android.map")
+            )
+
+            startActivity(playStoreIntent)
+        }
+    }
+
+    private fun checkLocationPermission() : Boolean {
+        return (ContextCompat.checkSelfPermission(
+            requireContext(),
+            Manifest.permission.ACCESS_FINE_LOCATION
+        ) == PackageManager.PERMISSION_GRANTED ||
+        ContextCompat.checkSelfPermission(
+            requireContext(),
+            Manifest.permission.ACCESS_COARSE_LOCATION
+        ) == PackageManager.PERMISSION_GRANTED)
     }
 }

@@ -8,6 +8,7 @@ import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
+import android.opengl.Visibility
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -98,6 +99,11 @@ class ERDetailFragment : Fragment() {
 
         if (address.length >= 17) {
             address = "${address.substring(0, 18)}..."
+        }
+
+        //mapAddress가 비었을 시, 안보이게 처리
+        if (mapAddress.isEmpty()) {
+            binding.mapAddressArea.visibility = View.GONE
         }
 
         binding.erName.text = name

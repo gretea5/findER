@@ -183,7 +183,7 @@
                 android:id="@+id/preViewEta"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="예상 도착 시간 오후 13시 54분"
+                android:text="오후 13시 54분 도착 예정"
                 android:textColor="@color/grey"
                 android:textSize="12sp"
                 android:layout_marginLeft="3dp"

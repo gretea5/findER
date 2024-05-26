@@ -43,7 +43,7 @@
             android:id="@+id/detailMapView"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="3.5" />
+            android:layout_weight="3.0" />
 
 <!--        <LinearLayout-->
 <!--            android:layout_width="match_parent"-->
@@ -107,12 +107,201 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <LinearLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/mapAddressArea"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="1.5">
+            android:layout_weight="0.5">
 
-        </LinearLayout>
+            <ImageView
+                android:id="@+id/mapAddressImage"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:scaleType="fitCenter"
+                android:src="@drawable/icon_map_address"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/detailMapAddress"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="신촌역 인근"
+                android:textSize="13sp"
+                android:layout_marginStart="5dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/mapAddressImage"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.5">
+
+            <ImageView
+                android:id="@+id/detailTelImage"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:scaleType="fitCenter"
+                android:src="@drawable/icon_tel"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/detailTel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="02-0000-0000"
+                android:textSize="13sp"
+                android:layout_marginStart="5dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/detailTelImage"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.5">
+
+            <ImageView
+                android:id="@+id/detailErTelImage"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:scaleType="fitCenter"
+                android:src="@drawable/icon_emergency_contact"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/detailErTel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="010-0000-0000"
+                android:textSize="13sp"
+                android:layout_marginStart="5dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/detailErTelImage"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.5">
+
+            <ImageView
+                android:id="@+id/detailBedImage"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:src="@drawable/icon_bed"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/detailBedTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="잔여 병상 수"
+                android:textColor="@color/grey"
+                android:textSize="12sp"
+                android:layout_marginLeft="3dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/detailBedImage"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/detailBed"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="4"
+                android:textColor="@color/red"
+                android:textStyle="bold"
+                android:textSize="12sp"
+                android:layout_marginStart="6dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/detailBedTitle"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/detailBedTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="(24/05/23 02:07)"
+                android:textColor="@color/grey"
+                android:textSize="12sp"
+                android:layout_marginStart="6dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/detailBed"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.5">
+
+            <ImageView
+                android:id="@+id/detailEtaImage"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:scaleType="fitCenter"
+                android:src="@drawable/icon_time"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/detailEta"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="오후 13시 54분 도착 예정"
+                android:textSize="13sp"
+                android:textColor="@color/grey"
+                android:layout_marginStart="5dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/detailEtaImage"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.5">
+
+            <ImageView
+                android:id="@+id/detailDistanceImage"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:scaleType="fitCenter"
+                android:src="@drawable/icon_arrow_up"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/detailDistance"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="4.5km"
+                android:textSize="13sp"
+                android:textColor="@color/grey"
+                android:layout_marginStart="5dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/detailDistanceImage"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <LinearLayout
             android:layout_width="match_parent"

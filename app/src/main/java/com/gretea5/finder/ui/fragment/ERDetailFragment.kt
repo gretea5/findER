@@ -81,21 +81,34 @@ class ERDetailFragment : Fragment() {
             }
         })
 
-        //이름 ems 처리
         var name = erViewModel.erDetailData.value?.name!!
+        var address = erViewModel.erDetailData.value?.address!!
+        val mapAddress = erViewModel.erDetailData.value?.mapAddress!!
+        val tel = erViewModel.erDetailData.value?.tel!!
+        val erTel = erViewModel.erDetailData.value?.ertel!!
+        val bedCount = erViewModel.erDetailData.value?.bedCount!!.toString()
+        val bedTime = erViewModel.erDetailData.value?.bedTime!!
+        val distance = erViewModel.erDetailData.value?.distance!!
+        val eta = erViewModel.erDetailData.value?.eta!!
 
+        //이름 주소 ems 처리
         if (name.length >= 15) {
             name = "${name.substring(0, 16)}..."
         }
-
-        var address = erViewModel.erDetailData.value?.address!!
 
         if (address.length >= 17) {
             address = "${address.substring(0, 18)}..."
         }
 
-        binding.detailAddress.text = address
         binding.erName.text = name
+        binding.detailAddress.text = address
+        binding.detailMapAddress.text = mapAddress
+        binding.detailTel.text = tel
+        binding.detailErTel.text = erTel
+        binding.detailBed.text = bedCount
+        binding.detailBedTime.text = bedTime
+        binding.detailEta.text = "$eta 도착 예정"
+        binding.detailDistance.text = "${distance}km"
 
         return binding.root
     }

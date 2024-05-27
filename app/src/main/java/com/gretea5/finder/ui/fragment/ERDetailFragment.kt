@@ -8,7 +8,6 @@ import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
-import android.opengl.Visibility
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -23,6 +22,7 @@ import com.google.android.gms.location.LocationServices
 import com.gretea5.finder.R
 import com.gretea5.finder.databinding.FragmentErDetailBinding
 import com.gretea5.finder.ui.viewmodel.ERViewModel
+import com.gretea5.finder.util.dial.DialUtil.openDial
 import com.kakao.vectormap.KakaoMap
 import com.kakao.vectormap.KakaoMapReadyCallback
 import com.kakao.vectormap.LatLng
@@ -156,6 +156,17 @@ class ERDetailFragment : Fragment() {
                     }
                     .addOnFailureListener {}
             }
+        }
+
+        //다이얼 이동 처리
+        binding.detailTel.setOnClickListener {
+            val tel = erViewModel.erDetailData.value?.tel?.replace("-", "")?.trim()!!
+            openDial(requireContext(), tel)
+        }
+
+        binding.detailErTel.setOnClickListener {
+            val erTel = erViewModel.erDetailData.value?.ertel?.replace("-", "")?.trim()!!
+            openDial(requireContext(), erTel)
         }
     }
 

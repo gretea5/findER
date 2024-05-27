@@ -29,6 +29,7 @@ import com.gretea5.finder.data.model.ERPreview
 import com.gretea5.finder.data.model.LocationResponse
 import com.gretea5.finder.databinding.FragmentMapBinding
 import com.gretea5.finder.ui.viewmodel.ERViewModel
+import com.gretea5.finder.util.dial.DialUtil.openDial
 import com.gretea5.finder.util.sharedpreference.SharedPreferenceUtil.getLabels
 import com.gretea5.finder.util.sharedpreference.SharedPreferenceUtil.saveLabels
 import com.kakao.vectormap.KakaoMap
@@ -285,6 +286,17 @@ class MapFragment : Fragment() {
                     }
                     .addOnFailureListener {}
             }
+        }
+
+        //다이얼 이동 처리
+        binding.preViewTel.setOnClickListener {
+            val tel = erPreview.tel.replace("-", "")
+            openDial(requireContext(), tel)
+        }
+
+        binding.preViewEmergencyTel.setOnClickListener {
+            val erTel = erPreview.ertel.replace("-", "")
+            openDial(requireContext(), erTel)
         }
     }
 

@@ -94,6 +94,7 @@ class ERDetailFragment : Fragment() {
         val ambulance = erViewModel.erDetailData.value?.ambulance!!
         val ct = erViewModel.erDetailData.value?.ct!!
         val mri = erViewModel.erDetailData.value?.mri!!
+        val subject = erViewModel.erDetailData.value?.subject!!
 
         //이름 주소 ems 처리
         if (name.length >= 15) {
@@ -109,10 +110,11 @@ class ERDetailFragment : Fragment() {
             binding.mapAddressArea.visibility = View.GONE
         }
 
+        val mainColor = ContextCompat.getColor(requireContext(), R.color.main_color)
+        val redColor = ContextCompat.getColor(requireContext(), R.color.red)
+
         //구급차 가용 여부가 될 때,
         if (ambulance == "Y") {
-            val mainColor = ContextCompat.getColor(requireContext(), R.color.main_color)
-
             binding.erDetailUsable.text = "구급차 가용 가능"
             binding.erDetailUsable.setTextColor(mainColor)
 
@@ -121,13 +123,42 @@ class ERDetailFragment : Fragment() {
 
         //구급차 가용 여부가 되지 않을 때,
         if (ambulance != "Y") {
-            val red = ContextCompat.getColor(requireContext(), R.color.red)
-
             binding.erDetailUsable.text = "구급차 가용 불가"
-            binding.erDetailUsable.setTextColor(red)
+            binding.erDetailUsable.setTextColor(redColor)
 
-            binding.erDetailImage.setColorFilter(red)
+            binding.erDetailImage.setColorFilter(redColor)
         }
+
+        //ct 여부
+        if (ct == "Y") {
+            binding.ctDetailTitleTextView.setTextColor(mainColor)
+            binding.ctDetailTextView.setTextColor(mainColor)
+
+            binding.ctDetailTextView.text = "O"
+        }
+
+        if (ct != "Y") {
+            binding.ctDetailTitleTextView.setTextColor(redColor)
+            binding.ctDetailTextView.setTextColor(redColor)
+
+            binding.ctDetailTextView.text = "X"
+        }
+
+        //mri
+        if (mri == "Y") {
+            binding.mriDetailTitleTextView.setTextColor(mainColor)
+            binding.mriDetailTextView.setTextColor(mainColor)
+
+            binding.mriDetailTextView.text = "O"
+        }
+
+        if (mri != "Y") {
+            binding.mriDetailTitleTextView.setTextColor(redColor)
+            binding.mriDetailTextView.setTextColor(redColor)
+
+            binding.mriDetailTextView.text = "X"
+        }
+
 
         binding.erName.text = name
         binding.detailAddress.text = address
@@ -138,6 +169,7 @@ class ERDetailFragment : Fragment() {
         binding.detailBedTime.text = bedTime
         binding.detailEta.text = "$eta 도착 예정"
         binding.detailDistance.text = "${distance}km"
+        binding.detailSubject.text = subject
 
         return binding.root
     }

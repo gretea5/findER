@@ -91,6 +91,9 @@ class ERDetailFragment : Fragment() {
         val bedTime = erViewModel.erDetailData.value?.bedTime!!
         val distance = erViewModel.erDetailData.value?.distance!!
         val eta = erViewModel.erDetailData.value?.eta!!
+        val ambulance = erViewModel.erDetailData.value?.ambulance!!
+        val ct = erViewModel.erDetailData.value?.ct!!
+        val mri = erViewModel.erDetailData.value?.mri!!
 
         //이름 주소 ems 처리
         if (name.length >= 15) {
@@ -104,6 +107,26 @@ class ERDetailFragment : Fragment() {
         //mapAddress가 비었을 시, 안보이게 처리
         if (mapAddress.isEmpty()) {
             binding.mapAddressArea.visibility = View.GONE
+        }
+
+        //구급차 가용 여부가 될 때,
+        if (ambulance == "Y") {
+            val mainColor = ContextCompat.getColor(requireContext(), R.color.main_color)
+
+            binding.erDetailUsable.text = "구급차 가용 가능"
+            binding.erDetailUsable.setTextColor(mainColor)
+
+            binding.erDetailImage.setColorFilter(mainColor)
+        }
+
+        //구급차 가용 여부가 되지 않을 때,
+        if (ambulance != "Y") {
+            val red = ContextCompat.getColor(requireContext(), R.color.red)
+
+            binding.erDetailUsable.text = "구급차 가용 불가"
+            binding.erDetailUsable.setTextColor(red)
+
+            binding.erDetailImage.setColorFilter(red)
         }
 
         binding.erName.text = name

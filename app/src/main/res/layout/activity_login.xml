@@ -8,6 +8,17 @@
     android:background="@color/white"
     tools:context=".ui.activity.LoginActivity">
 
+    <ImageView
+        android:id="@+id/appLogo"
+        android:layout_width="200dp"
+        android:layout_height="150dp"
+        android:scaleType="fitXY"
+        android:src="@drawable/icon_logo"
+        android:layout_marginTop="110dp"
+        app:layout_constraintEnd_toEndOf="@+id/phoneEditText"
+        app:layout_constraintStart_toStartOf="@+id/phoneEditText"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -23,18 +34,18 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="280dp"
         android:layout_marginEnd="8dp"
+        android:layout_marginTop="50dp"
+        android:background="@drawable/edittext_accessible_border"
+        android:ems="12"
+        android:inputType="phone"
+        android:maxLength="13"
         android:paddingHorizontal="15dp"
         android:paddingVertical="10dp"
-        android:ems="12"
-        android:maxLength="13"
-        tools:text="010-0000-0000"
-        android:inputType="phone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:background="@drawable/edittext_accessible_border"/>
+        app:layout_constraintTop_toBottomOf="@+id/appLogo"
+        tools:text="010-0000-0000" />
 
     <TextView
         android:id="@+id/residenceNumberTextView"
@@ -89,7 +100,5 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btnSignin" />
-
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

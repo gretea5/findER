@@ -14,6 +14,7 @@
         <!-- Customize your theme here. -->
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
+        <item name="fontFamily">@font/welcome_regular</item>
     </style>
 
     <style name="ToolbarLeftTextBtn" parent="android:Widget.TextView">

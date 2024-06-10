@@ -14,7 +14,7 @@
         android:layout_height="150dp"
         android:scaleType="fitXY"
         android:src="@drawable/icon_logo"
-        android:layout_marginTop="110dp"
+        android:layout_marginTop="105dp"
         app:layout_constraintEnd_toEndOf="@+id/phoneEditText"
         app:layout_constraintStart_toStartOf="@+id/phoneEditText"
         app:layout_constraintTop_toTopOf="parent" />
@@ -35,7 +35,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="60dp"
         android:background="@drawable/edittext_accessible_border"
         android:ems="12"
         android:inputType="phone"

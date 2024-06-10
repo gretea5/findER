@@ -46,39 +46,39 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toBottomOf="@+id/toolbar">
 
         <RadioButton
             android:id="@+id/writeQuestionnaireBtn"
-            android:checked="true"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_margin="20dp"
             android:background="@drawable/selector_questionnaire_mode_button"
-            android:textColor="@drawable/selector_questionnaire_mode_text"
-            android:textSize="30sp"
             android:button="@null"
+            android:checked="true"
             android:drawableStart="@drawable/selector_questionnaire_mode_write_icon"
             android:drawablePadding="15dp"
             android:paddingHorizontal="30dp"
             android:paddingVertical="50dp"
-            android:layout_margin="20dp"
-            android:text="@string/questionnaireWrite" />
+            android:text="@string/questionnaireWrite"
+            android:textColor="@drawable/selector_questionnaire_mode_text"
+            android:textSize="30sp" />
 
         <RadioButton
             android:id="@+id/linkQuestionnaireBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_margin="20dp"
             android:background="@drawable/selector_questionnaire_mode_button"
-            android:textColor="@drawable/selector_questionnaire_mode_text"
-            android:textSize="30sp"
             android:button="@null"
             android:drawableStart="@drawable/selector_questionnaire_mode_link_icon"
             android:drawablePadding="15dp"
             android:paddingHorizontal="30dp"
             android:paddingVertical="50dp"
-            android:layout_margin="20dp"
             android:text="@string/questionnaireLink"
-            android:textAlignment="center"/>
+            android:textAlignment="center"
+            android:textColor="@drawable/selector_questionnaire_mode_text"
+            android:textSize="30sp" />
     </RadioGroup>
 
 

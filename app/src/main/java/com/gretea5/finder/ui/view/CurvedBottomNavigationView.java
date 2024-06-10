@@ -12,10 +12,10 @@ import android.util.AttributeSet;
 public class CurvedBottomNavigationView extends BottomNavigationView {
     private Path mPath;
     private Paint mPaint;
+    private Paint mBorderPaint;
 
     /** the CURVE_CIRCLE_RADIUS represent the radius of the fab button */
-    private int CURVE_CIRCLE_RADIUS=56 ;
-
+    private int CURVE_CIRCLE_RADIUS = 56;
 
     // the coordinates of the first curve
     private Point mFirstCurveStartPoint = new Point();
@@ -23,7 +23,7 @@ public class CurvedBottomNavigationView extends BottomNavigationView {
     private Point mFirstCurveControlPoint1 = new Point();
     private Point mFirstCurveControlPoint2 = new Point();
 
-    //the coordinates of the second curve
+    // the coordinates of the second curve
     private Point mSecondCurveStartPoint = new Point();
     private Point mSecondCurveEndPoint = new Point();
     private Point mSecondCurveControlPoint1 = new Point();
@@ -32,11 +32,8 @@ public class CurvedBottomNavigationView extends BottomNavigationView {
     private int mNavigationBarWidth;
     private int mNavigationBarHeight;
 
-
     public CurvedBottomNavigationView(Context context) {
         super(context);
-        // CURVE_CIRCLE_RADIUS=(int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 56, context.getResources().getDisplayMetrics());
-
         init();
     }
 
@@ -56,8 +53,12 @@ public class CurvedBottomNavigationView extends BottomNavigationView {
         mPaint.setStyle(Paint.Style.FILL_AND_STROKE);
         mPaint.setColor(Color.WHITE);
         setBackgroundColor(Color.TRANSPARENT);
-    }
 
+        mBorderPaint = new Paint();
+        mBorderPaint.setStyle(Paint.Style.STROKE);
+        mBorderPaint.setColor(Color.BLACK);  // Set your desired border color here
+        mBorderPaint.setStrokeWidth(1);      // Set your desired border width here
+    }
 
     @Override
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
@@ -66,7 +67,6 @@ public class CurvedBottomNavigationView extends BottomNavigationView {
         // Navigation bar bounds (width & height)
         mNavigationBarWidth = getWidth();
         mNavigationBarHeight = getHeight();
-
 
         // the coordinates (x,y) of the start point before curve
         mFirstCurveStartPoint.set((mNavigationBarWidth / 2) - (CURVE_CIRCLE_RADIUS * 2) - (CURVE_CIRCLE_RADIUS / 1), 0);
@@ -107,10 +107,10 @@ public class CurvedBottomNavigationView extends BottomNavigationView {
         mPath.close();
     }
 
-
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
         canvas.drawPath(mPath, mPaint);
+        canvas.drawPath(mPath, mBorderPaint);
     }
 }

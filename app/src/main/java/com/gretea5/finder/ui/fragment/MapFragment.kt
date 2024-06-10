@@ -250,7 +250,7 @@ class MapFragment : Fragment() {
         binding.preViewBed.text = erPreview.bedCount.toString()
         binding.preViewBedTime.text = erPreview.bedTime
         binding.preViewDistance.text = "${erPreview.distance}km"
-        binding.preViewEta.text = "${erPreview.eta} 도착 예정"
+        binding.preViewEta.text = "${erPreview.eta}"
         binding.preViewEmergencyTel.text = erPreview.ertel
 
         //ems 설정

@@ -261,7 +261,7 @@
                 android:padding="5dp">
 
                 <ImageView
-                    android:id="@+id/detailEtaImage"
+                    android:id="@+id/detailDurationImage"
                     android:layout_width="25dp"
                     android:layout_height="25dp"
                     android:scaleType="fitXY"
@@ -271,7 +271,7 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
-                    android:id="@+id/detailEta"
+                    android:id="@+id/detailDuration"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="오후 13시 54분 도착 예정"
@@ -279,7 +279,7 @@
                     android:textColor="@color/grey"
                     android:layout_marginStart="5dp"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/detailEtaImage"
+                    app:layout_constraintStart_toEndOf="@+id/detailDurationImage"
                     app:layout_constraintTop_toTopOf="parent" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>

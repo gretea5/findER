@@ -90,7 +90,7 @@ class ERDetailFragment : Fragment() {
         val bedCount = erViewModel.erDetailData.value?.bedCount!!.toString()
         val bedTime = erViewModel.erDetailData.value?.bedTime!!
         val distance = erViewModel.erDetailData.value?.distance!!
-        val eta = erViewModel.erDetailData.value?.eta!!
+        val duration = erViewModel.erDetailData.value?.duration!!
         val ambulance = erViewModel.erDetailData.value?.ambulance!!
         val ct = erViewModel.erDetailData.value?.ct!!
         val mri = erViewModel.erDetailData.value?.mri!!
@@ -167,7 +167,7 @@ class ERDetailFragment : Fragment() {
         binding.detailErTel.text = erTel
         binding.detailBed.text = bedCount
         binding.detailBedTime.text = bedTime
-        binding.detailEta.text = "$eta 도착 예정"
+        binding.detailDuration.text = duration
         binding.detailDistance.text = "${distance}km"
         binding.detailSubject.text = subject
 

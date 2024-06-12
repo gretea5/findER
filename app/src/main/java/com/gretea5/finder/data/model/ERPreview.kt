@@ -10,6 +10,6 @@ data class ERPreview(
     @SerializedName("bedCount") val bedCount: Int,
     @SerializedName("bedTime") val bedTime: String,
     @SerializedName("distance") val distance: Double,
-    @SerializedName("eta") val eta: String,
+    @SerializedName("duration") val duration: String,
     @SerializedName("ertel") val ertel: String
 )

@@ -98,11 +98,11 @@ class ERDetailFragment : Fragment() {
 
         //이름 주소 ems 처리
         if (name.length >= 15) {
-            name = "${name.substring(0, 16)}..."
+            name = "${name.substring(0, 15)}..."
         }
 
         if (address.length >= 17) {
-            address = "${address.substring(0, 18)}..."
+            address = "${address.substring(0, 17)}..."
         }
 
         //mapAddress가 비었을 시, 안보이게 처리

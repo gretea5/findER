@@ -61,7 +61,7 @@ class QuestionnaireModeFragment : Fragment() {
         binding.qnModeNextBtn.setOnClickListener {
             when(binding.modeRadioGroup.checkedRadioButtonId) {
                 R.id.writeQuestionnaireBtn -> {
-                    navController.navigate(R.id.action_questionnaireModeFragment_to_questionnaireFirstFragment)
+                    navController.navigate(R.id.action_questionnaireModeFragment_to_questionnaireWriteFragment)
                 }
                 R.id.linkQuestionnaireBtn -> {
                     navController.navigate(R.id.action_questionnaireModeFragment_to_questionnaireLinkFragment)

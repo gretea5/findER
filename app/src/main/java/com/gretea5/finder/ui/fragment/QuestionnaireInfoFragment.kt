@@ -82,7 +82,7 @@ class QuestionnaireInfoFragment : Fragment() {
 
         binding.qnInfoUpdateBtn.setOnClickListener {
             setUpdateMode(requireActivity())
-            navController.navigate(R.id.action_questionnaireInfoFragment_to_questionnaireFirstFragment)
+            navController.navigate(R.id.action_questionnaireInfoFragment_to_questionnaireWriteFragment)
         }
 
         //백 버튼 클릭시 이전 fragment 돌아가기

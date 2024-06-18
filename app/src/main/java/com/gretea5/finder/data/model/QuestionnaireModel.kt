@@ -16,5 +16,6 @@ data class QuestionnaireModel(
     @SerializedName("surgery") var surgery: String = "",
     @SerializedName("drink") var drink: String = "",
     @SerializedName("smoke") var smoke: String = "",
-    @SerializedName("etc") var etc: String = ""
+    @SerializedName("etc") var etc: String = "",
+    @SerializedName("isLinked") var isLinked: Boolean = false
 ) : Serializable

@@ -52,6 +52,14 @@ class QuestionnaireAdapter(
             if (questionnaireModel.surgery != conditionAbsent) {
                 binding.qnItemSurgery.setColorFilter(color)
             }
+
+            if (questionnaireModel.isLinked) {
+                binding.qnItemLinkImage.setColorFilter(color)
+            }
+
+            if (!questionnaireModel.isLinked) {
+                binding.qnItemLinkImage.visibility = View.GONE
+            }
         }
     }
 

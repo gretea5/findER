@@ -1,6 +1,7 @@
 package com.gretea5.finder.ui.fragment
 
 import android.os.Bundle
+import android.util.Log
 import android.view.*
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -87,6 +88,8 @@ class QuestionnaireFragment : Fragment() {
                 response: Response<List<QuestionnaireModel>>
             ) {
                 val data = response.body()
+
+                Log.d("getQuestionnaireListData", data.toString())
 
                 data?.let {
                     qnList = it

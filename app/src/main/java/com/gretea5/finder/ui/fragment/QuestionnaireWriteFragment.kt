@@ -48,6 +48,7 @@ class QuestionnaireWriteFragment : Fragment() {
                 if (result.data != null) {
                     val data = result.data!!.getStringExtra(getString(R.string.address))
                     binding.qnAddress.setText(data)
+                    binding.qnAddress.clearFocus()
                 }
             }
         }

@@ -41,6 +41,7 @@ class QuestionnaireInfoFragment : Fragment() {
 
         binding.qnInfoName.text = viewModel.name.value
         binding.qnInfoAge.text = "${viewModel.age.value}세"
+        binding.qnInfoBlood.text = viewModel.bloodType.value
         binding.qnInfoGender.text = "(${viewModel.gender.value})"
         binding.qnInfoPhoneNumber.text = viewModel.phoneNumber.value
         binding.qnInfoAddress.text = viewModel.address.value

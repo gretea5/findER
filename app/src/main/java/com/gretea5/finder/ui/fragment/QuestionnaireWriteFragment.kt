@@ -513,6 +513,8 @@ class QuestionnaireWriteFragment : Fragment() {
             }
             else {
                 postQuestionnaire()
+
+                viewModel.resetViewModelData()
             }
         }
     }
@@ -652,6 +654,8 @@ class QuestionnaireWriteFragment : Fragment() {
         viewModel.setPhoneNumber(SharedPreferenceUtil.getPhoneNumber(requireActivity()))
 
         val questionnaireModel = viewModel.getQuestionnaireModel()
+
+        Log.d("postQuestionnaire", viewModel.getQuestionnaireModel().toString())
 
         api.writeQuestionnaire(questionnaireModel).enqueue(object : Callback<String> {
             override fun onResponse(call: Call<String>, response: Response<String>) {

@@ -96,13 +96,12 @@ class QuestionnaireInfoFragment : Fragment() {
             })
     }
 
-
-
     private fun deleteQuestionnaire(phoneNumber: String) {
         api.deleteQuestionnaire(phoneNumber).enqueue(object : Callback<String> {
             override fun onResponse(call: Call<String>, response: Response<String>) {
                 if(response.isSuccessful) {
                     navController.navigateUp()
+                    viewModel.resetViewModelData()
                 }
             }
 

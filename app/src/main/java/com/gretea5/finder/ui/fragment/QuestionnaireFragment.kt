@@ -110,6 +110,7 @@ class QuestionnaireFragment : Fragment() {
     private fun qnSetItemClickListener() {
         qnAdapter.itemClick = object : QuestionnaireAdapter.ItemClick {
             override fun onClick(view: View, position: Int) {
+                Log.d("Questionnaire ItemClick", qnList[position].toString())
                 viewModel.setViewModel(qnList[position])
                 navController.navigate(R.id.action_questionnaireFragment_to_questionnaireInfoFragment)
             }

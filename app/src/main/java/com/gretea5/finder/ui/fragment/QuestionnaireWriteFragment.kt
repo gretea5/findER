@@ -198,66 +198,30 @@ class QuestionnaireWriteFragment : Fragment() {
 
         //viewModel에 저장되어 있는 a, b, o, ab형
         if(blood.contains(getString(R.string.blood_a))) {
-            Log.d("bloodType", "a형")
             binding.aBtn.isChecked = true
             binding.bloodRadioGroup.check(R.id.aBtn)
         }
 
 
         if(blood.contains(getString(R.string.blood_b))) {
-            Log.d("bloodType", "b형")
             binding.bloodRadioGroup.check(R.id.bBtn)
         }
 
         if(blood.contains(getString(R.string.blood_o))) {
-            Log.d("bloodType", "o형")
             binding.bloodRadioGroup.check(R.id.oBtn)
         }
 
         if(blood.contains(getString(R.string.blood_ab))) {
-            Log.d("bloodType", "ab형")
             binding.bloodRadioGroup.check(R.id.abBtn)
         }
 
         //viewModel에 저장되어 있는 rh+ ,rh- 정보
         if(blood.contains(getString(R.string.blood_rh_plus))) {
-            Log.d("bloodType rh", "rh+")
             binding.rhRadioGroup.check(R.id.rhPlusBtn)
         }
 
         if(blood.contains(getString(R.string.blood_rh_minus))) {
-            Log.d("bloodType rh", "rh-")
             binding.rhRadioGroup.check(R.id.rhMinusBtn)
-        }
-
-        Log.d("bloodType value2", viewModel.bloodType.value.toString())
-
-        //viewModel에 저장되어 있는 알러지 값 부리기
-        when(viewModel.allergy.value) {
-            //해당 없음인 값인 경우,
-            getString(R.string.condition_absent) -> {
-                binding.noAllergy.isChecked = true
-                binding.yesAllergy.isChecked = false
-                binding.allergyInfo.visibility = View.GONE
-            }
-            //해당 있음인 값인 경우,
-            getString(R.string.condition_present) -> {
-                binding.noAllergy.isChecked = false
-                binding.yesAllergy.isChecked = true
-                binding.allergyInfo.visibility = View.VISIBLE
-            }
-            //라디오 버튼을 클릭하지 않았을 경우,
-            getString(R.string.empty_string) -> {
-                binding.noAllergy.isChecked = false
-                binding.yesAllergy.isChecked = false
-                binding.allergyInfo.visibility = View.GONE
-            }
-            else -> {
-                binding.noAllergy.isChecked = false
-                binding.yesAllergy.isChecked = true
-                binding.allergyInfo.visibility = View.VISIBLE
-                binding.allergyInfo.setText(viewModel.allergy.value)
-            }
         }
     }
 
@@ -272,8 +236,10 @@ class QuestionnaireWriteFragment : Fragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
-        //입력된 viewModel의 값을 초기화하는 로직이 필요
-        viewModel.resetViewModelData()
+
+        if(!SharedPreferenceUtil.getUpdateMode(requireActivity())) {
+            viewModel.resetViewModelData()
+        }
 
         _binding = null
     }
@@ -361,6 +327,14 @@ class QuestionnaireWriteFragment : Fragment() {
             fragmentManager = childFragmentManager,
             inVisibleType = View.INVISIBLE,
             addInfoBtn = binding.addDiseaseInfoBtn
+        )
+
+        updateUIByValue1(
+            value = viewModel.allergy.value,
+            yesBtn = binding.yesAllergy,
+            noBtn = binding.noAllergy,
+            infoView = binding.allergyInfo,
+            inVisibleType = View.GONE
         )
 
         updateUIByValue1(
@@ -655,7 +629,7 @@ class QuestionnaireWriteFragment : Fragment() {
 
         val questionnaireModel = viewModel.getQuestionnaireModel()
 
-        Log.d("postQuestionnaire", viewModel.getQuestionnaireModel().toString())
+        Log.d("Questionnaire Post", viewModel.getQuestionnaireModel().toString())
 
         api.writeQuestionnaire(questionnaireModel).enqueue(object : Callback<String> {
             override fun onResponse(call: Call<String>, response: Response<String>) {

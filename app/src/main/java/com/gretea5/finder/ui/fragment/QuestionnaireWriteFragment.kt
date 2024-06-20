@@ -273,6 +273,7 @@ class QuestionnaireWriteFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         //입력된 viewModel의 값을 초기화하는 로직이 필요
+        viewModel.resetViewModelData()
 
         _binding = null
     }

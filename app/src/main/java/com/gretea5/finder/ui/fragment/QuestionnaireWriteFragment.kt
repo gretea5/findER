@@ -237,6 +237,13 @@ class QuestionnaireWriteFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
 
+        //수정 상태 일때,
+        if(SharedPreferenceUtil.getUpdateMode(requireActivity()))  {
+            //수정 상태를 끔.
+            SharedPreferenceUtil.offUpdateMode(requireActivity())
+        }
+
+        //작성 상태 일때,
         if(!SharedPreferenceUtil.getUpdateMode(requireActivity())) {
             viewModel.resetViewModelData()
         }

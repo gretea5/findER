@@ -26,14 +26,14 @@ object ViewEventUtils {
             when (checkedId) {
                 yesButton.id -> {
                     viewModelSetter(context.getString(R.string.condition_present))
-                    parentLinearLayout.visibility = View.VISIBLE
+                    //parentLinearLayout.visibility = View.VISIBLE
                     addViewBtn.visibility = View.VISIBLE
                 }
                 noButton.id -> {
                     viewModelSetter(context.getString(R.string.condition_absent))
                     parentLinearLayout.removeAllViewsInLayout()
                     parentLinearLayout.visibility = View.GONE
-                    parentLinearLayout.visibility = View.INVISIBLE
+                    //parentLinearLayout.visibility = View.INVISIBLE
                     addViewBtn.visibility = View.INVISIBLE
                 }
             }

@@ -383,28 +383,32 @@ class QuestionnaireWriteFragment : Fragment() {
             getString(R.string.condition_absent) -> {
                 noBtn.isChecked = true
                 yesBtn.isChecked = false
+                parent.visibility = View.GONE
                 addInfoBtn?.visibility = inVisibleType
             }
             getString(R.string.condition_present) -> {
                 noBtn.isChecked = false
                 yesBtn.isChecked = true
+                parent.visibility = View.GONE
                 addInfoBtn?.visibility = View.VISIBLE
             }
             getString(R.string.empty_string)-> {
                 noBtn.isChecked = false
                 yesBtn.isChecked = false
+                parent.visibility = View.GONE
                 addInfoBtn?.visibility = inVisibleType
             }
             else -> {
                 noBtn.isChecked = false
                 yesBtn.isChecked = true
+                addInfoBtn?.visibility = View.VISIBLE
+                parent.visibility = View.VISIBLE
                 updateNameAndData(
                     parent = parent,
                     context = context,
                     fragmentManager = fragmentManager,
                     value = value!!
                 )
-                addInfoBtn?.visibility = View.VISIBLE
             }
         }
     }
@@ -595,6 +599,8 @@ class QuestionnaireWriteFragment : Fragment() {
         }
 
         binding.addSurgeryInfoBtn.setOnClickListener {
+            binding.surgeryAddLayout.visibility = View.VISIBLE
+
             ViewAdditionUtils.addInputView(
                 parent = binding.surgeryAddLayout,
                 context = requireContext(),
@@ -605,6 +611,8 @@ class QuestionnaireWriteFragment : Fragment() {
         }
 
         binding.addDiseaseInfoBtn.setOnClickListener {
+            binding.diseaseAddLayout.visibility = View.VISIBLE
+
             ViewAdditionUtils.addInputView(
                 parent = binding.diseaseAddLayout,
                 context = requireContext(),

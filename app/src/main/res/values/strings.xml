@@ -25,7 +25,7 @@
     <string name="cancel">취소</string>
     <string name="complete">완료</string>
 
-    <string name="questionnaireInput">건강 상태 입력</string>
+    <string name="questionnaireInput">문진표 작성</string>
     <string name="questionnaireAddition">문진표 추가</string>
     <string name="questionnaireLink">문진표 연동</string>
     <string name="questionnaireWrite">문진표 작성</string>

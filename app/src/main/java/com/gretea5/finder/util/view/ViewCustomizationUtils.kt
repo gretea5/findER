@@ -36,7 +36,7 @@ object ViewCustomizationUtils {
         nameEdittextParams.marginEnd = context.resources.getDimensionPixelSize(R.dimen.write_qn_name_margin)
         editText.layoutParams = nameEdittextParams
 
-        editText.background = ContextCompat.getDrawable(context, R.drawable.edittext_unaccessible_border)
+        editText.background = ContextCompat.getDrawable(context, R.drawable.edittext_accessible_border)
         editText.hint = hint
 
         editText.setPadding(
@@ -60,7 +60,7 @@ object ViewCustomizationUtils {
         dateEdittextParams.marginEnd = context.resources.getDimensionPixelSize(R.dimen.write_qn_name_margin)
         editText.layoutParams = dateEdittextParams
 
-        editText.background = ContextCompat.getDrawable(context, R.drawable.edittext_unaccessible_border)
+        editText.background = ContextCompat.getDrawable(context, R.drawable.edittext_accessible_border)
         editText.hint = hint
         editText.setPadding( // padding 값을 지정
             context.resources.getDimensionPixelSize(R.dimen.write_qn_name_padding),

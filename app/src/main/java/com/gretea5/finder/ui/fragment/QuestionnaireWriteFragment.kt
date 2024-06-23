@@ -576,6 +576,8 @@ class QuestionnaireWriteFragment : Fragment() {
 
     private fun setAddViewListener() {
         binding.addMedicineInfoBtn.setOnClickListener {
+            binding.medicineAddLayout.visibility = View.VISIBLE
+
             ViewAdditionUtils.addInputView(
                 parent = binding.medicineAddLayout,
                 context = requireContext(),
@@ -607,6 +609,8 @@ class QuestionnaireWriteFragment : Fragment() {
     }
 
     private fun updateQuestionnaire() {
+        saveInfoData()
+
         val questionnaireModel = viewModel.getQuestionnaireModel()
 
         api.updateQuestionnaire(questionnaireModel).enqueue(object : Callback<String> {
@@ -625,6 +629,8 @@ class QuestionnaireWriteFragment : Fragment() {
     }
 
     private fun postQuestionnaire() {
+        saveInfoData()
+
         viewModel.setPhoneNumber(SharedPreferenceUtil.getPhoneNumber(requireActivity()))
 
         val questionnaireModel = viewModel.getQuestionnaireModel()

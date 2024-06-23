@@ -486,6 +486,11 @@ class QuestionnaireWriteFragment : Fragment() {
             }
         }
 
+        binding.questionnaireTitle.text = if (SharedPreferenceUtil.getUpdateMode(requireActivity()))
+            getString(R.string.questionnaireUpdate)
+        else
+            getString(R.string.questionnaireWrite)
+
         binding.qnWriteAcceptBtn.text = if (SharedPreferenceUtil.getUpdateMode(requireActivity()))
             getString(R.string.update)
         else

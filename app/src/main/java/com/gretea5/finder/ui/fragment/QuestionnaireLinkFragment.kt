@@ -1,12 +1,20 @@
 package com.gretea5.finder.ui.fragment
 
+import android.content.ClipData
+import android.content.ClipboardManager
+import android.content.Context
+import android.graphics.Paint
 import android.os.Bundle
+import android.text.SpannableString
+import android.text.style.UnderlineSpan
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
+import androidx.core.content.ContextCompat
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import com.gretea5.finder.R
@@ -70,13 +78,26 @@ class QuestionnaireLinkFragment : Fragment() {
         api.getSerialNumber(phoneNumber).enqueue(object : Callback<String> {
             override fun onResponse(call: Call<String>, response: Response<String>) {
                 if(response.isSuccessful) {
-                    binding.mySerialNumber.text = response.body().toString()
+                    val color = ContextCompat.getColor(requireContext(), R.color.main_color)
+
+                    binding.serialNumberCopyBtn.setColorFilter(color)
+
+                    val serialNumber = response.body().toString()
+
+                    binding.mySerialNumber.text = serialNumber
+
+                    binding.serialNumberCopyBtn.setOnClickListener {
+                        val clipboard = requireContext().getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+                        val clip = ClipData.newPlainText("label", serialNumber)
+
+                        clipboard.setPrimaryClip(clip)
+
+                        Toast.makeText(requireContext(), "복사 성공!", Toast.LENGTH_SHORT).show()
+                    }
                 }
             }
 
-            override fun onFailure(call: Call<String>, t: Throwable) {
-                TODO("Not yet implemented")
-            }
+            override fun onFailure(call: Call<String>, t: Throwable) {}
         })
     }
 

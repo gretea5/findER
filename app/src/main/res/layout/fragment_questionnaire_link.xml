@@ -49,15 +49,30 @@
             android:textSize="30sp"
             android:textStyle="bold" />
 
-        <TextView
-            android:id="@+id/mySerialNumber"
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="30dp"
-            android:text="123412341234"
-            android:textColor="@color/black"
-            android:textSize="25sp"
-            android:textStyle="bold" />
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <com.gretea5.finder.ui.view.UnderlinedTextView
+                android:id="@+id/mySerialNumber"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="123412341234"
+                android:textColor="@color/black"
+                android:textSize="25sp"
+                android:textStyle="bold" />
+
+            <ImageView
+                android:id="@+id/serialNumberCopyBtn"
+                android:src="@drawable/icon_copy"
+                android:scaleType="fitXY"
+                android:layout_marginStart="7dp"
+                android:layout_width="20dp"
+                android:layout_height="20dp" />
+        </LinearLayout>
 
         <EditText
             android:id="@+id/etOtherPersonSerialNumber"

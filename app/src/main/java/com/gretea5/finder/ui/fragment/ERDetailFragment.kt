@@ -167,8 +167,8 @@ class ERDetailFragment : Fragment() {
         binding.detailErTel.text = erTel
         binding.detailBed.text = bedCount
         binding.detailBedTime.text = bedTime
-        binding.detailDuration.text = duration
-        binding.detailDistance.text = "${distance}km"
+        binding.detailDuration.text = "소요시간 $duration"
+        binding.detailDistance.text = "이동거리 ${distance}km"
         binding.detailSubject.text = subject
 
         return binding.root

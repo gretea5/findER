@@ -156,7 +156,7 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
-                <TextView
+                <com.gretea5.finder.ui.view.UnderlinedTextView
                     android:id="@+id/detailTel"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -186,7 +186,7 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
-                <TextView
+                <com.gretea5.finder.ui.view.UnderlinedTextView
                     android:id="@+id/detailErTel"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

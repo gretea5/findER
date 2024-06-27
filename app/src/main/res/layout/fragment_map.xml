@@ -168,7 +168,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <TextView
+            <com.gretea5.finder.ui.view.UnderlinedTextView
                 android:id="@+id/preViewTel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -190,7 +190,7 @@
                 app:layout_constraintEnd_toStartOf="@+id/preViewEmergencyTel"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <TextView
+            <com.gretea5.finder.ui.view.UnderlinedTextView
                 android:id="@+id/preViewEmergencyTel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

@@ -54,9 +54,10 @@
             android:orientation="vertical">
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="5dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="@drawable/border_layout"
                 android:padding="15dp"
                 android:orientation="horizontal">
 
@@ -68,6 +69,9 @@
                     android:textColor="@color/black"
                     android:textSize="30sp"
                     android:textStyle="bold"
+                    android:gravity="center"
+                    android:textAlignment="center"
+                    android:layout_marginTop="4dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -79,6 +83,7 @@
                     android:text="15세"
                     android:textSize="17sp"
                     android:layout_marginLeft="10dp"
+                    android:layout_marginTop="4dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/qnInfoName"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -89,6 +94,7 @@
                     android:layout_height="wrap_content"
                     android:text=" · "
                     android:textSize="17sp"
+                    android:layout_marginTop="4dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/qnInfoAge"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -99,6 +105,7 @@
                     android:layout_height="wrap_content"
                     android:text="(남)"
                     android:textSize="17sp"
+                    android:layout_marginTop="4dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/textView7"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -111,6 +118,7 @@
                     android:textColor="@color/red"
                     android:textSize="20sp"
                     android:textStyle="bold"
+                    android:paddingTop="3dp"
                     android:background="@drawable/button_blood"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -118,385 +126,423 @@
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <androidx.constraintlayout.widget.ConstraintLayout
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
-                android:paddingHorizontal="16dp"
-                android:gravity="center_vertical"
-                android:orientation="horizontal">
+                android:orientation="vertical"
+                android:background="@drawable/border_layout">
 
-                <ImageView
-                    android:id="@+id/imageView5"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:scaleType="fitXY"
-                    android:src="@drawable/icon_phone"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0.5"
-                    app:tint="@color/main_color" />
-
-                <TextView
-                    android:layout_width="wrap_content"
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:text="전화번호"
-                    android:textColor="@color/black"
-                    android:textSize="20sp"
-                    android:textStyle="bold"
-                    android:layout_marginStart="5dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/imageView5"
-                    app:layout_constraintTop_toTopOf="parent" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
+                    android:layout_marginTop="15dp"
+                    android:paddingHorizontal="16dp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
 
-            <TextView
-                android:id="@+id/qnInfoPhoneNumber"
-                android:text="010-1234-5678"
-                android:textSize="15sp"
-                android:textColor="@color/black"
-                android:layout_marginTop="10dp"
-                android:layout_marginStart="20dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                    <ImageView
+                        android:id="@+id/imageView5"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:scaleType="fitXY"
+                        android:src="@drawable/icon_phone"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintVertical_bias="0.5"
+                        app:tint="@color/main_color" />
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="0.5dp"
-                android:layout_marginTop="10dp"
-                android:background="@color/grey"/>
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
-                android:paddingHorizontal="15dp"
-                android:orientation="horizontal">
-
-                <ImageView
-                    android:id="@+id/imageView6"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:scaleType="fitXY"
-                    android:src="@drawable/icon_address"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:tint="@color/main_color" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:text="전화번호"
+                        android:textColor="@color/black"
+                        android:textSize="20sp"
+                        android:textStyle="bold"
+                        android:layout_marginTop="3dp"
+                        android:layout_marginStart="5dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/imageView5"
+                        app:layout_constraintTop_toTopOf="parent" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <TextView
+                    android:id="@+id/qnInfoPhoneNumber"
+                    android:text="010-1234-5678"
+                    android:textSize="15sp"
+                    android:textColor="@color/black"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="15dp"
+                    android:layout_marginStart="20dp"
                     android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:background="@drawable/border_layout">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:text="주소"
-                    android:textColor="@color/black"
-                    android:textSize="20sp"
-                    android:textStyle="bold"
-                    android:layout_marginStart="5dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/imageView6"
-                    app:layout_constraintTop_toTopOf="parent" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
+                    android:layout_marginTop="15dp"
+                    android:paddingHorizontal="15dp"
+                    android:orientation="horizontal">
 
-            <TextView
-                android:id="@+id/qnInfoAddress"
-                android:text="경기 하남시 하남대로802번길 55"
-                android:textSize="15sp"
-                android:textColor="@color/black"
-                android:layout_marginTop="10dp"
-                android:layout_marginStart="20dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                    <ImageView
+                        android:id="@+id/imageView6"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:scaleType="fitXY"
+                        android:src="@drawable/icon_address"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:tint="@color/main_color" />
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="0.5dp"
-                android:layout_marginTop="10dp"
-                android:background="@color/grey"/>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
-                android:paddingHorizontal="15dp"
-                android:orientation="horizontal">
-
-                <ImageView
-                    android:src="@drawable/icon_allergy"
-                    android:scaleType="fitXY"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    app:tint="@color/main_color" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="주소"
+                        android:textColor="@color/black"
+                        android:textSize="20sp"
+                        android:textStyle="bold"
+                        android:layout_marginStart="5dp"
+                        android:layout_marginTop="3dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/imageView6"
+                        app:layout_constraintTop_toTopOf="parent" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <TextView
-                    android:text="알러지 정보"
+                    android:id="@+id/qnInfoAddress"
+                    android:text="경기 하남시 하남대로802번길 55"
+                    android:textSize="15sp"
                     android:textColor="@color/black"
-                    android:textStyle="bold"
-                    android:textSize="20sp"
-                    android:layout_marginStart="5dp"
-                    android:layout_gravity="center"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginBottom="15dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
             </LinearLayout>
 
-            <TextView
-                android:id="@+id/qnInfoAllergy"
-                android:text="달걀, 우유, 밀, 콩, 땅콩, 밤, 생선, 조개"
-                android:textSize="15sp"
-                android:textColor="@color/black"
-                android:layout_marginTop="10dp"
-                android:layout_marginStart="20dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="0.5dp"
-                android:layout_marginTop="10dp"
-                android:background="@color/grey"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
-                android:paddingHorizontal="15dp"
-                android:orientation="horizontal">
+                android:orientation="vertical"
+                android:background="@drawable/border_layout">
 
-                <ImageView
-                    android:src="@drawable/icon_medicine"
-                    android:scaleType="fitXY"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    app:tint="@color/main_color"/>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:paddingHorizontal="15dp"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:src="@drawable/icon_allergy"
+                        android:scaleType="fitXY"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        app:tint="@color/main_color" />
+
+                    <TextView
+                        android:text="알러지 정보"
+                        android:textColor="@color/black"
+                        android:textStyle="bold"
+                        android:textSize="20sp"
+                        android:layout_marginStart="5dp"
+                        android:layout_marginTop="1dp"
+                        android:layout_gravity="center"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+                </LinearLayout>
 
                 <TextView
-                    android:text="현재 복용 중인 약"
+                    android:id="@+id/qnInfoAllergy"
+                    android:text="달걀, 우유, 밀, 콩, 땅콩, 밤, 생선, 조개"
+                    android:textSize="15sp"
                     android:textColor="@color/black"
-                    android:textStyle="bold"
-                    android:textSize="20sp"
-                    android:layout_marginStart="5dp"
-                    android:layout_gravity="center"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="15dp"
+                    android:layout_marginStart="20dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
+
             </LinearLayout>
-
-            <TextView
-                android:id="@+id/qnInfoMedicine"
-                android:text="당뇨약(인슐린) 2024-02-23~"
-                android:textSize="15sp"
-                android:textColor="@color/black"
-                android:layout_marginTop="10dp"
-                android:layout_marginStart="20dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="0.5dp"
-                android:layout_marginTop="10dp"
-                android:background="@color/grey"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
-                android:paddingHorizontal="15dp"
-                android:orientation="horizontal">
+                android:orientation="vertical"
+                android:background="@drawable/border_layout">
 
-                <ImageView
-                    android:src="@drawable/icon_surgery"
-                    android:scaleType="fitXY"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    app:tint="@color/main_color"/>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:orientation="horizontal"
+                    android:paddingHorizontal="15dp">
+
+                    <ImageView
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:scaleType="fitXY"
+                        android:src="@drawable/icon_medicine"
+                        app:tint="@color/main_color" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginStart="5dp"
+                        android:layout_marginTop="1dp"
+                        android:text="현재 복용 중인 약"
+                        android:textColor="@color/black"
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
+                </LinearLayout>
 
                 <TextView
-                    android:text="수술 이력"
+                    android:id="@+id/qnInfoMedicine"
+                    android:text="당뇨약(인슐린) 2024-02-23~"
+                    android:textSize="15sp"
                     android:textColor="@color/black"
-                    android:textStyle="bold"
-                    android:textSize="20sp"
-                    android:layout_marginStart="5dp"
-                    android:layout_gravity="center"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginBottom="15dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
             </LinearLayout>
-
-            <TextView
-                android:id="@+id/qnInfoSurgery"
-                android:text="폐암 수술 2020-05-25\n장암 수술 2020-05-25"
-                android:textSize="15sp"
-                android:textColor="@color/black"
-                android:layout_marginTop="10dp"
-                android:layout_marginStart="20dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="0.5dp"
-                android:layout_marginTop="10dp"
-                android:background="@color/grey"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
-                android:paddingHorizontal="15dp"
-                android:orientation="horizontal">
+                android:orientation="vertical"
+                android:background="@drawable/border_layout">
 
-                <ImageView
-                    android:src="@drawable/icon_disease"
-                    android:scaleType="fitXY"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    app:tint="@color/main_color"/>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:paddingHorizontal="15dp"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:src="@drawable/icon_surgery"
+                        android:scaleType="fitXY"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        app:tint="@color/main_color"/>
+
+                    <TextView
+                        android:text="수술 이력"
+                        android:textColor="@color/black"
+                        android:textStyle="bold"
+                        android:textSize="20sp"
+                        android:layout_marginStart="5dp"
+                        android:layout_marginTop="1dp"
+                        android:layout_gravity="center"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+                </LinearLayout>
 
                 <TextView
-                    android:text="앓고 있는 질환"
+                    android:id="@+id/qnInfoSurgery"
+                    android:text="폐암 수술 2020-05-25\n장암 수술 2020-05-25"
+                    android:textSize="15sp"
                     android:textColor="@color/black"
-                    android:textStyle="bold"
-                    android:textSize="20sp"
-                    android:layout_marginStart="5dp"
-                    android:layout_gravity="center"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="15dp"
+                    android:layout_marginStart="20dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
             </LinearLayout>
-
-            <TextView
-                android:id="@+id/qnInfoDisease"
-                android:text="당뇨 2024-02-23~"
-                android:textSize="15sp"
-                android:textColor="@color/black"
-                android:layout_marginTop="10dp"
-                android:layout_marginStart="20dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="0.5dp"
-                android:layout_marginTop="10dp"
-                android:background="@color/grey"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
-                android:paddingHorizontal="15dp"
-                android:orientation="horizontal">
+                android:orientation="vertical"
+                android:background="@drawable/border_layout">
 
-                <ImageView
-                    android:src="@drawable/icon_drink"
-                    android:scaleType="fitXY"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    app:tint="@color/main_color"/>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:paddingHorizontal="15dp"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:src="@drawable/icon_disease"
+                        android:scaleType="fitXY"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        app:tint="@color/main_color"/>
+
+                    <TextView
+                        android:text="앓고 있는 질환"
+                        android:textColor="@color/black"
+                        android:textStyle="bold"
+                        android:textSize="20sp"
+                        android:layout_marginStart="5dp"
+                        android:layout_marginTop="1dp"
+                        android:layout_gravity="center"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+                </LinearLayout>
 
                 <TextView
-                    android:text="음주"
+                    android:id="@+id/qnInfoDisease"
+                    android:text="당뇨 2024-02-23~"
+                    android:textSize="15sp"
                     android:textColor="@color/black"
-                    android:textStyle="bold"
-                    android:textSize="20sp"
-                    android:layout_marginStart="5dp"
-                    android:layout_gravity="center"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="15dp"
+                    android:layout_marginStart="20dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
+
             </LinearLayout>
-
-            <TextView
-                android:id="@+id/qnInfoDrink"
-                android:text="1주 2회"
-                android:textSize="15sp"
-                android:textColor="@color/black"
-                android:layout_marginTop="10dp"
-                android:layout_marginStart="20dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="0.5dp"
-                android:layout_marginTop="10dp"
-                android:background="@color/grey"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
-                android:paddingHorizontal="15dp"
-                android:orientation="horizontal">
+                android:orientation="vertical"
+                android:background="@drawable/border_layout">
 
-                <ImageView
-                    android:src="@drawable/icon_smoke"
-                    android:scaleType="fitXY"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    app:tint="@color/main_color"/>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:paddingHorizontal="15dp"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:src="@drawable/icon_drink"
+                        android:scaleType="fitXY"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        app:tint="@color/main_color"/>
+
+                    <TextView
+                        android:text="음주"
+                        android:textColor="@color/black"
+                        android:textStyle="bold"
+                        android:textSize="20sp"
+                        android:layout_marginStart="5dp"
+                        android:layout_marginTop="1dp"
+                        android:layout_gravity="center"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+                </LinearLayout>
 
                 <TextView
-                    android:text="흡연"
+                    android:id="@+id/qnInfoDrink"
+                    android:text="1주 2회"
+                    android:textSize="15sp"
                     android:textColor="@color/black"
-                    android:textStyle="bold"
-                    android:textSize="20sp"
-                    android:layout_marginStart="5dp"
-                    android:layout_gravity="center_vertical"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="15dp"
+                    android:layout_marginStart="20dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
+
             </LinearLayout>
-
-            <TextView
-                android:id="@+id/qnInfoSmoke"
-                android:text="(해당 없음)"
-                android:textSize="15dp"
-                android:textColor="@color/black"
-                android:layout_marginTop="10dp"
-                android:layout_marginStart="20dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="0.5dp"
-                android:layout_marginTop="10dp"
-                android:background="@color/grey"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
-                android:paddingHorizontal="15dp"
-                android:orientation="horizontal">
+                android:orientation="vertical"
+                android:background="@drawable/border_layout">
 
-                <ImageView
-                    android:src="@drawable/icon_etc"
-                    android:scaleType="fitXY"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    app:tint="@color/main_color"/>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:paddingHorizontal="15dp"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:src="@drawable/icon_smoke"
+                        android:scaleType="fitXY"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        app:tint="@color/main_color"/>
+
+                    <TextView
+                        android:text="흡연"
+                        android:textColor="@color/black"
+                        android:textStyle="bold"
+                        android:textSize="20sp"
+                        android:layout_marginStart="5dp"
+                        android:layout_marginTop="3dp"
+                        android:layout_gravity="center_vertical"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+                </LinearLayout>
 
                 <TextView
-                    android:text="기타 특이사항"
+                    android:id="@+id/qnInfoSmoke"
+                    android:text="(해당 없음)"
+                    android:textSize="15dp"
                     android:textColor="@color/black"
-                    android:textStyle="bold"
-                    android:textSize="20sp"
-                    android:layout_marginStart="5dp"
-                    android:layout_gravity="center"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="15dp"
+                    android:layout_marginStart="20dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
             </LinearLayout>
 
-            <TextView
-                android:id="@+id/qnInfoEtc"
-                android:text="(해당 없음)"
-                android:textSize="15sp"
-                android:textColor="@color/black"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="10dp"
-                android:layout_marginStart="20dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:background="@drawable/border_layout">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:paddingHorizontal="15dp"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:src="@drawable/icon_etc"
+                        android:scaleType="fitXY"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        app:tint="@color/main_color"/>
+
+                    <TextView
+                        android:text="기타 특이사항"
+                        android:textColor="@color/black"
+                        android:textStyle="bold"
+                        android:textSize="20sp"
+                        android:layout_marginStart="5dp"
+                        android:layout_marginTop="2dp"
+                        android:layout_gravity="center"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/qnInfoEtc"
+                    android:text="(해당 없음)"
+                    android:textSize="15sp"
+                    android:textColor="@color/black"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="15dp"
+                    android:layout_marginStart="20dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+            </LinearLayout>
 
         </LinearLayout>
 

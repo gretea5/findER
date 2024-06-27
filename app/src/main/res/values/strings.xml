@@ -7,10 +7,9 @@
     <string name="residenceNumberReInput">주민번호(재입력)</string>
     <string name="login">로그인</string>
     <string name="signup">회원가입</string>
-    <!-- TODO: Remove or change this placeholder text -->
 
     <!-- fragment_questionnaire.xml -->
-    <string name="questionnaireToolbarTitle">건강 상태</string>
+    <string name="questionnaireToolbarTitle">문진표</string>
     <string name="mapToolbarTitle">지도</string>
 
     <!-- menu_toolbar.xml -->

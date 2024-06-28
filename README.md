@@ -53,7 +53,7 @@ Kakao Map API 지도에서 응급실 위치를 확인할 수 있습니다. <br>
 <img width="300" height="600" src="https://github.com/gretea5/findER/assets/120379834/0a6ee695-5669-48d4-9cd9-cf668ac6d13d">
 
 국립중앙의료원 API를 통해 실시간 응급실 잔여 병상 수를 제공합니다. (1분 간격 갱신) <br>
-또한, Kakao Moblity API를 통해 이동 거리와 예상 이동 소요 시간을 제공합니다.
+또한, Kakao Mobility API를 통해 이동 거리와 예상 이동 소요 시간을 제공합니다.
 
 <br>
 
